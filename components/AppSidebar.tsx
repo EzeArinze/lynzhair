@@ -21,17 +21,17 @@ const items = [
   },
   {
     title: "Product",
-    url: "#",
+    url: "/admin/product",
     icon: Database,
   },
   {
     title: "Order",
-    url: "#",
+    url: "/admin/order",
     icon: ShoppingBasket,
   },
   {
     title: "User",
-    url: "#",
+    url: "/admin/user",
     icon: User2,
   },
 ];
