@@ -52,7 +52,7 @@ function UserSignup() {
   };
 
   return (
-    <section className="mx-auto w-2/3 p-4 space-y-4">
+    <div className="mx-auto w-2/3 p-4 space-y-4">
       <h1 className="p-2 mx-auto font-semibold text-xl">Create Admin User</h1>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
@@ -119,7 +119,7 @@ function UserSignup() {
         </CardContent>
         <CardFooter></CardFooter>
       </Card>
-    </section>
+    </div>
   );
 }
 
