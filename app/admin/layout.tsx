@@ -17,7 +17,7 @@ function layout({ children }: { children: ReactNode }) {
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
           </header>
-          <main className="w-[90%]">{children}</main>
+          <main>{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </div>
