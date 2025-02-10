@@ -1,7 +1,10 @@
-import React from "react";
+import ProductList from "@/components/backendUI/ProductList";
 
-function productPage() {
-  return <div>productPage</div>;
+export default function ProductsPage() {
+  return (
+    <div className="w-[90%] mx-auto">
+      <h1 className="text-3xl font-bold mb-8">Products</h1>
+      <ProductList />
+    </div>
+  );
 }
-
-export default productPage;
