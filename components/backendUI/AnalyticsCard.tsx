@@ -4,7 +4,7 @@ import { DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
 const analyticsData = [
   {
     title: "Total Revenue",
-    value: "$54,231",
+    value: "NGN 54,231",
     icon: DollarSign,
     change: "+12%",
   },

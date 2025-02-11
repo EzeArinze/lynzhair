@@ -21,20 +21,24 @@ import {
 import { Edit, Trash2, PlusCircle } from "lucide-react";
 // import { ProductForm } from "./ProductForm"
 import Image from "next/image";
+import formatCurrency from "@/lib/formatCurrency";
+import { ProductForm } from "./ProductForm";
 
 interface Product {
   id: string;
   name: string;
+  description: string;
   category: string;
   price: number;
   stock: number;
-  image?: string;
+  image?: File | string;
 }
 
 const initialProducts: Product[] = [
   {
     id: "1",
     name: "Smartphone X",
+    description: "The latest smartphone in the market",
     category: "Electronics",
     price: 599.99,
     stock: 50,
@@ -43,6 +47,7 @@ const initialProducts: Product[] = [
   {
     id: "2",
     name: "Designer T-shirt",
+    description: "A cool designer t-shirt",
     category: "Apparel",
     price: 29.99,
     stock: 100,
@@ -51,25 +56,10 @@ const initialProducts: Product[] = [
   {
     id: "3",
     name: "Wireless Earbuds",
+    description: "High-quality wireless earbuds",
     category: "Electronics",
     price: 79.99,
     stock: 30,
-    image: "/placeholder.svg",
-  },
-  {
-    id: "4",
-    name: "Leather Wallet",
-    category: "Accessories",
-    price: 49.99,
-    stock: 75,
-    image: "/placeholder.svg",
-  },
-  {
-    id: "5",
-    name: "Smart Watch",
-    category: "Electronics",
-    price: 199.99,
-    stock: 25,
     image: "/placeholder.svg",
   },
 ];
@@ -78,17 +68,17 @@ export default function ProductList() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  // const handleAddProduct = (newProduct: Omit<Product, "id">) => {
-  //   const id = (products.length + 1).toString();
-  //   setProducts([...products, { ...newProduct, id }]);
-  // };
+  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
+    const id = (products.length + 1).toString();
+    setProducts([...products, { ...newProduct, id }]);
+  };
 
-  // const handleEditProduct = (updatedProduct: Product) => {
-  //   setProducts(
-  //     products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-  //   );
-  //   setEditingProduct(null);
-  // };
+  const handleEditProduct = (updatedProduct: Product) => {
+    setProducts(
+      products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+    );
+    setEditingProduct(null);
+  };
 
   const handleDeleteProduct = (id: string) => {
     setProducts(products.filter((p) => p.id !== id));
@@ -107,9 +97,8 @@ export default function ProductList() {
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
             </DialogHeader>
-            {/* <ProductForm onSubmit={handleAddProduct} /> */}
-            <div>new product</div>
             <DialogDescription>will hid</DialogDescription>
+            <ProductForm onSubmit={handleAddProduct} />
           </DialogContent>
         </Dialog>
       </div>
@@ -130,7 +119,11 @@ export default function ProductList() {
               <TableRow key={product.id}>
                 <TableCell>
                   <Image
-                    src={product.image || "/placeholder.svg"}
+                    src={
+                      typeof product.image === "string"
+                        ? product.image
+                        : "/placeholder.svg"
+                    }
                     alt={product.name}
                     width={50}
                     height={50}
@@ -141,7 +134,7 @@ export default function ProductList() {
                 <TableCell className="hidden md:table-cell">
                   {product.category}
                 </TableCell>
-                <TableCell>${product.price.toFixed(2)}</TableCell>
+                <TableCell>{formatCurrency(product.price)}</TableCell>
                 <TableCell className="hidden md:table-cell">
                   {product.stock}
                 </TableCell>
@@ -162,11 +155,18 @@ export default function ProductList() {
                           <DialogTitle>Edit Product</DialogTitle>
                         </DialogHeader>
                         {editingProduct && (
-                          // <ProductForm
-                          //   initialData={editingProduct}
-                          //   onSubmit={(data) => handleEditProduct({ ...data, id: editingProduct.id })}
-                          // />
-                          <DialogDescription>Product edit</DialogDescription>
+                          <>
+                            <DialogDescription>Product edit</DialogDescription>
+                            <ProductForm
+                              initialData={editingProduct}
+                              onSubmit={(data) =>
+                                handleEditProduct({
+                                  ...data,
+                                  id: editingProduct.id,
+                                })
+                              }
+                            />
+                          </>
                         )}
                       </DialogContent>
                     </Dialog>

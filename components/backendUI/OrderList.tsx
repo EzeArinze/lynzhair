@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Trash2 } from "lucide-react";
+import formatCurrency from "@/lib/formatCurrency";
 
 interface Order {
   id: string;
@@ -115,7 +116,7 @@ export default function OrderList() {
               <TableCell className="hidden md:table-cell">
                 {order.date}
               </TableCell>
-              <TableCell>${order.total.toFixed(2)}</TableCell>
+              <TableCell>{formatCurrency(order.total)}</TableCell>
               <TableCell>
                 <Select
                   value={order.status}

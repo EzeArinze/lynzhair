@@ -10,11 +10,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 const recentOrders = [
-  { id: "1", customer: "John Doe", total: "$120.00", status: "Completed" },
-  { id: "2", customer: "Jane Smith", total: "$85.50", status: "Processing" },
-  { id: "3", customer: "Bob Johnson", total: "$200.00", status: "Shipped" },
-  { id: "4", customer: "Alice Brown", total: "$75.25", status: "Pending" },
-  { id: "5", customer: "Charlie Davis", total: "$150.75", status: "Completed" },
+  { id: "1", customer: "John Doe", total: "NGN 120.00", status: "Completed" },
+  { id: "2", customer: "Jane Smith", total: "NGN 85.50", status: "Processing" },
+  { id: "3", customer: "Bob Johnson", total: "NGN 200.00", status: "Shipped" },
+  { id: "4", customer: "Alice Brown", total: "NGN 75.25", status: "Pending" },
+  {
+    id: "5",
+    customer: "Charlie Davis",
+    total: "NGN 150.75",
+    status: "Completed",
+  },
 ];
 
 const getStatusColor = (status: string) => {

@@ -68,7 +68,6 @@ function UserSignup() {
                 <label htmlFor="username">Username</label>
                 <Input
                   id="username"
-                  placeholder="Enter your username"
                   name="username"
                   value={formDetails.username}
                   onChange={handleChange}
@@ -80,7 +79,6 @@ function UserSignup() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
                   value={formDetails.email}
                   onChange={handleChange}
                 />
@@ -91,7 +89,6 @@ function UserSignup() {
                   id="password"
                   type="password"
                   name="password"
-                  placeholder="Enter your password"
                   value={formDetails.password}
                   onChange={handleChange}
                 />
@@ -102,7 +99,6 @@ function UserSignup() {
                   id="confirm-password"
                   type="password"
                   name="confirmPassword"
-                  placeholder="Confirm your password"
                   value={formDetails.confirmPassword}
                   onChange={handleChange}
                 />

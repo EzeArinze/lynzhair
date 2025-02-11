@@ -23,3 +23,18 @@ export const schema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const productFormSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Product name is required")
+    .max(40, "Max 40 characters"),
+  category: z
+    .string()
+    .min(1, "Product category is required")
+    .max(20, "Max 20 characters"),
+  price: z.number().min(0.01, "Price must be at least 0.01"),
+  stock: z.number().min(0, "Stock must be at least 1"),
+  image: z.string().optional(), // File or string,
+  description: z.string().min(1, "Product description is required"),
+});
