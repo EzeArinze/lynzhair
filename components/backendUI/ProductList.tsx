@@ -93,11 +93,11 @@ export default function ProductList() {
               <PlusCircle className="mr-2 h-4 w-4" /> Add New Product
             </Button>
           </DialogTrigger>
-          <DialogContent className="w-[90%] mx-auto">
+          <DialogContent className="w-[85%] h-3/4 mx-auto">
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
             </DialogHeader>
-            <DialogDescription>will hid</DialogDescription>
+            <DialogDescription>Create product form</DialogDescription>
             <ProductForm onSubmit={handleAddProduct} />
           </DialogContent>
         </Dialog>
@@ -150,7 +150,7 @@ export default function ProductList() {
                           <Edit className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className="w-[85%] h-3/4 mx-auto">
                         <DialogHeader>
                           <DialogTitle>Edit Product</DialogTitle>
                         </DialogHeader>

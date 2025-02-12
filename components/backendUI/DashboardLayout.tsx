@@ -5,6 +5,7 @@ import RecentOrders from "./RecentOrders";
 function DashboardLayout() {
   return (
     <div className="flex flex-1 flex-col gap-8 p-4">
+      <h1 className="text-3xl font-bold">Dashboard</h1>
       <div>
         <AnalyticsCards />
       </div>

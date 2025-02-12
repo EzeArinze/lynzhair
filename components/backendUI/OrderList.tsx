@@ -95,6 +95,7 @@ export default function OrderList() {
 
   return (
     <div className="overflow-x-auto w-[90%] mx-auto h-full">
+      <h1 className="text-3xl font-bold mb-6">Order</h1>
       <Table>
         <TableHeader>
           <TableRow>

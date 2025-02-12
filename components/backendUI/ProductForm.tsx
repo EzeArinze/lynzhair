@@ -94,15 +94,31 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <Label htmlFor="name">Product Name</Label>
-        <Input
-          id="name"
-          name="name"
-          value={formDetails.name}
-          onChange={handleChange}
-        />
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 w-full sm:max-w-lg mx-auto p-6 shadow-lg rounded-lg overflow-y-scroll max-h-[80vh] hide-scrollbar"
+    >
+      <div className="grid gap-4 sm:grid-cols-2 ">
+        <div>
+          <Label htmlFor="name">Product Name</Label>
+          <Input
+            id="name"
+            name="name"
+            value={formDetails.name}
+            onChange={handleChange}
+            className="w-full"
+          />
+        </div>
+        <div>
+          <Label htmlFor="category">Category</Label>
+          <Input
+            id="category"
+            name="category"
+            value={formDetails.category}
+            onChange={handleChange}
+            className="w-full"
+          />
+        </div>
       </div>
       <div>
         <Label htmlFor="description">Description</Label>
@@ -111,42 +127,38 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
           name="description"
           value={formDetails.description}
           onChange={handleChange}
+          className="w-full"
         />
       </div>
-      <div>
-        <Label htmlFor="category">Category</Label>
-        <Input
-          id="category"
-          name="category"
-          value={formDetails.category}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <Label htmlFor="price">Price</Label>
-        <Input
-          id="price"
-          type="number"
-          name="price"
-          value={formDetails.price}
-          onChange={handleChange}
-          min="0"
-        />
-      </div>
-      <div>
-        <Label htmlFor="stock">Stock</Label>
-        <Input
-          id="stock"
-          type="number"
-          name="stock"
-          value={formDetails.stock}
-          onChange={handleChange}
-          min="0"
-        />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <Label htmlFor="price">Price</Label>
+          <Input
+            id="price"
+            type="number"
+            name="price"
+            value={formDetails.price}
+            onChange={handleChange}
+            min="0"
+            className="w-full"
+          />
+        </div>
+        <div>
+          <Label htmlFor="stock">Stock</Label>
+          <Input
+            id="stock"
+            type="number"
+            name="stock"
+            value={formDetails.stock}
+            onChange={handleChange}
+            min="0"
+            className="w-full"
+          />
+        </div>
       </div>
       <div>
         <Label htmlFor="image">Product Image</Label>
-        <div className="mt-1 flex items-center">
+        <div className="mt-1 flex flex-col items-center">
           <Input
             id="image"
             type="file"
@@ -165,6 +177,7 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
               type="button"
               variant="outline"
               onClick={() => fileInputRef.current?.click()}
+              className="w-full flex justify-center items-center"
             >
               <ImageIcon className="h-4 w-4 mr-2" />
               Upload Image
@@ -172,7 +185,9 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
           )}
         </div>
       </div>
-      <Button type="submit">Save Product</Button>
+      <Button type="submit" className="w-full">
+        Save Product
+      </Button>
     </form>
   );
 }
