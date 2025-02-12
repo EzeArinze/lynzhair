@@ -1,3 +1,5 @@
+"use client";
+
 import { ShoppingBasket, Database, User2, LayoutDashboard } from "lucide-react";
 
 import {
@@ -11,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Menu items.
 const items = [
@@ -37,6 +40,8 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+
   return (
     <Sidebar variant="inset">
       <SidebarContent className="bg-white">
@@ -48,7 +53,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={item.url === "/admin"}>
+                  <SidebarMenuButton asChild isActive={item.url === pathname}>
                     <Link href={item.url} className="py-5 px-4 mb-2">
                       <item.icon className="w-8 h-8" />
                       <span className="font-medium text-base">
