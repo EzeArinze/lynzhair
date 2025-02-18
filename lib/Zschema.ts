@@ -34,6 +34,7 @@ export const productFormSchema = z.object({
     .min(1, "Product category is required")
     .max(20, "Max 20 characters"),
   price: z.number().min(0.01, "Price must be at least 0.01"),
+  discount: z.number().optional(),
   stock: z.number().min(0, "Stock must be at least 1"),
   image: z.string().optional(), // File or string,
   description: z.string().min(1, "Product description is required"),

@@ -15,6 +15,7 @@ interface ProductFormProps {
     name: string;
     description: string;
     category: string;
+    discount?: number;
     price: number;
     stock: number;
     image?: File | string;
@@ -24,6 +25,7 @@ interface ProductFormProps {
     description: string;
     category: string;
     price: number;
+    discount?: number;
     stock: number;
     image?: File;
   }) => void;
@@ -36,6 +38,7 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
     description: initialData?.description || "",
     category: initialData?.category || "",
     price: initialData?.price || 0,
+    discount: initialData?.discount || 0,
     stock: initialData?.stock || 0,
   });
   const [previewUrl, setPreviewUrl] = useState<string | File>(
@@ -51,7 +54,10 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
     const { name, value } = e.target;
     setFormDetails((prev) => ({
       ...prev,
-      [name]: name === "price" || name === "stock" ? Number(value) : value,
+      [name]:
+        name === "price" || name === "stock" || name === "discount"
+          ? Number(value)
+          : value,
     }));
   };
 
@@ -65,12 +71,13 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
       return;
     }
 
-    const { name, category, price, stock, description } = formDetails;
+    const { name, category, price, stock, description, discount } = formDetails;
 
     onSubmit({
       name,
       description,
       category,
+      discount,
       price,
       stock,
       image: image || undefined,
@@ -138,6 +145,18 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
             type="number"
             name="price"
             value={formDetails.price}
+            onChange={handleChange}
+            min="0"
+            className="w-full"
+          />
+        </div>
+        <div>
+          <Label htmlFor="discount">Discount</Label>
+          <Input
+            id="discount"
+            type="number"
+            name="discount"
+            value={formDetails.discount}
             onChange={handleChange}
             min="0"
             className="w-full"

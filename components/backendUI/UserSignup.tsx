@@ -14,6 +14,8 @@ import { Button } from "../ui/button";
 import { Alert, AlertDescription } from "../ui/alert";
 import { schema } from "@/lib/Zschema";
 
+import authenticationSignUp from "@/services/authenticationSignUp";
+
 function UserSignup() {
   const [formDetails, setFormDetails] = useState({
     username: "",
@@ -22,13 +24,14 @@ function UserSignup() {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -40,15 +43,24 @@ function UserSignup() {
     }
 
     const { username, email, password } = formDetails;
+
+    try {
+      setLoading(true);
+      await authenticationSignUp({ username, email, password });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+
     setFormDetails({
       username: "",
       email: "",
       password: "",
       confirmPassword: "",
     });
-
-    const data = { username, email, password };
-    console.table(data);
   };
 
   return (
@@ -112,7 +124,9 @@ function UserSignup() {
               </Alert>
             )}
 
-            <Button className="w-full mt-4">Create Admin</Button>
+            <Button className="w-full mt-4">
+              {loading ? "Creating..." : "Create Admin"}
+            </Button>
           </form>
         </CardContent>
         <CardFooter></CardFooter>

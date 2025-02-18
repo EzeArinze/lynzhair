@@ -5,7 +5,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+// import { Playfair_Display, Lato } from "next/font/google"
 import React, { ReactNode } from "react";
+
+// const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
+// const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })
+// className={`${playfair.variable} ${lato.variable} font-sans`}
 
 function layout({ children }: { children: ReactNode }) {
   return (

@@ -30,6 +30,7 @@ interface Product {
   description: string;
   category: string;
   price: number;
+  discount?: number;
   stock: number;
   image?: File | string;
 }
