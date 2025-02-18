@@ -39,7 +39,12 @@ export async function POST(req: Request) {
           // Handle the error
           if (ctx.error.status === 403) {
             alert("Please verify your email address");
+            // add toast later
           }
+        },
+        onSuccess: (ctx) => {
+          //add toast later
+          console.log(ctx);
         },
       }
     );
