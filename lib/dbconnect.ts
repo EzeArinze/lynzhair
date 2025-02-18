@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MONGO_URI } from "./constant/env";
 
 // const MONGODB_URI = process.env.MONGO_URI || "";
 
@@ -44,11 +45,11 @@ import mongoose from "mongoose";
 
 // simpler version with no caching
 
-const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI as string;
+// const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI as string;
 // console.log("MONGODB_URI", MONGODB_URI);
 
 async function connectDB() {
-  if (!MONGODB_URI) {
+  if (!MONGO_URI) {
     throw new Error("❌ MONGODB_URI is not defined in environment variables.");
   }
 
@@ -70,10 +71,10 @@ async function connectDB() {
 
   if (!cached.promise) {
     console.log("📡 Connecting to MongoDB...");
-    if (!MONGODB_URI) {
+    if (!MONGO_URI) {
       throw new Error("❌ MONGO_URI is not defined in environment variables.");
     }
-    cached.promise = mongoose.connect(MONGODB_URI);
+    cached.promise = mongoose.connect(MONGO_URI);
   }
 
   cached.conn = await cached.promise;

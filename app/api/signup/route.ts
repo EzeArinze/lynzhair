@@ -28,11 +28,21 @@ export async function POST(req: Request) {
     }
 
     // Sign up the user using Better Auth
-    const { data, error } = await authClient.signUp.email({
-      email,
-      password,
-      name: username,
-    });
+    const { data, error } = await authClient.signUp.email(
+      {
+        email,
+        password,
+        name: username,
+      },
+      {
+        onError: (ctx) => {
+          // Handle the error
+          if (ctx.error.status === 403) {
+            alert("Please verify your email address");
+          }
+        },
+      }
+    );
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
