@@ -20,9 +20,10 @@ import {
 } from "@/components/ui/dialog";
 import { Edit, Trash2, PlusCircle } from "lucide-react";
 // import { ProductForm } from "./ProductForm"
-import Image from "next/image";
+// import Image from "next/image";
 import formatCurrency from "@/lib/formatCurrency";
 import { ProductForm } from "./ProductForm";
+import ProductImages from "./ProductImages";
 
 interface Product {
   id: string;
@@ -32,7 +33,7 @@ interface Product {
   price: number;
   discount?: number;
   stock: number;
-  image?: File | string;
+  image?: File[] | string[];
 }
 
 const initialProducts: Product[] = [
@@ -43,7 +44,7 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 599.99,
     stock: 50,
-    image: "/placeholder.svg",
+    image: ["/placeholder.svg", "/placeholder.svg"],
   },
   {
     id: "2",
@@ -52,7 +53,7 @@ const initialProducts: Product[] = [
     category: "Apparel",
     price: 29.99,
     stock: 100,
-    image: "/placeholder.svg",
+    image: ["/placeholder.svg", "/placeholder.svg"],
   },
   {
     id: "3",
@@ -61,13 +62,15 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 79.99,
     stock: 30,
-    image: "/placeholder.svg",
+    image: ["/placeholder.svg", "/placeholder.svg"],
   },
 ];
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleAddProduct = (newProduct: Omit<Product, "id">) => {
     const id = (products.length + 1).toString();
@@ -88,7 +91,7 @@ export default function ProductList() {
   return (
     <>
       <div className="flex justify-end mb-4">
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <PlusCircle className="mr-2 h-4 w-4" /> Add New Product
@@ -99,7 +102,11 @@ export default function ProductList() {
               <DialogTitle>Add New Product</DialogTitle>
             </DialogHeader>
             <DialogDescription>Create product form</DialogDescription>
-            <ProductForm onSubmit={handleAddProduct} />
+            {/* Add Product Form */}
+            <ProductForm
+              onSubmit={handleAddProduct}
+              onClose={() => setIsDialogOpen((prev) => !prev)}
+            />
           </DialogContent>
         </Dialog>
       </div>
@@ -119,17 +126,8 @@ export default function ProductList() {
             {products.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <Image
-                    src={
-                      typeof product.image === "string"
-                        ? product.image
-                        : "/placeholder.svg"
-                    }
-                    alt={product.name}
-                    width={50}
-                    height={50}
-                    className="rounded-md"
-                  />
+                  {/* product images */}
+                  <ProductImages images={product.image} />
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell className="hidden md:table-cell">
@@ -141,33 +139,40 @@ export default function ProductList() {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
-                    <Dialog>
+                    <Dialog
+                      open={isEditDialogOpen}
+                      onOpenChange={setIsEditDialogOpen}
+                    >
                       <DialogTrigger asChild>
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={() => setEditingProduct(product)}
+                          onClick={() => {
+                            setEditingProduct(product);
+                            setIsEditDialogOpen((prev) => !prev);
+                          }}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
                       </DialogTrigger>
+
                       <DialogContent className="w-[85%] h-3/4 mx-auto">
                         <DialogHeader>
                           <DialogTitle>Edit Product</DialogTitle>
                         </DialogHeader>
+                        <DialogDescription>Edit product form</DialogDescription>
+                        {/* Edit Product Form */}
                         {editingProduct && (
-                          <>
-                            <DialogDescription>Product edit</DialogDescription>
-                            <ProductForm
-                              initialData={editingProduct}
-                              onSubmit={(data) =>
-                                handleEditProduct({
-                                  ...data,
-                                  id: editingProduct.id,
-                                })
-                              }
-                            />
-                          </>
+                          <ProductForm
+                            initialData={editingProduct || undefined}
+                            onSubmit={(data) => {
+                              handleEditProduct({
+                                ...data,
+                                id: editingProduct.id,
+                              });
+                            }}
+                            onClose={() => setIsEditDialogOpen((prev) => !prev)}
+                          />
                         )}
                       </DialogContent>
                     </Dialog>

@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageIcon } from "lucide-react";
-
 import { productFormSchema } from "@/lib/Zschema";
 import PreviewImage from "./PreviewImage";
 
@@ -18,7 +17,7 @@ interface ProductFormProps {
     discount?: number;
     price: number;
     stock: number;
-    image?: File | string;
+    images?: File[] | string[];
   };
   onSubmit: (data: {
     name: string;
@@ -27,12 +26,21 @@ interface ProductFormProps {
     price: number;
     discount?: number;
     stock: number;
-    image?: File;
+    images?: File[];
   }) => void;
+  onClose: () => void;
 }
 
-export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
-  const [image, setImage] = useState<File | null>(null);
+export function ProductForm({
+  initialData,
+  onSubmit,
+  onClose,
+}: ProductFormProps) {
+  const [images, setImages] = useState<File[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>(
+    initialData?.images ? initialData.images.map((img) => String(img)) : []
+  );
+
   const [formDetails, setFormDetails] = useState({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -41,9 +49,6 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
     discount: initialData?.discount || 0,
     stock: initialData?.stock || 0,
   });
-  const [previewUrl, setPreviewUrl] = useState<string | File>(
-    initialData?.image || ""
-  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (
@@ -63,16 +68,13 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const validate = productFormSchema.safeParse(formDetails);
-
     if (!validate.success) {
       alert(validate.error.errors[0].message);
       return;
     }
 
     const { name, category, price, stock, description, discount } = formDetails;
-
     onSubmit({
       name,
       description,
@@ -80,24 +82,26 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
       discount,
       price,
       stock,
-      image: image || undefined,
+      images: images.length > 0 ? images : undefined,
     });
+
+    onClose();
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImage(file);
-      setPreviewUrl(URL.createObjectURL(file));
+    if (e.target.files) {
+      const newFiles = Array.from(e.target.files);
+      setImages((prev) => [...prev, ...newFiles]);
+      setPreviewUrls((prev) => [
+        ...prev,
+        ...newFiles.map((file) => URL.createObjectURL(file)),
+      ]);
     }
   };
 
-  const handleRemoveImage = () => {
-    setImage(null);
-    setPreviewUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+  const handleRemoveImage = (index: number) => {
+    setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -105,7 +109,7 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
       onSubmit={handleSubmit}
       className="space-y-6 w-full sm:max-w-lg mx-auto p-6 shadow-lg rounded-lg overflow-y-scroll max-h-[80vh] hide-scrollbar"
     >
-      <div className="grid gap-4 sm:grid-cols-2 ">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <Label htmlFor="name">Product Name</Label>
           <Input
@@ -176,33 +180,47 @@ export function ProductForm({ initialData, onSubmit }: ProductFormProps) {
         </div>
       </div>
       <div>
-        <Label htmlFor="image">Product Image</Label>
-        <div className="mt-1 flex flex-col items-center">
+        <Label htmlFor="images" className="text-sm font-medium">
+          Product Images
+        </Label>
+        <div className="mt-1">
           <Input
-            id="image"
+            id="images"
             type="file"
             onChange={handleImageChange}
             accept="image/*"
             className="hidden"
+            multiple
             ref={fileInputRef}
           />
-          {previewUrl ? (
-            <PreviewImage
-              previewUrl={previewUrl}
-              handleRemoveImage={handleRemoveImage}
-            />
+          {previewUrls.length > 0 ? (
+            <>
+              <PreviewImage images={previewUrls} onRemove={handleRemoveImage} />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full mt-4"
+              >
+                <ImageIcon className="h-4 w-4 mr-2" />
+                Add More Images
+              </Button>
+            </>
           ) : (
             <Button
               type="button"
               variant="outline"
               onClick={() => fileInputRef.current?.click()}
-              className="w-full flex justify-center items-center"
+              className="w-full h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400 transition-colors"
             >
-              <ImageIcon className="h-4 w-4 mr-2" />
-              Upload Image
+              <ImageIcon className="h-8 w-8 mb-2 text-gray-400" />
+              <span className="text-sm text-gray-500">Upload Images</span>
             </Button>
           )}
         </div>
+        {/* <p className="text-sm text-muted-foreground mt-2">
+          You can upload multiple images. Click on the X to remove an image.
+        </p> */}
       </div>
       <Button type="submit" className="w-full">
         Save Product
