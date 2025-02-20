@@ -34,7 +34,10 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 599.99,
     stock: 50,
-    images: ["/placeholder.svg", "/placeholder.svg"],
+    images: [
+      "https://picsum.photos/200/300?random=2",
+      "https://picsum.photos/200/300?random=3",
+    ],
   },
   {
     id: "2",
@@ -43,7 +46,10 @@ const initialProducts: Product[] = [
     category: "Apparel",
     price: 29.99,
     stock: 100,
-    images: ["/placeholder.svg", "/placeholder.svg"],
+    images: [
+      "https://picsum.photos/200/300?random=4",
+      "https://picsum.photos/200/300?random=1",
+    ],
   },
   {
     id: "3",
@@ -52,7 +58,10 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 79.99,
     stock: 30,
-    images: ["/placeholder.svg", "/placeholder.svg"],
+    images: [
+      "https://picsum.photos/200/300?random=5",
+      "https://picsum.photos/200/300?random=8",
+    ],
   },
 ];
 
@@ -68,6 +77,7 @@ export default function ProductList() {
   };
 
   const handleEditProduct = (updatedProduct: Product) => {
+    console.log(updatedProduct);
     setProducts(
       products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
     );
