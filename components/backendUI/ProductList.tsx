@@ -24,17 +24,7 @@ import { Edit, Trash2, PlusCircle } from "lucide-react";
 import formatCurrency from "@/lib/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  price: number;
-  discount?: number;
-  stock: number;
-  image?: File[] | string[];
-}
+import { Product } from "@/utils/types";
 
 const initialProducts: Product[] = [
   {

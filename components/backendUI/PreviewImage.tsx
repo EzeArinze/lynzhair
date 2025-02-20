@@ -30,13 +30,9 @@
 
 // export default PreviewImage;
 
+import { PreviewImagesProps } from "@/utils/types";
 import { X } from "lucide-react";
 import Image from "next/image";
-
-interface PreviewImagesProps {
-  images: (string | File)[];
-  onRemove: (index: number) => void;
-}
 
 export default function PreviewImages({
   images,

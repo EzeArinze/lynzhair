@@ -1,9 +1,6 @@
 import React from "react";
 import Image from "next/image";
-
-type ProductImagesProps = {
-  images: (string | File)[] | undefined;
-};
+import { ProductImagesProps } from "@/utils/types";
 
 function ProductImages({ images }: ProductImagesProps) {
   return (

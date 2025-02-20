@@ -8,28 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ImageIcon } from "lucide-react";
 import { productFormSchema } from "@/lib/Zschema";
 import PreviewImage from "./PreviewImage";
-
-interface ProductFormProps {
-  initialData?: {
-    name: string;
-    description: string;
-    category: string;
-    discount?: number;
-    price: number;
-    stock: number;
-    images?: File[] | string[];
-  };
-  onSubmit: (data: {
-    name: string;
-    description: string;
-    category: string;
-    price: number;
-    discount?: number;
-    stock: number;
-    images?: File[];
-  }) => void;
-  onClose: () => void;
-}
+import { ProductFormProps } from "@/utils/types";
 
 export function ProductForm({
   initialData,
