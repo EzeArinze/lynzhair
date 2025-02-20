@@ -34,7 +34,7 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 599.99,
     stock: 50,
-    image: ["/placeholder.svg", "/placeholder.svg"],
+    images: ["/placeholder.svg", "/placeholder.svg"],
   },
   {
     id: "2",
@@ -43,7 +43,7 @@ const initialProducts: Product[] = [
     category: "Apparel",
     price: 29.99,
     stock: 100,
-    image: ["/placeholder.svg", "/placeholder.svg"],
+    images: ["/placeholder.svg", "/placeholder.svg"],
   },
   {
     id: "3",
@@ -52,7 +52,7 @@ const initialProducts: Product[] = [
     category: "Electronics",
     price: 79.99,
     stock: 30,
-    image: ["/placeholder.svg", "/placeholder.svg"],
+    images: ["/placeholder.svg", "/placeholder.svg"],
   },
 ];
 
@@ -117,7 +117,7 @@ export default function ProductList() {
               <TableRow key={product.id}>
                 <TableCell>
                   {/* product images */}
-                  <ProductImages images={product.image} />
+                  <ProductImages images={product.images} />
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell className="hidden md:table-cell">

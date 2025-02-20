@@ -1,25 +1,3 @@
-export interface ProductFormProps {
-  initialData?: {
-    name: string;
-    description: string;
-    category: string;
-    discount?: number;
-    price: number;
-    stock: number;
-    images?: File[] | string[];
-  };
-  onSubmit: (data: {
-    name: string;
-    description: string;
-    category: string;
-    price: number;
-    discount?: number;
-    stock: number;
-    images?: File[];
-  }) => void;
-  onClose: () => void;
-}
-
 export interface Product {
   id: string;
   name: string;
@@ -28,7 +6,13 @@ export interface Product {
   price: number;
   discount?: number;
   stock: number;
-  image?: File[] | string[];
+  images?: File[] | string[]; // Ensure the property name matches if necessary
+}
+
+export interface ProductFormProps {
+  initialData?: Omit<Product, "id">; // Remove 'id' since it's not needed in form
+  onSubmit: (data: Omit<Product, "id">) => void; // Ensure consistency
+  onClose: () => void;
 }
 
 export interface PreviewImagesProps {
