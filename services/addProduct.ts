@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Product } from "@/utils/types";
 
 export async function addProduct(
@@ -5,18 +6,13 @@ export async function addProduct(
   onClose: () => void
 ) {
   try {
-    const res = await fetch("/api/products", {
-      method: "POST",
+    await axios.post("/api/products", initialData, {
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(initialData),
     });
-
-    if (!res.ok) throw new Error("Failed to add product");
 
     console.log("Product added successfully");
     onClose();
   } catch (error) {
-    console.error(error);
-    console.log("Something went wrong!");
+    console.error("Error adding product:", error);
   }
 }

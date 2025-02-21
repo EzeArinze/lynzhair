@@ -1,3 +1,5 @@
+import axios from "axios";
+
 interface AuthenticationDetails {
   username: string;
   password: string;
@@ -10,22 +12,14 @@ export default async function authenticationSignUp({
   email,
 }: AuthenticationDetails) {
   try {
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      body: JSON.stringify({ username, password, email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const { data } = await axios.post("/api/signup", {
+      username,
+      password,
+      email,
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    } else {
-      throw new Error("Failed to sign up user");
-    }
+
+    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message);
-    }
+    console.error("Error signing up user:", error);
   }
 }
