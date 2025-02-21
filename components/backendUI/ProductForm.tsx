@@ -12,10 +12,11 @@ import { productFormSchema } from "@/lib/Zschema";
 import PreviewImage from "./PreviewImage";
 import type { ProductFormProps } from "@/utils/types";
 import { CategorySelect } from "./CategoriesSelector";
+import { addProduct } from "@/services/addProduct";
 
 export function ProductForm({
   initialData,
-  onSubmit,
+  // onSubmit,
   onClose,
 }: ProductFormProps) {
   const [images, setImages] = useState<File[]>([]);
@@ -48,7 +49,7 @@ export function ProductForm({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validate = productFormSchema.safeParse(formDetails);
     if (!validate.success) {
@@ -57,17 +58,28 @@ export function ProductForm({
     }
 
     const { name, category, price, stock, description, discount } = formDetails;
-    onSubmit({
+
+    const imageBase64Promises = images.map((image) => {
+      return new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(image);
+      });
+    });
+
+    const base64Images = await Promise.all(imageBase64Promises);
+
+    const productData = {
       name,
       description,
       category,
       discount,
       price,
       stock,
-      images: images.length > 0 ? images : undefined,
-    });
+      images: base64Images, // Send Base64 to API
+    };
 
-    onClose();
+    await addProduct(productData, onClose);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
