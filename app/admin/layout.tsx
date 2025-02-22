@@ -8,6 +8,7 @@ import {
 // import { Playfair_Display, Lato } from "next/font/google"
 import React, { ReactNode } from "react";
 import "@/app/globals.css";
+import QueryProvider from "@/hooks/QueryProvider";
 
 // const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 // const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })
@@ -16,16 +17,18 @@ import "@/app/globals.css";
 function layout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-          </header>
-          <main>{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
+      <QueryProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+            </header>
+            <main>{children}</main>
+          </SidebarInset>
+        </SidebarProvider>
+      </QueryProvider>
     </div>
   );
 }

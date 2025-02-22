@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Product } from "@/utils/types";
+import { ProductTypes } from "@/utils/types";
 
 export async function addProduct(
-  initialData: Omit<Product, "id">,
+  initialData: Omit<ProductTypes, "_id">,
   onClose: () => void
 ) {
   try {

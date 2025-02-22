@@ -24,68 +24,36 @@ import { Edit, Trash2, PlusCircle } from "lucide-react";
 import formatCurrency from "@/lib/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
-import { Product } from "@/utils/types";
-
-const initialProducts: Product[] = [
-  {
-    id: "1",
-    name: "Smartphone X",
-    description: "The latest smartphone in the market",
-    category: "Electronics",
-    price: 599.99,
-    stock: 50,
-    images: [
-      "https://picsum.photos/200/300?random=2",
-      "https://picsum.photos/200/300?random=3",
-    ],
-  },
-  {
-    id: "2",
-    name: "Designer T-shirt",
-    description: "A cool designer t-shirt",
-    category: "Apparel",
-    price: 29.99,
-    stock: 100,
-    images: [
-      "https://picsum.photos/200/300?random=4",
-      "https://picsum.photos/200/300?random=1",
-    ],
-  },
-  {
-    id: "3",
-    name: "Wireless Earbuds",
-    description: "High-quality wireless earbuds",
-    category: "Electronics",
-    price: 79.99,
-    stock: 30,
-    images: [
-      "https://picsum.photos/200/300?random=5",
-      "https://picsum.photos/200/300?random=8",
-    ],
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import getProducts from "@/services/getProduct";
+import { ProductTypes } from "@/utils/types";
+import { addProduct } from "@/services/addProduct";
 
 export default function ProductList() {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<ProductTypes | null>(
+    null
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  const handleAddProduct = (newProduct: Omit<Product, "id">) => {
-    const id = (products.length + 1).toString();
-    setProducts([...products, { ...newProduct, id }]);
+  const { data: productsData, isFetching } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
+
+  console.log(productsData, isFetching);
+
+  const handleAddProduct = async (newProduct: Omit<ProductTypes, "_id">) => {
+    console.log(newProduct);
+    await addProduct(newProduct, () => setIsDialogOpen((prev) => !prev));
   };
 
-  const handleEditProduct = (updatedProduct: Product) => {
+  const handleEditProduct = (updatedProduct: ProductTypes) => {
     console.log(updatedProduct);
-    setProducts(
-      products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-    );
-    setEditingProduct(null);
   };
 
   const handleDeleteProduct = (id: string) => {
-    setProducts(products.filter((p) => p.id !== id));
+    console.log(id);
   };
 
   return (
@@ -123,8 +91,8 @@ export default function ProductList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
-              <TableRow key={product.id}>
+            {productsData?.map((product) => (
+              <TableRow key={product._id}>
                 <TableCell>
                   {/* product images */}
                   <ProductImages images={product.images} />
@@ -168,7 +136,7 @@ export default function ProductList() {
                             onSubmit={(data) => {
                               handleEditProduct({
                                 ...data,
-                                id: editingProduct.id,
+                                _id: editingProduct._id,
                               });
                             }}
                             onClose={() => setIsEditDialogOpen((prev) => !prev)}
@@ -179,7 +147,7 @@ export default function ProductList() {
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={() => handleDeleteProduct(product.id)}
+                      onClick={() => handleDeleteProduct(product._id)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

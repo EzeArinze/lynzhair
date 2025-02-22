@@ -3,7 +3,7 @@ import { MONGO_URI } from "./constant/env";
 
 async function connectDB() {
   if (!MONGO_URI) {
-    throw new Error("❌ MONGODB_URI is not defined in environment variables.");
+    throw new Error("❌ MONGO_URI is not defined in environment variables.");
   }
 
   interface MongooseCache {

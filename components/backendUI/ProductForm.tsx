@@ -12,13 +12,13 @@ import { productFormSchema } from "@/lib/Zschema";
 import PreviewImage from "./PreviewImage";
 import type { ProductFormProps } from "@/utils/types";
 import { CategorySelect } from "./CategoriesSelector";
-import { addProduct } from "@/services/addProduct";
+// import { addProduct } from "@/services/addProduct";
 
 export function ProductForm({
   initialData,
-  // onSubmit,
-  onClose,
-}: ProductFormProps) {
+  onSubmit,
+}: // onClose,
+ProductFormProps) {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>(
     initialData?.images ? initialData.images.map((img) => String(img)) : []
@@ -69,7 +69,8 @@ export function ProductForm({
 
     const base64Images = await Promise.all(imageBase64Promises);
 
-    const productData = {
+    onSubmit({
+      _id: initialData?._id || "",
       name,
       description,
       category,
@@ -77,9 +78,7 @@ export function ProductForm({
       price,
       stock,
       images: base64Images, // Send Base64 to API
-    };
-
-    await addProduct(productData, onClose);
+    });
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

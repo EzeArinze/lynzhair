@@ -1,5 +1,5 @@
-export interface Product {
-  id: string;
+export interface ProductTypes {
+  _id: string;
   name: string;
   description: string;
   category: string;
@@ -10,8 +10,8 @@ export interface Product {
 }
 
 export interface ProductFormProps {
-  initialData?: Omit<Product, "id">; // Remove 'id' since it's not needed in form
-  onSubmit: (data: Omit<Product, "id">) => void; // Ensure consistency
+  initialData?: Omit<ProductTypes, "id">; // Remove 'id' since it's not needed in form
+  onSubmit: (data: Omit<ProductTypes, "id">) => void; // Ensure consistency
   onClose: () => void;
 }
 
