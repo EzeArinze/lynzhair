@@ -6,6 +6,14 @@ export async function GET() {
   try {
     await connectDB();
     const data = await Product.find({});
+    if (!data) {
+      return NextResponse.json(
+        { message: "No Product Data in the DataBase" },
+        {
+          status: 400,
+        }
+      );
+    }
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.log(error);
