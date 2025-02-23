@@ -12,7 +12,7 @@ export interface ProductTypes {
 export interface ProductFormProps {
   initialData?: Omit<ProductTypes, "id">; // Remove 'id' since it's not needed in form
   onSubmit: (data: Omit<ProductTypes, "id">) => void; // Ensure consistency
-  onClose: () => void;
+  // onClose: () => void;
 }
 
 export interface PreviewImagesProps {

@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon } from "lucide-react";
+// import { ImageIcon } from "lucide-react";
 import { productFormSchema } from "@/lib/Zschema";
-import PreviewImage from "./PreviewImage";
+// import PreviewImage from "./PreviewImage";
 import type { ProductFormProps } from "@/utils/types";
 import { CategorySelect } from "./CategoriesSelector";
+import ImageUploader from "./ImageUploader";
 // import { addProduct } from "@/services/addProduct";
 
 export function ProductForm({
@@ -177,44 +178,12 @@ ProductFormProps) {
         </div>
       </div>
       <div>
-        <Label htmlFor="images" className="text-sm font-medium">
-          Product Images
-        </Label>
-        <div className="mt-1">
-          <Input
-            id="images"
-            type="file"
-            onChange={handleImageChange}
-            accept="image/*"
-            className="hidden"
-            multiple
-            ref={fileInputRef}
-          />
-          {previewUrls.length > 0 ? (
-            <>
-              <PreviewImage images={previewUrls} onRemove={handleRemoveImage} />
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => fileInputRef.current?.click()}
-                className="w-full mt-4"
-              >
-                <ImageIcon className="h-4 w-4 mr-2" />
-                Add More Images
-              </Button>
-            </>
-          ) : (
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400 transition-colors"
-            >
-              <ImageIcon className="h-8 w-8 mb-2 text-gray-400" />
-              <span className="text-sm text-gray-500">Upload Images</span>
-            </Button>
-          )}
-        </div>
+        <ImageUploader
+          handleImageChange={handleImageChange}
+          handleRemoveImage={handleRemoveImage}
+          fileInputRef={fileInputRef}
+          previewUrls={previewUrls}
+        />
       </div>
       <Button type="submit" className="w-full">
         Save Product

@@ -48,9 +48,7 @@ export default function ProductList() {
     await addProduct(newProduct, () => setIsDialogOpen((prev) => !prev));
   };
 
-  const handleEditProduct = (updatedProduct: ProductTypes) => {
-    console.log(updatedProduct);
-  };
+  const handleEditProduct = () => {};
 
   const handleDeleteProduct = (id: string) => {
     console.log(id);
@@ -73,7 +71,7 @@ export default function ProductList() {
             {/* Add Product Form */}
             <ProductForm
               onSubmit={handleAddProduct}
-              onClose={() => setIsDialogOpen((prev) => !prev)}
+              // onClose={() => setIsDialogOpen((prev) => !prev)}
             />
           </DialogContent>
         </Dialog>
@@ -91,70 +89,79 @@ export default function ProductList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {productsData?.map((product) => (
-              <TableRow key={product._id}>
+            {!productsData?.length ? (
+              <TableRow>
                 <TableCell>
-                  {/* product images */}
-                  <ProductImages images={product.images} />
-                </TableCell>
-                <TableCell className="font-medium">{product.name}</TableCell>
-                <TableCell className="hidden md:table-cell">
-                  {product.category}
-                </TableCell>
-                <TableCell>{formatCurrency(product.price)}</TableCell>
-                <TableCell className="hidden md:table-cell">
-                  {product.stock}
-                </TableCell>
-                <TableCell>
-                  <div className="flex space-x-2">
-                    <Dialog
-                      open={isEditDialogOpen}
-                      onOpenChange={setIsEditDialogOpen}
-                    >
-                      <DialogTrigger asChild>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => {
-                            setEditingProduct(product);
-                            setIsEditDialogOpen((prev) => !prev);
-                          }}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-
-                      <DialogContent className="w-[85%] h-3/4 mx-auto">
-                        <DialogHeader>
-                          <DialogTitle>Edit Product</DialogTitle>
-                        </DialogHeader>
-                        <DialogDescription>Edit product form</DialogDescription>
-                        {/* Edit Product Form */}
-                        {editingProduct && (
-                          <ProductForm
-                            initialData={editingProduct || undefined}
-                            onSubmit={(data) => {
-                              handleEditProduct({
-                                ...data,
-                                _id: editingProduct._id,
-                              });
-                            }}
-                            onClose={() => setIsEditDialogOpen((prev) => !prev)}
-                          />
-                        )}
-                      </DialogContent>
-                    </Dialog>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleDeleteProduct(product._id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  <p className="text-center pt-4 font-semibold">
+                    No data found
+                  </p>
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              productsData?.map((product) => (
+                <TableRow key={product._id}>
+                  <TableCell>
+                    {/* product images */}
+                    <ProductImages images={product.images} />
+                  </TableCell>
+                  <TableCell className="font-medium">{product.name}</TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {product.category}
+                  </TableCell>
+                  <TableCell>{formatCurrency(product.price)}</TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {product.stock}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex space-x-2">
+                      <Dialog
+                        open={isEditDialogOpen}
+                        onOpenChange={setIsEditDialogOpen}
+                      >
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => {
+                              setEditingProduct(product);
+                              setIsEditDialogOpen((prev) => !prev);
+                            }}
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </DialogTrigger>
+
+                        <DialogContent className="w-[85%] h-3/4 mx-auto">
+                          <DialogHeader>
+                            <DialogTitle>Edit Product</DialogTitle>
+                          </DialogHeader>
+                          <DialogDescription>
+                            Edit product form
+                          </DialogDescription>
+                          {/* Edit Product Form */}
+                          {editingProduct && (
+                            <ProductForm
+                              initialData={editingProduct || undefined}
+                              onSubmit={() => {
+                                handleEditProduct();
+                              }}
+                              // onClose={() => setIsEditDialogOpen((prev) => !prev)}
+                            />
+                          )}
+                        </DialogContent>
+                      </Dialog>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => handleDeleteProduct(product._id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
