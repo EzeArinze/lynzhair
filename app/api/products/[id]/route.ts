@@ -3,18 +3,15 @@ import connectDB from "@/lib/dbconnect";
 import { Product } from "@/models/ProductModel";
 import { NextResponse } from "next/server";
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE({ params }: { params: { id: string } }) {
   try {
     //Later get the Admin session and check if the user is an admin before deleting the product
 
     await connectDB();
 
-    const { id } = await params;
+    const propertID = await params.id;
 
-    const product = await Product.findById(id);
+    const product = await Product.findById(propertID);
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
