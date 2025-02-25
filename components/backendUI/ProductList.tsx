@@ -19,17 +19,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Edit, Trash2, PlusCircle } from "lucide-react";
-// import { ProductForm } from "./ProductForm"
-// import Image from "next/image";
 import formatCurrency from "@/utils/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import getProducts from "@/services/getProduct";
 import { ProductTypes } from "@/utils/types";
 import { addProduct } from "@/services/addProduct";
+import deleteProduct from "@/services/deleteProduct";
 
 export default function ProductList() {
+  const queryClient = useQueryClient();
+
   const [editingProduct, setEditingProduct] = useState<ProductTypes | null>(
     null
   );
@@ -41,8 +42,6 @@ export default function ProductList() {
     queryFn: getProducts,
   });
 
-  console.log(productsData, isFetching);
-
   const handleAddProduct = async (newProduct: Omit<ProductTypes, "_id">) => {
     await addProduct(newProduct, () => setIsDialogOpen((prev) => !prev));
   };
@@ -51,9 +50,16 @@ export default function ProductList() {
     console.log(productData);
   };
 
-  const handleDeleteProduct = (id: string) => {
-    console.log(id);
-  };
+  const { mutate: handleDeleteProduct, isPending } = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] }); // Refresh products list
+    },
+    onError: (error) => {
+      console.error("Error deleting product:", error);
+      alert("Failed to delete the product.");
+    },
+  });
 
   return (
     <>
@@ -72,6 +78,7 @@ export default function ProductList() {
             {/* Add Product Form */}
             <ProductForm
               onSubmit={handleAddProduct}
+              isFetching={isFetching}
               // onClose={() => setIsDialogOpen((prev) => !prev)}
             />
           </DialogContent>
@@ -157,7 +164,16 @@ export default function ProductList() {
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => handleDeleteProduct(product._id)}
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this product?"
+                            )
+                          ) {
+                            handleDeleteProduct(product._id);
+                          }
+                        }}
+                        disabled={isPending}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
