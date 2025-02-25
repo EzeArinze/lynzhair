@@ -21,7 +21,7 @@ import {
 import { Edit, Trash2, PlusCircle } from "lucide-react";
 // import { ProductForm } from "./ProductForm"
 // import Image from "next/image";
-import formatCurrency from "@/lib/formatCurrency";
+import formatCurrency from "@/utils/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
 import { useQuery } from "@tanstack/react-query";
@@ -44,11 +44,12 @@ export default function ProductList() {
   console.log(productsData, isFetching);
 
   const handleAddProduct = async (newProduct: Omit<ProductTypes, "_id">) => {
-    console.log(newProduct);
     await addProduct(newProduct, () => setIsDialogOpen((prev) => !prev));
   };
 
-  const handleEditProduct = () => {};
+  const handleEditProduct = (productData: ProductTypes) => {
+    console.log(productData);
+  };
 
   const handleDeleteProduct = (id: string) => {
     console.log(id);
@@ -142,9 +143,12 @@ export default function ProductList() {
                           {editingProduct && (
                             <ProductForm
                               initialData={editingProduct || undefined}
-                              onSubmit={() => {
-                                handleEditProduct();
-                              }}
+                              onSubmit={(data) =>
+                                handleEditProduct({
+                                  ...data,
+                                  _id: editingProduct._id,
+                                })
+                              }
                               // onClose={() => setIsEditDialogOpen((prev) => !prev)}
                             />
                           )}

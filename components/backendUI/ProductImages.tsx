@@ -7,7 +7,11 @@ function ProductImages({ images }: ProductImagesProps) {
     <div className="flex -space-x-2 overflow-hidden">
       {images?.slice(0, 2).map((image, index) => {
         const imageUrl =
-          typeof image === "string" ? image : URL.createObjectURL(image);
+          typeof image === "string"
+            ? image
+            : "public_url" in image
+            ? image.public_url
+            : "";
         return (
           <div
             key={index}

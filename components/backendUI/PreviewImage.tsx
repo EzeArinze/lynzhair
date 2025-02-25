@@ -42,7 +42,11 @@ export default function PreviewImages({
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-3">
       {images.map((image, index) => {
         const imageUrl =
-          typeof image === "string" ? image : URL.createObjectURL(image);
+          typeof image === "string"
+            ? image
+            : "public_url" in image
+            ? image.public_url
+            : URL.createObjectURL(image);
 
         return (
           <div key={index} className="relative group">

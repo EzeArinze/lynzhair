@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Trash2 } from "lucide-react";
-import formatCurrency from "@/lib/formatCurrency";
+import formatCurrency from "@/utils/formatCurrency";
 
 interface Order {
   id: string;

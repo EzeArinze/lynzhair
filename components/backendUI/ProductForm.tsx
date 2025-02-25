@@ -22,7 +22,14 @@ export function ProductForm({
 ProductFormProps) {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>(
-    initialData?.images ? initialData.images.map((img) => String(img)) : []
+    initialData?.images
+      ? initialData.images.map((img) => {
+          if (typeof img === "object" && "public_url" in img) {
+            return String(img.public_url);
+          }
+          return "";
+        })
+      : []
   );
 
   const [formDetails, setFormDetails] = useState({

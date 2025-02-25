@@ -6,20 +6,25 @@ export interface ProductTypes {
   price: number;
   discount?: number;
   stock: number;
-  images?: File[] | string[]; // Ensure the property name matches if necessary
+  images?: File[] | string[];
 }
 
 export interface ProductFormProps {
-  initialData?: Omit<ProductTypes, "id">; // Remove 'id' since it's not needed in form
-  onSubmit: (data: Omit<ProductTypes, "id">) => void; // Ensure consistency
+  initialData?: Omit<ProductTypes, "id">;
+  onSubmit: (data: Omit<ProductTypes, "id">) => void;
   // onClose: () => void;
 }
 
+export type ProductImage = {
+  public_url: string;
+  public_id: string;
+};
+
 export interface PreviewImagesProps {
-  images: (string | File)[];
+  images: (string | File | ProductImage)[];
   onRemove: (index: number) => void;
 }
 
 export type ProductImagesProps = {
-  images: (string | File)[] | undefined;
+  images: (string | File | ProductImage)[] | undefined;
 };
