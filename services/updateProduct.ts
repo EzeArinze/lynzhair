@@ -8,7 +8,7 @@ export const useUpdateProduct = () => {
 
   return useMutation({
     mutationFn: async (updateDate: ProductTypes) =>
-      await axios.put(`/api/products/${updateDate._id}`, updateDate),
+      await axios.put(`/api/updateProduct/${updateDate._id}`, updateDate),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product updated successfully");

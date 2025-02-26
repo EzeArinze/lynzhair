@@ -27,6 +27,7 @@ import { ProductTypes } from "@/utils/types";
 import { useAddProduct } from "@/services/addProduct";
 import { useDeleteProduct } from "@/services/deleteProduct";
 import { useUpdateProduct } from "@/services/updateProduct";
+import ProductSkeleton from "../ProductSkeleton";
 
 export default function ProductList() {
   const { data: productsData, isFetching } = useGetProducts();
@@ -62,6 +63,8 @@ export default function ProductList() {
   const handleDeleteProduct = async (id: string) => {
     handleDelete(id);
   };
+
+  if (isFetching) return <ProductSkeleton />;
 
   return (
     <>

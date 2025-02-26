@@ -1,4 +1,3 @@
-import cloudinary from "@/lib/cloudinary";
 import connectDB from "@/lib/dbconnect";
 import { Product } from "@/models/ProductModel";
 import { NextResponse } from "next/server";
@@ -29,49 +28,8 @@ export async function PUT(
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    // Extract existing image IDs
-    const existingImages = existingProduct.images.map(
-      (img: { public_id: string }) => img.public_id
-    );
-
-    // Extract new image IDs if they exist
-    const newImagePublicIds = images
-      .filter((img: { public_id: string }) => img.public_id) // Only include existing images
-      .map((img: { public_id: string }) => img.public_id);
-
-    // Find images that need to be deleted (old ones not in new images)
-    const imagesToDelete = existingImages.filter(
-      (id) => !newImagePublicIds.includes(id)
-    );
-
-    // Delete only those images
-    const deletePromises = imagesToDelete.map((public_id) =>
-      cloudinary.uploader.destroy(public_id)
-    );
-    await Promise.all(deletePromises);
-
-    // Upload new images
-    const newImageUploadPromises = images
-      .filter(
-        (img: string) => typeof img === "string" && img.startsWith("data:image")
-      ) // Only upload new base64 images
-      .map(async (image: string) => {
-        const uploadedResponse = await cloudinary.uploader.upload(image, {
-          folder: "products",
-        });
-        return {
-          public_url: uploadedResponse.secure_url,
-          public_id: uploadedResponse.public_id,
-        };
-      });
-
-    const uploadedNewImages = await Promise.all(newImageUploadPromises);
-
-    // Merge existing images that were kept + new ones that were uploaded
-    const updatedImages = [
-      ...images.filter((img: { public_id: string }) => img.public_id),
-      ...uploadedNewImages,
-    ];
+    // ✅ Preserve previously uploaded images
+    const existingImages = existingProduct.images || [];
 
     const product = {
       name,
@@ -80,7 +38,7 @@ export async function PUT(
       price,
       discount,
       stock,
-      images: updatedImages,
+      images: existingImages,
     };
 
     // Update the product in the database

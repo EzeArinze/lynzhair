@@ -55,6 +55,7 @@ export default function PreviewImages({
                 src={imageUrl}
                 alt={`Preview ${index + 1}`}
                 fill
+                sizes="(max-width: 640px) 300px,(max-width: 120px) 600px, 1200px"
                 className="object-cover transition-transform group-hover:scale-105"
               />
             </div>
