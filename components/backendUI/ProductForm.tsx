@@ -18,7 +18,7 @@ import ImageUploader from "./ImageUploader";
 export function ProductForm({
   initialData,
   onSubmit,
-  isFetching,
+  isProcessing,
 }: // onClose,
 ProductFormProps) {
   const [images, setImages] = useState<File[]>([]);
@@ -193,8 +193,8 @@ ProductFormProps) {
           previewUrls={previewUrls}
         />
       </div>
-      <Button type="submit" className="w-full" disabled={isFetching}>
-        {isFetching ? "Saving Product..." : "Save Product"}
+      <Button type="submit" className="w-full" disabled={isProcessing}>
+        {isProcessing ? "Saving Product..." : "Save Product"}
       </Button>
     </form>
   );

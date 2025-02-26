@@ -9,6 +9,7 @@ import {
 import React, { ReactNode } from "react";
 import "@/app/globals.css";
 import QueryProvider from "@/hooks/QueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 // const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 // const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })
@@ -26,6 +27,7 @@ function layout({ children }: { children: ReactNode }) {
               <Separator orientation="vertical" className="mr-2 h-4" />
             </header>
             <main>{children}</main>
+            <Toaster />
           </SidebarInset>
         </SidebarProvider>
       </QueryProvider>

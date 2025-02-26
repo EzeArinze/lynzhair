@@ -13,7 +13,7 @@ export interface ProductFormProps {
   initialData?: Omit<ProductTypes, "id">;
   onSubmit: (data: Omit<ProductTypes, "id">) => void;
   // onClose: () => void;
-  isFetching?: boolean;
+  isProcessing?: boolean;
 }
 
 export type ProductImage = {

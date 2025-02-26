@@ -22,14 +22,19 @@ import { Edit, Trash2, PlusCircle } from "lucide-react";
 import formatCurrency from "@/utils/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import getProducts from "@/services/getProduct";
+import { useGetProducts } from "@/services/getProduct";
 import { ProductTypes } from "@/utils/types";
-import { addProduct } from "@/services/addProduct";
-import deleteProduct from "@/services/deleteProduct";
+import { useAddProduct } from "@/services/addProduct";
+import { useDeleteProduct } from "@/services/deleteProduct";
+import { useUpdateProduct } from "@/services/updateProduct";
 
 export default function ProductList() {
-  const queryClient = useQueryClient();
+  const { data: productsData, isFetching } = useGetProducts();
+  const { mutate: handleAddProducts, isPending: isAddingProduct } =
+    useAddProduct();
+  const { mutate: handleUpadteProduct, isPending: isEditing } =
+    useUpdateProduct();
+  const { mutate: handleDelete, isPending } = useDeleteProduct();
 
   const [editingProduct, setEditingProduct] = useState<ProductTypes | null>(
     null
@@ -37,29 +42,26 @@ export default function ProductList() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  const { data: productsData, isFetching } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
-
   const handleAddProduct = async (newProduct: Omit<ProductTypes, "_id">) => {
-    await addProduct(newProduct, () => setIsDialogOpen((prev) => !prev));
+    handleAddProducts(newProduct, {
+      onSuccess: () => {
+        setIsDialogOpen((prev) => !prev);
+      },
+    });
   };
 
-  const handleEditProduct = (productData: ProductTypes) => {
+  const handleEditProduct = async (productData: ProductTypes) => {
     console.log(productData);
+    handleUpadteProduct(productData, {
+      onSuccess: () => {
+        setIsEditDialogOpen((prev) => !prev);
+      },
+    });
   };
 
-  const { mutate: handleDeleteProduct, isPending } = useMutation({
-    mutationFn: deleteProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] }); // Refresh products list
-    },
-    onError: (error) => {
-      console.error("Error deleting product:", error);
-      alert("Failed to delete the product.");
-    },
-  });
+  const handleDeleteProduct = async (id: string) => {
+    handleDelete(id);
+  };
 
   return (
     <>
@@ -78,7 +80,7 @@ export default function ProductList() {
             {/* Add Product Form */}
             <ProductForm
               onSubmit={handleAddProduct}
-              isFetching={isFetching}
+              isProcessing={isEditing || isAddingProduct}
               // onClose={() => setIsDialogOpen((prev) => !prev)}
             />
           </DialogContent>
@@ -150,6 +152,7 @@ export default function ProductList() {
                           {editingProduct && (
                             <ProductForm
                               initialData={editingProduct || undefined}
+                              isProcessing={isEditing || isAddingProduct}
                               onSubmit={(data) =>
                                 handleEditProduct({
                                   ...data,

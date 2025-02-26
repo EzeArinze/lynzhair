@@ -1,5 +1,6 @@
 // Purpose: Service to get all products from the database.
 import { ProductTypes } from "@/utils/types";
+import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 const getProducts = async () => {
@@ -14,3 +15,10 @@ const getProducts = async () => {
 };
 
 export default getProducts;
+
+export const useGetProducts = () => {
+  return useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
+};

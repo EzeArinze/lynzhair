@@ -1,18 +1,25 @@
 import axios from "axios";
 import { ProductTypes } from "@/utils/types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
-export async function addProduct(
-  initialData: Omit<ProductTypes, "_id">,
-  onClose: () => void
-) {
-  try {
-    await axios.post("/api/products", initialData, {
-      headers: { "Content-Type": "application/json" },
-    });
+export function useAddProduct() {
+  const queryClient = useQueryClient();
 
-    console.log("Product added successfully");
-    onClose();
-  } catch (error) {
-    console.error("Error adding product:", error);
-  }
+  return useMutation({
+    mutationFn: async (initialData: Omit<ProductTypes, "_id">) =>
+      await axios.post("/api/products", initialData, {
+        headers: { "Content-Type": "application/json" },
+      }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] }); // Refresh the product list
+      toast.success("Product added successfully");
+    },
+
+    onError: (error) => {
+      console.error("Error adding product:", error);
+      alert("Failed to add product.");
+    },
+  });
 }
