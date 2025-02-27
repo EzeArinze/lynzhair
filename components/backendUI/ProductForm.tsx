@@ -7,14 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-// import { ImageIcon } from "lucide-react";
 import { productFormSchema } from "@/lib/Zschema";
-// import PreviewImage from "./PreviewImage";
 import type { ProductFormProps } from "@/utils/types";
 import { CategorySelect } from "./CategoriesSelector";
 import ImageUploader from "./ImageUploader";
 import { convertImagesToBase64 } from "@/utils/base64images";
-// import { addProduct } from "@/services/addProduct";
 
 export function ProductForm({
   initialData,
@@ -68,16 +65,6 @@ ProductFormProps) {
     }
 
     const { name, category, price, stock, description, discount } = formDetails;
-
-    // const imageBase64Promises = images.map((image) => {
-    //   return new Promise<string>((resolve) => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => resolve(reader.result as string);
-    //     reader.readAsDataURL(image);
-    //   });
-    // });
-
-    // const base64Images = await Promise.all(imageBase64Promises);
 
     const base64Images = await convertImagesToBase64(images);
 

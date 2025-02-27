@@ -13,13 +13,13 @@ export function useAddProduct() {
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] }); // Refresh the product list
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product added successfully");
     },
 
     onError: (error) => {
       console.error("Error adding product:", error);
-      alert("Failed to add product.");
+      toast.error("Failed to update product.");
     },
   });
 }

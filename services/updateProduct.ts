@@ -15,7 +15,7 @@ export const useUpdateProduct = () => {
     },
     onError: (error) => {
       console.error("Error updating product:", error);
-      alert("Failed to update product.");
+      toast.error("Failed to update product.");
     },
   });
 };
