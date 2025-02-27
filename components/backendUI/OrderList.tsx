@@ -20,75 +20,17 @@ import {
 } from "@/components/ui/select";
 import { Trash2 } from "lucide-react";
 import formatCurrency from "@/utils/formatCurrency";
-
-interface Order {
-  id: string;
-  customer: string;
-  date: string;
-  total: number;
-  status: string;
-}
-
-const initialOrders: Order[] = [
-  {
-    id: "1",
-    customer: "John Doe",
-    date: "2023-06-01",
-    total: 120.0,
-    status: "Completed",
-  },
-  {
-    id: "2",
-    customer: "Jane Smith",
-    date: "2023-06-02",
-    total: 85.5,
-    status: "Processing",
-  },
-  {
-    id: "3",
-    customer: "Bob Johnson",
-    date: "2023-06-03",
-    total: 200.0,
-    status: "Shipped",
-  },
-  {
-    id: "4",
-    customer: "Alice Brown",
-    date: "2023-06-04",
-    total: 75.25,
-    status: "Pending",
-  },
-  {
-    id: "5",
-    customer: "Charlie Davis",
-    date: "2023-06-05",
-    total: 150.75,
-    status: "Completed",
-  },
-];
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "Completed":
-      return "bg-green-100 text-green-800";
-    case "Processing":
-      return "bg-blue-100 text-blue-800";
-    case "Shipped":
-      return "bg-purple-100 text-purple-800";
-    case "Pending":
-      return "bg-yellow-100 text-yellow-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+import dummyOrder, { IOrder } from "@/utils/dummyOrder";
+import getStatusColor from "@/lib/constant/getStatusColor";
 
 export default function OrderList() {
-  const [orders, setOrders] = useState<Order[]>(initialOrders);
+  const [orders, setOrders] = useState<IOrder[]>(dummyOrder);
+  console.log(dummyOrder);
 
-  const handleStatusChange = (orderId: string, newStatus: string) => {
+  const handleStatusChange = (orderId: string, newStatus: IOrder["status"]) => {
     setOrders(
       orders.map((order) =>
-        order.id === orderId ? { ...order, status: newStatus } : order
+        order.orderNumber === orderId ? { ...order, status: newStatus } : order
       )
     );
   };
@@ -108,20 +50,27 @@ export default function OrderList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.id}>
+          {orders.map((order, index) => (
+            <TableRow key={order.orderNumber}>
               <TableCell className="hidden md:table-cell font-medium">
-                {order.id}
+                {index + 1}
               </TableCell>
-              <TableCell className=" md:table-cell">{order.customer}</TableCell>
+              <TableCell className=" md:table-cell">
+                {order.customerName}
+              </TableCell>
               <TableCell className="hidden md:table-cell">
-                {order.date}
+                {order.orderDate.toISOString().split("T")[0]}
               </TableCell>
-              <TableCell>{formatCurrency(order.total)}</TableCell>
+              <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
               <TableCell>
                 <Select
                   value={order.status}
-                  onValueChange={(value) => handleStatusChange(order.id, value)}
+                  onValueChange={(value) =>
+                    handleStatusChange(
+                      order.orderNumber,
+                      value as IOrder["status"]
+                    )
+                  }
                 >
                   <SelectTrigger className="w-[120px] md:w-[180px]">
                     <SelectValue>
@@ -131,7 +80,7 @@ export default function OrderList() {
                     </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Pending">Pending</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="Processing">Processing</SelectItem>
                     <SelectItem value="Shipped">Shipped</SelectItem>
                     <SelectItem value="Completed">Completed</SelectItem>
