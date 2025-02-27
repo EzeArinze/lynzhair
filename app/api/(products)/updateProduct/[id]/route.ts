@@ -13,10 +13,10 @@ export async function PUT(
 
     const { id } = await params;
 
-    const { name, description, category, price, discount, stock, images } =
+    const { name, description, category, price, discount, stock } =
       await req.json();
 
-    if (!name || !description || !category || !price || !stock || !images) {
+    if (!name || !description || !category || !price || !stock) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -29,7 +29,7 @@ export async function PUT(
     }
 
     // ✅ Preserve previously uploaded images
-    const existingImages = existingProduct.images || [];
+    // const existingImages = existingProduct.images || [];
 
     const product = {
       name,
@@ -38,7 +38,7 @@ export async function PUT(
       price,
       discount,
       stock,
-      images: existingImages,
+      // images: existingImages,
     };
 
     // Update the product in the database

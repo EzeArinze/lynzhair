@@ -13,6 +13,7 @@ import { productFormSchema } from "@/lib/Zschema";
 import type { ProductFormProps } from "@/utils/types";
 import { CategorySelect } from "./CategoriesSelector";
 import ImageUploader from "./ImageUploader";
+import { convertImagesToBase64 } from "@/utils/base64images";
 // import { addProduct } from "@/services/addProduct";
 
 export function ProductForm({
@@ -68,15 +69,17 @@ ProductFormProps) {
 
     const { name, category, price, stock, description, discount } = formDetails;
 
-    const imageBase64Promises = images.map((image) => {
-      return new Promise<string>((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.readAsDataURL(image);
-      });
-    });
+    // const imageBase64Promises = images.map((image) => {
+    //   return new Promise<string>((resolve) => {
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => resolve(reader.result as string);
+    //     reader.readAsDataURL(image);
+    //   });
+    // });
 
-    const base64Images = await Promise.all(imageBase64Promises);
+    // const base64Images = await Promise.all(imageBase64Promises);
+
+    const base64Images = await convertImagesToBase64(images);
 
     onSubmit({
       _id: initialData?._id || "",
@@ -185,14 +188,16 @@ ProductFormProps) {
           />
         </div>
       </div>
-      <div>
-        <ImageUploader
-          handleImageChange={handleImageChange}
-          handleRemoveImage={handleRemoveImage}
-          fileInputRef={fileInputRef}
-          previewUrls={previewUrls}
-        />
-      </div>
+      {!initialData?.images && (
+        <div>
+          <ImageUploader
+            handleImageChange={handleImageChange}
+            handleRemoveImage={handleRemoveImage}
+            fileInputRef={fileInputRef}
+            previewUrls={previewUrls}
+          />
+        </div>
+      )}
       <Button type="submit" className="w-full" disabled={isProcessing}>
         {isProcessing ? "Saving Product..." : "Save Product"}
       </Button>
