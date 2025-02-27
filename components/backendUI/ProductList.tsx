@@ -52,7 +52,6 @@ export default function ProductList() {
   };
 
   const handleEditProduct = async (productData: ProductTypes) => {
-    console.log(productData);
     handleUpadteProduct(productData, {
       onSuccess: () => {
         setIsEditDialogOpen((prev) => !prev);
@@ -84,7 +83,6 @@ export default function ProductList() {
             <ProductForm
               onSubmit={handleAddProduct}
               isProcessing={isEditing || isAddingProduct}
-              // onClose={() => setIsDialogOpen((prev) => !prev)}
             />
           </DialogContent>
         </Dialog>
@@ -162,7 +160,6 @@ export default function ProductList() {
                                   _id: editingProduct._id,
                                 })
                               }
-                              // onClose={() => setIsEditDialogOpen((prev) => !prev)}
                             />
                           )}
                         </DialogContent>
