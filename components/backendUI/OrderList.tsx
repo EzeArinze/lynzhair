@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -18,14 +17,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2 } from "lucide-react";
 import formatCurrency from "@/utils/formatCurrency";
 import dummyOrder, { IOrder } from "@/utils/dummyOrder";
 import getStatusColor from "@/lib/constant/getStatusColor";
+import MoreActionsOptions from "../Options_action";
 
 export default function OrderList() {
   const [orders, setOrders] = useState<IOrder[]>(dummyOrder);
-  console.log(dummyOrder);
 
   const handleStatusChange = (orderId: string, newStatus: IOrder["status"]) => {
     setOrders(
@@ -33,6 +31,10 @@ export default function OrderList() {
         order.orderNumber === orderId ? { ...order, status: newStatus } : order
       )
     );
+  };
+
+  const handleDelete = (orderId: string) => {
+    setOrders(orders.filter((order) => order.orderNumber !== orderId));
   };
 
   return (
@@ -88,9 +90,10 @@ export default function OrderList() {
                 </Select>
               </TableCell>
               <TableCell className=" md:table-cell">
-                <Button variant="outline" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <MoreActionsOptions
+                  Id={order.orderNumber}
+                  onDelete={handleDelete}
+                />
               </TableCell>
             </TableRow>
           ))}

@@ -1,80 +1,63 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Eye, Trash2 } from "lucide-react";
-import type { IOrder } from "@/utils/dummyOrder";
+import { Eye, Trash2, MoreVertical } from "lucide-react";
+// import type { IOrder } from "@/utils/dummyOrder";
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Separator } from "./ui/separator";
 
 interface OrderActionsProps {
-  order: IOrder;
-  onDelete: (orderId: string) => void;
-  onViewDetails?: (order: IOrder) => void;
+  Id: string;
+  onDelete: (Id: string) => void;
+  onViewDetails?: (Id: string) => void;
 }
 
-export default function OrderActions({
-  order,
+export default function MoreActionsOptions({
+  Id,
   onDelete,
   onViewDetails,
 }: OrderActionsProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleViewDetails = () => {
     if (onViewDetails) {
-      onViewDetails(order);
+      onViewDetails(Id);
     } else {
       // Default behavior if no handler is provided
-      console.log("View details for order:", order);
+      console.log("View details for ID:", Id);
     }
-    setIsOpen(false);
   };
 
   const handleDelete = () => {
-    onDelete(order.orderNumber);
-    setIsOpen(false);
+    onDelete(Id);
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
+    <Popover>
+      <PopoverTrigger asChild>
         <Button variant="outline" size="icon">
-          <MoreHorizontal className="h-4 w-4" />
+          <MoreVertical className="h-4 w-4" />
         </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Order #{order.orderNumber}</DialogTitle>
-          <DialogDescription>
-            Choose what you would like to do with this order
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="flex-row justify-between sm:justify-between gap-2">
-          <Button
-            variant="outline"
-            className="flex-1"
-            onClick={handleViewDetails}
-          >
-            <Eye className="mr-2 h-4 w-4" />
-            View Details
-          </Button>
-          <Button
-            variant="destructive"
-            className="flex-1"
-            onClick={handleDelete}
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            Delete Order
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      </PopoverTrigger>
+
+      <PopoverContent className="flex flex-col space-y-2 p-4 w-48 mr-8 lg:mr-0">
+        <Button
+          variant="outline"
+          className="flex-1"
+          onClick={handleViewDetails}
+        >
+          <Eye className="mr-2 h-4 w-4" />
+          Details
+        </Button>
+        <Separator />
+        <Button variant="destructive" className="flex-1" onClick={handleDelete}>
+          <Trash2 className="mr-2 h-4 w-4" />
+          Delete
+        </Button>
+      </PopoverContent>
+    </Popover>
   );
 }
