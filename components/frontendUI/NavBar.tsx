@@ -1,0 +1,74 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { ShoppingCart, Menu } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
+import { MobileMenu } from "./MobileMenu";
+import { Links } from "@/lib/constant/Links";
+import SearchComponent from "./SearchComponent";
+import Image from "next/image";
+
+export function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/LynzHair-removebg-preview.png"
+                alt="Logo"
+                height={120}
+                width={100}
+                className="object-contain object-center h-32 w-auto"
+              />
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            {Links.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Search, Cart, and Mobile Menu */}
+          <div className="flex items-center space-x-4">
+            <SearchComponent
+              className="pr-10 bg-white/80"
+              parentClassName="hidden md:flex relative w-64"
+            />
+
+            <Button variant="ghost" size="icon" className="relative">
+              <ShoppingCart className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-white shadow-md">
+                3
+              </span>
+            </Button>
+
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <MobileMenu setMobileMenuOpen={setMobileMenuOpen} />
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
