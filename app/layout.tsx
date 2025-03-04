@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] items-stretch min-h-dvh`}
       >
         <Navbar />
-        <main className="container mx-auto p-2 w-full">{children}</main>
+        <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
         <Footer />
       </body>
     </html>
