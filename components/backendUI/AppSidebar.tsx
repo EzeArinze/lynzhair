@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 // Menu items.
 const items = [
@@ -47,7 +48,15 @@ export function AppSidebar() {
       <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarGroupLabel className="mb-8 mt-4 font-bold text-lg">
-            LYNZ ADMIN
+            <Image
+              src="/LynzHair-removebg-preview.png"
+              alt="Logo"
+              height={120}
+              width={100}
+              priority
+              className="object-contain object-center h-32 w-auto"
+            />
+            {/* LYNZ ADMIN */}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

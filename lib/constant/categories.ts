@@ -4,8 +4,12 @@ export const HAIR_CATEGORIES = [
   "Curly hair",
   "Coily hair",
   "Afro-textured hair",
-  "Thick hair",
   "Wigs",
+  "Brazilian hair",
+  "Peruvian hair",
+  "Indian hair",
+  "Malaysian hair",
+  "Closure & Frontals",
 ] as const;
 
 export type HairCategory = (typeof HAIR_CATEGORIES)[number];
