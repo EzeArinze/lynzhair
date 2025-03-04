@@ -15,9 +15,12 @@ function SearchComponent({ className, parentClassName }: SearchComponentProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!query) return;
+
     const params = new URLSearchParams(searchParams);
     params.set("query", query);
-    router.push(`search-result?${params.toString()}`);
+    router.push(`/store/search-result?${params.toString()}`);
   };
 
   return (

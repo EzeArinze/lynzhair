@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/frontendUI/NavBar";
 import Footer from "@/components/frontendUI/Footer";
+import QueryProvider from "@/hooks/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] items-stretch min-h-dvh`}
       >
         <Navbar />
-        <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
+        <QueryProvider>
+          <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
+        </QueryProvider>
         <Footer />
       </body>
     </html>
