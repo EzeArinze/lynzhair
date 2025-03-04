@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/sheet";
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
+import { Suspense } from "react";
 
 interface MobileMenuProps {
   setMobileMenuOpen?: (open: boolean) => void;
@@ -23,7 +24,9 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
           <SheetDescription hidden>Mobile menu</SheetDescription>
         </div>
 
-        <SearchComponent className="pr-10" parentClassName="relative my-4" />
+        <Suspense>
+          <SearchComponent className="pr-10" parentClassName="relative my-4" />
+        </Suspense>
 
         <nav className="flex flex-col space-y-4 py-4">
           {Links.map((link) => (

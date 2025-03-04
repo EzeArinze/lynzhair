@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu } from "lucide-react";
 
@@ -46,10 +46,12 @@ export function Navbar() {
 
           {/* Search, Cart, and Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <SearchComponent
-              className="pr-10 bg-white/80"
-              parentClassName="hidden md:flex relative w-64"
-            />
+            <Suspense>
+              <SearchComponent
+                className="pr-10 bg-white/80"
+                parentClassName="hidden md:flex relative w-64"
+              />
+            </Suspense>
 
             <Button variant="ghost" size="icon" className="relative">
               <ShoppingCart className="h-5 w-5" />
