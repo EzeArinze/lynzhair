@@ -16,12 +16,3 @@ export const useGetSearchResult = (query: string) => {
     queryFn: () => getSearchResult(query),
   });
 };
-
-// export const useGetSearchResult = (query: string) => {
-//   return useQuery({
-//     queryKey: ["search", query],
-//     queryFn: async () => {
-//       const response = await axios.get(`/api/search?query=${query}`);
-//       return response.data;
-//     },
-//   });

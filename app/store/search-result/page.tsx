@@ -1,20 +1,14 @@
-"use client";
-
-import { useGetSearchResult } from "@/services/getSearchResult";
-import { useSearchParams } from "next/navigation";
-import React from "react";
+import SearchPage from "@/components/frontendUI/SearchPage";
+import { Suspense } from "react";
 
 function SearchResultPage() {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-
-  const { data, isFetching, error } = useGetSearchResult(
-    query?.toString() || ""
+  return (
+    <div>
+      <Suspense>
+        <SearchPage />
+      </Suspense>
+    </div>
   );
-
-  console.log(data, isFetching, error);
-
-  return <div>searchResultPage</div>;
 }
 
 export default SearchResultPage;
