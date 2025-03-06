@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetSearchResult } from "@/services/getSearchResult";
+import { useGetSearchResult } from "@/services/productsServices/getSearchResult";
 import { useSearchParams } from "next/navigation";
 
 function SearchPage() {

@@ -22,11 +22,11 @@ import { Edit, Trash2, PlusCircle } from "lucide-react";
 import formatCurrency from "@/utils/formatCurrency";
 import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
-import { useGetProducts } from "@/services/getProduct";
+import { useGetProducts } from "@/services/productsServices/getProduct";
 import { ProductTypes } from "@/utils/types";
-import { useAddProduct } from "@/services/addProduct";
-import { useDeleteProduct } from "@/services/deleteProduct";
-import { useUpdateProduct } from "@/services/updateProduct";
+import { useAddProduct } from "@/services/productsServices/addProduct";
+import { useDeleteProduct } from "@/services/productsServices/deleteProduct";
+import { useUpdateProduct } from "@/services/productsServices/updateProduct";
 import ProductSkeleton from "../ProductSkeleton";
 
 export default function ProductList() {
