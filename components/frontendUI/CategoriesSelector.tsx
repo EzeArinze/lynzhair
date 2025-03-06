@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { dummy_categories } from "@/lib/constant/categories";
 import { cn } from "@/lib/utils";
 import { useGetCategories } from "@/services/productsServices/getCategories";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface HairCategorySelectorProps {
@@ -17,16 +18,18 @@ export default function HairCategorySelector({
 }: HairCategorySelectorProps) {
   const [selectedCategory, setSelectedCategory] = useState(defaultValue);
 
+  const router = useRouter();
   const { data: categories, isFetching } = useGetCategories();
 
-  const newCategories =
-    !Array.isArray(categories) || categories.length === 0
-      ? dummy_categories
-      : categories;
+  const newCategories = categories ?? dummy_categories;
 
   const handleSelect = (category: string) => {
     setSelectedCategory(category);
     onSelect?.(category);
+
+    if (!category) return;
+
+    router.push(`/store/categories-page?category=${category}`);
   };
 
   return isFetching ? (

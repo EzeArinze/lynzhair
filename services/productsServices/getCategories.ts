@@ -1,9 +1,10 @@
+import { BASE_URL } from "@/lib/constant/env";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const getCategories = async () => {
   try {
-    const categories = await axios.get("api/getCategories");
+    const categories = await axios.get(`${BASE_URL}/api/getCategories`);
     return categories.data.categories || [];
   } catch (error) {
     console.log(error);
