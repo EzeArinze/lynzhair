@@ -20,7 +20,7 @@ function SearchComponent({ className, parentClassName }: SearchComponentProps) {
 
     const params = new URLSearchParams(searchParams);
     params.set("query", query);
-    router.push(`/store/search-result?${params.toString()}`);
+    router.push(`/commerce/search-result?${params.toString()}`);
   };
 
   return (

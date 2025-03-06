@@ -29,7 +29,7 @@ export default function HairCategorySelector({
 
     if (!category) return;
 
-    router.push(`/store/categories-page?category=${category}`);
+    router.push(`/commerce/categories-page?category=${category}`);
   };
 
   return isFetching ? (
