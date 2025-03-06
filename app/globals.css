@@ -112,6 +112,10 @@ h6 {
   -ms-overflow-style: none;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
