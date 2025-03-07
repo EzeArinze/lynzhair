@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ProductCard } from "./ProductCard";
-
-const BASE_URL = process.env.BASE_URL;
+import { BASE_URL } from "@/lib/constant/env";
 
 export type productType = {
   _id: string;

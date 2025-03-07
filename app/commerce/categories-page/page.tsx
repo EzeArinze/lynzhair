@@ -1,10 +1,12 @@
 import CategoriesPageComponent from "@/components/frontendUI/CategoriesPageComponent";
-import React from "react";
+import { Suspense } from "react";
 
 function categoriesPage() {
   return (
     <div>
-      <CategoriesPageComponent />
+      <Suspense>
+        <CategoriesPageComponent />
+      </Suspense>
     </div>
   );
 }
