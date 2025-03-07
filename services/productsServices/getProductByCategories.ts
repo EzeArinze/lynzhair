@@ -6,7 +6,7 @@ export const getProductByCategories = async (category: string) => {
     const productByCategories = await axios.get(
       `/api/products-categories?category=${category}`
     );
-    return productByCategories.data.data || [];
+    return productByCategories.data || [];
   } catch (error) {
     console.log(error);
   }

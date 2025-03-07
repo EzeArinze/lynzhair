@@ -22,10 +22,7 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.json(
-      { message: "Successfull", data: categoryProducts },
-      { status: 200 }
-    );
+    return NextResponse.json(categoryProducts, { status: 200 });
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(
