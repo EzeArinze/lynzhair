@@ -4,7 +4,7 @@ import axios from "axios";
 export const getProductByCategories = async (category: string) => {
   try {
     const productByCategories = await axios.get(
-      `/api/products-categories?category=${category}`
+      `/api/v1/products-categories?category=${category}`
     );
     return productByCategories.data || [];
   } catch (error) {

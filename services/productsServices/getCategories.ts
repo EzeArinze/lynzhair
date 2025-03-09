@@ -4,7 +4,7 @@ import axios from "axios";
 
 const getCategories = async () => {
   try {
-    const categories = await axios.get(`${BASE_URL}/api/getCategories`);
+    const categories = await axios.get(`${BASE_URL}/api/v1/categories`);
     return categories.data.categories || [];
   } catch (error) {
     console.log(error);

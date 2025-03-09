@@ -10,10 +10,14 @@ const getCommerceProduct = async ({
   pageParam = 0,
   queryParams,
 }: getCommerceProductProps) => {
-  const { data } = await axios.get(
-    `/api/products?${queryParams}&page=${pageParam}`
-  );
-  return data;
+  try {
+    const { data } = await axios.get(
+      `/api/v1/products?${queryParams}&page=${pageParam}`
+    );
+    return data || [];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const useGetCommerceProduct = (
