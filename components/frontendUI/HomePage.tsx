@@ -5,14 +5,13 @@ import HairCategorySelector from "./CategoriesSelector";
 import { FilterSidebar } from "./Filter";
 import { MobileFilters } from "./MobileFilter";
 import { ProductGrid } from "./ProductGrid";
-import { useQueryState } from "nuqs";
+import { useNuqsContext } from "@/context/use-nuqs-state";
 
 function HomePage() {
-  //Continue here tomorrow
+  const { sortOption, setSortOption, onSortClear, onClearPrice } =
+    useNuqsContext();
+
   const { data: products } = useGetCommerceProduct();
-  const [sortOption, setSortOption] = useQueryState("sort", {
-    defaultValue: "",
-  });
 
   const getActiveFiltersCount = () => {
     let count = 0;
@@ -36,7 +35,7 @@ function HomePage() {
               <MobileFilters
                 // priceRange={priceRange}
                 // setPriceRange={setPriceRange}
-                onClearFilters={() => {}}
+                onClearFilters={onClearPrice}
                 activeFiltersCount={getActiveFiltersCount()}
               />
             </div>
@@ -45,7 +44,7 @@ function HomePage() {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Desktop Filters - Hidden on mobile */}
             <div className="hidden lg:block lg:flex-shrink-0">
-              <FilterSidebar onClearFilters={() => {}} />
+              <FilterSidebar onClearFilters={onClearPrice} />
             </div>
 
             <div className="flex-grow">
@@ -53,6 +52,7 @@ function HomePage() {
                 products={allProducts}
                 sortOption={sortOption}
                 setSortOption={setSortOption}
+                clearState={onSortClear}
               />
             </div>
           </div>

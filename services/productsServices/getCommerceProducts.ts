@@ -16,16 +16,12 @@ const getCommerceProduct = async ({
   pageParam = 0,
   queryParams,
 }: getCommerceProductProps): Promise<PageResponse> => {
-  try {
-    const { data } = await axios.get<PageResponse>(
-      `/api/v1/products?${queryParams}&page=${pageParam}`
-    );
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Error fetching products");
-  }
+  const { data } = await axios.get<PageResponse>(
+    `/api/v1/products?${queryParams}&page=${pageParam}`
+  );
+  return data;
 };
+
 export const useGetCommerceProduct = (
   minPrice?: number,
   maxPrice?: number,
@@ -38,7 +34,7 @@ export const useGetCommerceProduct = (
   if (sort) queryParams.append("sort", sort);
 
   return useInfiniteQuery({
-    queryKey: ["products", minPrice, maxPrice, sort],
+    queryKey: ["commerce-products", minPrice, maxPrice, sort],
     initialPageParam: 0,
     queryFn: ({ pageParam = 0 }: { pageParam?: number }) =>
       getCommerceProduct({ pageParam, queryParams: queryParams.toString() }),

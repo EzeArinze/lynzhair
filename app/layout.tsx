@@ -4,7 +4,8 @@ import "./globals.css";
 import { Navbar } from "@/components/frontendUI/NavBar";
 import Footer from "@/components/frontendUI/Footer";
 import QueryProvider from "@/hooks/QueryProvider";
-import NuqsAdapterWrap from "@/components/NuqsAdapter";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import NuqsContext from "@/context/use-nuqs-state";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +34,13 @@ export default function RootLayout({
       >
         <Navbar />
         <QueryProvider>
-          <NuqsAdapterWrap>
-            <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
-          </NuqsAdapterWrap>
+          <NuqsAdapter>
+            <NuqsContext>
+              <main className="container mx-auto p-2 lg:w-[97%]">
+                {children}
+              </main>
+            </NuqsContext>
+          </NuqsAdapter>
         </QueryProvider>
         <Footer />
       </body>

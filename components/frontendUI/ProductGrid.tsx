@@ -11,17 +11,19 @@ import { productType } from "@/utils/types";
 interface ProductGridProps {
   products: productType[];
   sortOption: string | null;
-  setSortOption: (value: string | null) => void;
+  setSortOption: (value: string | null) => Promise<URLSearchParams>;
+  clearState: () => void;
 }
 
 export function ProductGrid({
   products,
   sortOption,
   setSortOption,
+  clearState,
 }: ProductGridProps) {
   const handleSortOption = (value: string | null) => {
     if (value === "all") {
-      setSortOption(null);
+      clearState?.();
     }
     setSortOption(value);
   };
@@ -39,9 +41,7 @@ export function ProductGrid({
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all" defaultValue="all">
-              All
-            </SelectItem>
+            <SelectItem value="all">All</SelectItem>
             <SelectItem value="price:asc">Price: Low to High</SelectItem>
             <SelectItem value="price:desc">Price: High to Low</SelectItem>
             <SelectItem value="name:asc">Name: Ascending</SelectItem>

@@ -53,21 +53,21 @@ export function FilterSidebar({
               <div className="space-y-4">
                 {/* Custom price range inputs */}
                 <div className="flex items-center space-x-2">
-                  <div className="flex-1">
+                  <div className="flex-1 m-1">
                     <Input
                       type="number"
                       min="0"
                       placeholder="Min"
-                      className="pl-7"
+                      className="pl-2"
                     />
                   </div>
                   <span className="text-gray-400">to</span>
-                  <div className="flex-1">
+                  <div className="flex-1 m-1">
                     <Input
                       type="number"
                       min="0"
                       placeholder="Max"
-                      className="pl-7"
+                      className="pl-2"
                     />
                   </div>
                 </div>
