@@ -1,5 +1,4 @@
-// "use client";
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,30 +8,24 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-
-interface FilterSidebarProps {
-  // priceRange: number[]
-  // setPriceRange: (value: number[]) => void
-  onClearFilters: () => void;
-  className?: string;
-}
+import { FilterSidebarProps } from "@/utils/types";
+import PredefinedRanges from "./PredefinedRanges";
 
 export function FilterSidebar({
+  minPrice,
+  maxPrice,
+  setMinPrice,
+  setMaxPrice,
   className,
   onClearFilters,
 }: FilterSidebarProps) {
-  // Handle price range application
-  const handleApplyPriceRange = () => {
-    onClearFilters?.();
-  };
+  const [localMinPrice, setLocalMinPrice] = useState(minPrice);
+  const [localMaxPrice, setLocalMaxPrice] = useState(maxPrice);
 
-  // Predefined price ranges
-  const priceRanges = [
-    { label: "Under N100", min: 0, max: 100 },
-    { label: "N100 - N200", min: 100, max: 200 },
-    { label: "N200 - N300", min: 200, max: 300 },
-    { label: "Over N300", min: 300, max: 1000 },
-  ];
+  const handleApplyPriceRange = () => {
+    setMinPrice(localMinPrice);
+    setMaxPrice(localMaxPrice);
+  };
 
   return (
     <div className={cn("w-full lg:w-72 shrink-0", className)}>
@@ -58,6 +51,8 @@ export function FilterSidebar({
                       type="number"
                       min="0"
                       placeholder="Min"
+                      value={localMinPrice}
+                      onChange={(e) => setLocalMinPrice(Number(e.target.value))}
                       className="pl-2"
                     />
                   </div>
@@ -67,6 +62,8 @@ export function FilterSidebar({
                       type="number"
                       min="0"
                       placeholder="Max"
+                      value={localMaxPrice}
+                      onChange={(e) => setLocalMaxPrice(Number(e.target.value))}
                       className="pl-2"
                     />
                   </div>
@@ -74,37 +71,27 @@ export function FilterSidebar({
 
                 <Button
                   onClick={handleApplyPriceRange}
-                  className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                  className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-2"
                 >
                   Apply
                 </Button>
 
                 {/* Predefined price ranges */}
-                <div className="pt-2 border-t">
-                  <p className="text-sm font-medium mb-2">Quick Ranges</p>
-                  <div className="space-y-2">
-                    {priceRanges.map((range) => (
-                      <button
-                        key={range.label}
-                        onClick={() => {}}
-                        className={`text-sm w-full text-left py-1.5 px-2 rounded-md transition-colors ${
-                          0 === range.min && 1 === range.max // check the range for the styling
-                            ? "bg-pink-50 text-pink-600 font-medium"
-                            : "text-gray-600 hover:bg-gray-50"
-                        }`}
-                      >
-                        {range.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+
+                <PredefinedRanges
+                  setLocalMaxPrice={setLocalMaxPrice}
+                  setLocalMinPrice={setLocalMinPrice}
+                  localMaxPrice={localMaxPrice}
+                  localMinPrice={localMinPrice}
+                />
 
                 {/* Current price range display */}
                 <div className="text-sm text-gray-600 pt-2">
                   <p>
                     Current range:{" "}
                     <span className="font-medium">
-                      N{0} - N{1} {/* implement price range */}
+                      N{localMinPrice} - N{localMaxPrice}{" "}
+                      {/* implement price range */}
                     </span>
                   </p>
                 </div>
@@ -116,6 +103,11 @@ export function FilterSidebar({
         <Button
           className="w-full mt-6 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white transition-colors"
           variant="outline"
+          onClick={() => {
+            setLocalMinPrice(0);
+            setLocalMaxPrice(0);
+            onClearFilters?.();
+          }}
         >
           Clear All Filters
         </Button>

@@ -9,16 +9,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FilterSidebar } from "./Filter";
-
-interface MobileFiltersProps {
-  // priceRange: number[];
-  // setPriceRange: (value: number[]) => void;
-  onClearFilters: () => void;
-  activeFiltersCount?: number;
-}
+import { MobileFiltersProps } from "@/utils/types";
 
 export function MobileFilters({
   onClearFilters,
+  maxPrice,
+  minPrice,
+  setMaxPrice,
+  setMinPrice,
   activeFiltersCount = 0,
 }: MobileFiltersProps) {
   return (
@@ -43,6 +41,10 @@ export function MobileFilters({
         </SheetHeader>
         <div className="mt-4">
           <FilterSidebar
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            setMinPrice={setMinPrice}
+            setMaxPrice={setMaxPrice}
             onClearFilters={onClearFilters}
             className="w-full shadow-none border-0 p-0"
           />

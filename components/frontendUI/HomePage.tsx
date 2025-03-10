@@ -8,14 +8,22 @@ import { ProductGrid } from "./ProductGrid";
 import { useNuqsContext } from "@/context/use-nuqs-state";
 
 function HomePage() {
-  const { sortOption, setSortOption, onSortClear, onClearPrice } =
-    useNuqsContext();
+  const {
+    sortOption,
+    setSortOption,
+    onSortClear,
+    onClearPrice,
+    minPrice,
+    maxPrice,
+    setMinPrice,
+    setMaxPrice,
+  } = useNuqsContext();
 
   const { data: products } = useGetCommerceProduct();
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (1 > 0 || 1 < 1000) count++;
+    if (minPrice > 0 || maxPrice < 1000) count++;
     return count;
   };
 
@@ -33,8 +41,10 @@ function HomePage() {
             <div />
             <div className="flex items-center gap-4">
               <MobileFilters
-                // priceRange={priceRange}
-                // setPriceRange={setPriceRange}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                setMinPrice={setMinPrice}
+                setMaxPrice={setMaxPrice}
                 onClearFilters={onClearPrice}
                 activeFiltersCount={getActiveFiltersCount()}
               />
@@ -44,7 +54,13 @@ function HomePage() {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Desktop Filters - Hidden on mobile */}
             <div className="hidden lg:block lg:flex-shrink-0">
-              <FilterSidebar onClearFilters={onClearPrice} />
+              <FilterSidebar
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                setMinPrice={setMinPrice}
+                setMaxPrice={setMaxPrice}
+                onClearFilters={onClearPrice}
+              />
             </div>
 
             <div className="flex-grow">

@@ -1,15 +1,15 @@
 "use client";
 
-import { useQueryState } from "nuqs";
+import { parseAsInteger, useQueryState } from "nuqs";
 import React, { createContext, useContext } from "react";
 
 interface NuqsContextType {
   sortOption: string;
   setSortOption: (value: string | null) => Promise<URLSearchParams>;
-  minPrice: string;
-  maxPrice: string;
-  setMinPrice: (value: string) => Promise<URLSearchParams>;
-  setMaxPrice: (value: string) => Promise<URLSearchParams>;
+  minPrice: number;
+  maxPrice: number;
+  setMinPrice: (value: number) => Promise<URLSearchParams>;
+  setMaxPrice: (value: number) => Promise<URLSearchParams>;
   onClearPrice: () => void;
   onSortClear: () => void;
 }
@@ -21,13 +21,15 @@ function NuqsContext({ children }: { children: React.ReactNode }) {
     defaultValue: "all",
   });
 
-  const [minPrice, setMinPrice] = useQueryState("minPrice", {
-    defaultValue: "",
-  });
+  const [minPrice, setMinPrice] = useQueryState(
+    "minPrice",
+    parseAsInteger.withDefault(0)
+  );
 
-  const [maxPrice, setMaxPrice] = useQueryState("maxPrice", {
-    defaultValue: "",
-  });
+  const [maxPrice, setMaxPrice] = useQueryState(
+    "maxPrice",
+    parseAsInteger.withDefault(0)
+  );
 
   const onClearPrice = () => {
     setMaxPrice(null);

@@ -40,3 +40,21 @@ export type productType = {
   discount: number;
   images: { public_url: string; public_id: string }[];
 };
+
+export interface FilterSidebarProps {
+  minPrice: number;
+  maxPrice: number;
+  setMinPrice: (value: number) => void;
+  setMaxPrice: (value: number) => void;
+  onClearFilters: () => void;
+  className?: string;
+}
+
+export interface MobileFiltersProps {
+  minPrice: number;
+  maxPrice: number;
+  setMinPrice: (value: number) => void;
+  setMaxPrice: (value: number) => void;
+  onClearFilters: () => void;
+  activeFiltersCount?: number;
+}
