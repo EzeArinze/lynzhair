@@ -104,7 +104,7 @@ export function FilterSidebar({
                   <p>
                     Current range:{" "}
                     <span className="font-medium">
-                      ${0} - ${1} {/* implement price range */}
+                      N{0} - N{1} {/* implement price range */}
                     </span>
                   </p>
                 </div>
