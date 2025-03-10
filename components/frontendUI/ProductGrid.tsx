@@ -10,8 +10,8 @@ import { productType } from "@/utils/types";
 
 interface ProductGridProps {
   products: productType[];
-  sortOption: string;
-  setSortOption: (value: string) => void;
+  sortOption: string | null;
+  setSortOption: (value: string | null) => void;
 }
 
 export function ProductGrid({
@@ -19,22 +19,33 @@ export function ProductGrid({
   sortOption,
   setSortOption,
 }: ProductGridProps) {
-  console.log(setSortOption);
+  const handleSortOption = (value: string | null) => {
+    if (value === "all") {
+      setSortOption(null);
+    }
+    setSortOption(value);
+  };
 
   return (
     <div className="flex-1">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <h2 className="text-2xl font-bold">All Products</h2>
 
-        <Select value={sortOption} onValueChange={() => {}}>
+        <Select
+          value={sortOption ?? undefined}
+          onValueChange={handleSortOption}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="featured">Featured</SelectItem>
-            <SelectItem value="price-low">Price: Low to High</SelectItem>
-            <SelectItem value="price-high">Price: High to Low</SelectItem>
-            <SelectItem value="rating">Highest Rated</SelectItem>
+            <SelectItem value="all" defaultValue="all">
+              All
+            </SelectItem>
+            <SelectItem value="price:asc">Price: Low to High</SelectItem>
+            <SelectItem value="price:desc">Price: High to Low</SelectItem>
+            <SelectItem value="name:asc">Name: Ascending</SelectItem>
+            <SelectItem value="name:desc">Name: Descending</SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,14 +28,14 @@ export function FilterSidebar({
 
   // Predefined price ranges
   const priceRanges = [
-    { label: "Under $100", min: 0, max: 100 },
-    { label: "$100 - $200", min: 100, max: 200 },
-    { label: "$200 - $300", min: 200, max: 300 },
-    { label: "Over $300", min: 300, max: 1000 },
+    { label: "Under N100", min: 0, max: 100 },
+    { label: "N100 - N200", min: 100, max: 200 },
+    { label: "N200 - N300", min: 200, max: 300 },
+    { label: "Over N300", min: 300, max: 1000 },
   ];
 
   return (
-    <div className={cn("w-full lg:w-64 shrink-0", className)}>
+    <div className={cn("w-full lg:w-72 shrink-0", className)}>
       <div className="sticky top-20 bg-white p-6 rounded-lg border">
         <h3 className="text-lg font-semibold mb-4">Filters</h3>
 
@@ -53,10 +53,7 @@ export function FilterSidebar({
               <div className="space-y-4">
                 {/* Custom price range inputs */}
                 <div className="flex items-center space-x-2">
-                  <div className="relative flex-1">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                      $
-                    </span>
+                  <div className="flex-1">
                     <Input
                       type="number"
                       min="0"
@@ -65,10 +62,7 @@ export function FilterSidebar({
                     />
                   </div>
                   <span className="text-gray-400">to</span>
-                  <div className="relative flex-1">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                      $
-                    </span>
+                  <div className="flex-1">
                     <Input
                       type="number"
                       min="0"

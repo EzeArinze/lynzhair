@@ -5,19 +5,22 @@ import HairCategorySelector from "./CategoriesSelector";
 import { FilterSidebar } from "./Filter";
 import { MobileFilters } from "./MobileFilter";
 import { ProductGrid } from "./ProductGrid";
+import { useQueryState } from "nuqs";
 
 function HomePage() {
+  //Continue here tomorrow
   const { data: products } = useGetCommerceProduct();
-
-  const allProducts = products?.pages.flatMap((page) => page.products) || [];
-
-  console.log(allProducts);
+  const [sortOption, setSortOption] = useQueryState("sort", {
+    defaultValue: "",
+  });
 
   const getActiveFiltersCount = () => {
     let count = 0;
     if (1 > 0 || 1 < 1000) count++;
     return count;
   };
+
+  const allProducts = products?.pages.flatMap((page) => page.products) || [];
 
   return (
     <div>
@@ -48,8 +51,8 @@ function HomePage() {
             <div className="flex-grow">
               <ProductGrid
                 products={allProducts}
-                sortOption={"featured"}
-                setSortOption={() => {}}
+                sortOption={sortOption}
+                setSortOption={setSortOption}
               />
             </div>
           </div>
