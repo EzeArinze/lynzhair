@@ -1,3 +1,4 @@
+import { productType } from "@/utils/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -6,20 +7,25 @@ type getCommerceProductProps = {
   queryParams: string;
 };
 
+interface PageResponse {
+  products: productType[];
+  page?: number; // Next page number or undefined
+}
+
 const getCommerceProduct = async ({
   pageParam = 0,
   queryParams,
-}: getCommerceProductProps) => {
+}: getCommerceProductProps): Promise<PageResponse> => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.get<PageResponse>(
       `/api/v1/products?${queryParams}&page=${pageParam}`
     );
-    return data || [];
+    return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Error fetching products");
   }
 };
-
 export const useGetCommerceProduct = (
   minPrice?: number,
   maxPrice?: number,

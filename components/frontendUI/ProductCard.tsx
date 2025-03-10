@@ -3,6 +3,7 @@ import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { productType } from "./ProductView";
+import formatCurrency from "@/utils/formatCurrency";
 
 type ProductCardProps = {
   product: productType;
@@ -31,9 +32,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <h3 className="font-semibold text-lg mb-1">{product.name}</h3>
         <p className="text-sm text-gray-500 mb-2">{product.category}</p>
         <div className="flex items-center justify-between">
-          <span className="font-bold text-lg">${product.price.toFixed(2)}</span>
+          <span className="font-bold text-lg">
+            {formatCurrency(product.price)}
+          </span>
         </div>
-        <Button className="w-full mt-4 bg-black hover:bg-gray-800 text-white">
+        <Button className="w-full mt-4 bg-primary hover:bg-secondary hover:text-primary hover:border-primary hover:border-2 rounded-md text-white">
           Add to Cart
         </Button>
       </div>
