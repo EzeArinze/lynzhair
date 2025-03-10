@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import { productType } from "./ProductView";
 import formatCurrency from "@/utils/formatCurrency";
+import { productType } from "@/utils/types";
 
 type ProductCardProps = {
   product: productType;

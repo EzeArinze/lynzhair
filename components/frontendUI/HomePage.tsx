@@ -23,7 +23,7 @@ function HomePage() {
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (minPrice > 0 || maxPrice < 1000) count++;
+    if (minPrice > 0 || maxPrice < 1000) count++; //come back and check this logic later
     return count;
   };
 
