@@ -5,8 +5,8 @@ import { Navbar } from "@/components/frontendUI/NavBar";
 import Footer from "@/components/frontendUI/Footer";
 import QueryProvider from "@/hooks/QueryProvider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import NuqsContext from "@/context/use-nuqs-state";
-import { Suspense } from "react";
+// import NuqsContext from "@/context/use-nuqs-state";
+// import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,13 +36,7 @@ export default function RootLayout({
         <Navbar />
         <QueryProvider>
           <NuqsAdapter>
-            <Suspense>
-              <NuqsContext>
-                <main className="container mx-auto p-2 lg:w-[97%]">
-                  {children}
-                </main>
-              </NuqsContext>
-            </Suspense>
+            <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
           </NuqsAdapter>
         </QueryProvider>
         <Footer />

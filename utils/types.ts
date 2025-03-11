@@ -58,3 +58,22 @@ export interface MobileFiltersProps {
   onClearFilters: () => void;
   activeFiltersCount?: number;
 }
+
+// Details Types
+interface Image {
+  public_url: string;
+  public_id: string;
+  _id: string;
+}
+
+export interface DetailsType {
+  _id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: number;
+  description: string;
+  discount: number;
+  images: Image[];
+  __v: number;
+}

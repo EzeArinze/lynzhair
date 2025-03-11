@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import formatCurrency from "@/utils/formatCurrency";
 import { productType } from "@/utils/types";
+import Link from "next/link";
 
 type ProductCardProps = {
   product: productType;
@@ -11,13 +12,18 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="group relative bg-white rounded-lg border overflow-hidden hover:shadow-lg transition-shadow">
+    <Link
+      href={`/commerce/product-detail/${product._id}`}
+      className="group relative bg-white rounded-lg border overflow-hidden hover:shadow-lg transition-shadow"
+    >
       <div className="relative h-64 overflow-hidden">
         <Image
           src={product.images.at(0)?.public_url || "/placeholder.svg"}
           alt={product.name}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
+          className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
         />
         <div></div>
         <Button
@@ -40,6 +46,6 @@ export function ProductCard({ product }: ProductCardProps) {
           Add to Cart
         </Button>
       </div>
-    </div>
+    </Link>
   );
 }

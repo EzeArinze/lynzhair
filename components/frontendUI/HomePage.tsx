@@ -5,19 +5,33 @@ import HairCategorySelector from "./CategoriesSelector";
 import { FilterSidebar } from "./Filter";
 import { MobileFilters } from "./MobileFilter";
 import { ProductGrid } from "./ProductGrid";
-import { useNuqsContext } from "@/context/use-nuqs-state";
+// import { useNuqsContext } from "@/context/use-nuqs-state";
+import { parseAsInteger, useQueryState } from "nuqs";
 
 function HomePage() {
-  const {
-    sortOption,
-    setSortOption,
-    onSortClear,
-    onClearPrice,
-    minPrice,
-    maxPrice,
-    setMinPrice,
-    setMaxPrice,
-  } = useNuqsContext();
+  const [sortOption, setSortOption] = useQueryState("sort", {
+    defaultValue: "all",
+  });
+
+  const [minPrice, setMinPrice] = useQueryState(
+    "minPrice",
+    parseAsInteger.withDefault(0)
+  );
+
+  const [maxPrice, setMaxPrice] = useQueryState(
+    "maxPrice",
+    parseAsInteger.withDefault(0)
+  );
+
+  const onClearPrice = () => {
+    setMaxPrice(null);
+    setMinPrice(null);
+  };
+
+  const onSortClear = () => {
+    setMaxPrice(null);
+    setMinPrice(null);
+  };
 
   const { data: products } = useGetCommerceProduct();
 
