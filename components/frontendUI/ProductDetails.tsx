@@ -93,7 +93,7 @@ function ProductDetails({ details }: ProductDetailsProp) {
           )}
         </div>
 
-        {/* <Separator className="mb-6" /> */}
+        <Separator className="mb-6" />
 
         {/* Product specifications */}
         <div className="grid grid-cols-2 gap-4 mb-6">
