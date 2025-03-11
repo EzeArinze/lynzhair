@@ -10,6 +10,7 @@ import { DetailsType } from "@/utils/types";
 import AddToCartSection from "../CartUi/AddToCartSection";
 import { Badge } from "../ui/badge";
 import formatCurrency from "@/utils/formatCurrency";
+import { percentageCalculator } from "@/utils/percentageCalculator";
 
 type ProductDetailsProp = {
   details: DetailsType | undefined;
@@ -21,7 +22,7 @@ function ProductDetails({ details }: ProductDetailsProp) {
     details?.images?.at(0)?.public_url
   );
 
-  console.log(mainImage);
+  // const percentage = (details?.price - details?.discount) / 100
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
@@ -65,35 +66,39 @@ function ProductDetails({ details }: ProductDetailsProp) {
       </div>
 
       {/* Product info */}
-      <div className="flex flex-col">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <div className="flex flex-col  lg:w-[60%]">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
           {details?.name}
         </h1>
 
         <div className="mb-6">
           {(details?.discount ?? 0) > 0 ? (
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-pink-600">
-                {formatCurrency(details?.price || 0)}
-              </span>
-              <span className="text-lg text-gray-500 line-through">
-                {formatCurrency(details?.price || 0)}
-              </span>
-              <Badge className="bg-green-600 ml-2">
-                Save{" "}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xl md:text-2xl font-bold text-pink-600">
                 {formatCurrency(
                   (details?.price ?? 0) - (details?.discount ?? 0)
+                )}
+              </span>
+              <span className="text-base md:text-lg text-gray-500 line-through">
+                {formatCurrency(details?.price || 0)}
+              </span>
+              <Badge className="bg-green-600  text-sm md:text-base">
+                Save{" "}
+                {percentageCalculator(
+                  details?.price ?? 0,
+                  details?.discount ?? 0
                 )}
               </Badge>
             </div>
           ) : (
-            <span className="text-2xl font-bold text-gray-900">
+            <span className="text-2xl font-bold text-pink-600">
               {formatCurrency(details?.price || 0)}
             </span>
           )}
         </div>
 
-        <Separator className="mb-6" />
+        <span className="line-clamp-2">{details?.description}</span>
+        <Separator className="mb-4" />
 
         {/* Product specifications */}
         <div className="grid grid-cols-2 gap-4 mb-6">
@@ -115,7 +120,7 @@ function ProductDetails({ details }: ProductDetailsProp) {
           </span>
         </div>
 
-        <Separator className="mb-6" />
+        <Separator className="mb-4" />
 
         {/* Add to cart section */}
         <AddToCartSection />
@@ -127,7 +132,8 @@ function ProductDetails({ details }: ProductDetailsProp) {
             <div>
               <h3 className="text-sm font-medium">Free Shipping</h3>
               <p className="text-sm text-gray-500">
-                On orders over $150. Delivery in 3-5 business days.
+                On orders over {formatCurrency(50000)}. Delivery in 3-5 business
+                days.
               </p>
             </div>
           </div>
@@ -136,7 +142,7 @@ function ProductDetails({ details }: ProductDetailsProp) {
             <div>
               <h3 className="text-sm font-medium">30-Day Returns</h3>
               <p className="text-sm text-gray-500">
-                Not satisfied? Return within 30 days for a full refund.
+                Not satisfied? Return within 10 days for a full refund.
               </p>
             </div>
           </div>

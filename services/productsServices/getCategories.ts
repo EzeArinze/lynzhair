@@ -11,7 +11,7 @@ export const useGetCategories = () => {
   return useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
-    retry: 1, // Optional: Retry twice before failing
-    staleTime: 10 * 60 * 1000, // Optional: Cache for 10 minutes
+    retry: 1, // Optional: Retry once before failing
+    staleTime: 40 * 60 * 1000,
   });
 };
