@@ -20,7 +20,7 @@ function HomePage() {
 
   const [maxPrice, setMaxPrice] = useQueryState(
     "maxPrice",
-    parseAsInteger.withDefault(0)
+    parseAsInteger.withDefault(1000)
   );
 
   const onClearPrice = () => {
@@ -37,7 +37,7 @@ function HomePage() {
 
   const getActiveFiltersCount = () => {
     let count = 0;
-    if (minPrice > 0 || maxPrice < 1000) count++; //come back and check this logic later
+    if (minPrice > 0 || maxPrice < 1000) count++;
     return count;
   };
 

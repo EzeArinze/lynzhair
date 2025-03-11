@@ -1,5 +1,6 @@
 import connectDB from "@/lib/dbconnect";
 import { Product } from "@/models/ProductModel";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
@@ -24,7 +25,7 @@ export async function GET(request: Request) {
 
     const searchResult = await Product.find(query);
 
-    return new Response(JSON.stringify({ searchResult }), { status: 200 });
+    return NextResponse.json(searchResult, { status: 200 });
   } catch (error) {
     console.log(error);
     return new Response("Something went wrong", { status: 400 });

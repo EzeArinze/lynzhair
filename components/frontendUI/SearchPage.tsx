@@ -2,6 +2,7 @@
 
 import { useGetSearchResult } from "@/services/productsServices/getSearchResult";
 import { useSearchParams } from "next/navigation";
+import { ProductCard } from "./ProductCard";
 
 function SearchPage() {
   const searchParams = useSearchParams();
@@ -9,11 +10,32 @@ function SearchPage() {
 
   const newQuery = query?.toString() || "";
 
-  const { data, isFetching, error } = useGetSearchResult(newQuery);
+  const {
+    data: searchResults,
+    isFetching,
+    error,
+  } = useGetSearchResult(newQuery);
 
-  console.log(data, isFetching, error);
+  if (error)
+    return (
+      <h2 className="text-center text-lg">
+        Something went wrong try refreshing your browser
+      </h2>
+    );
 
-  return <div>SearchPage</div>;
+  return isFetching ? (
+    <p>Loading</p>
+  ) : (
+    <div className="">
+      <h2 className="text-2xl font-semibold m-4 ">SearchPage</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto md:ml-2 lg:ml-2">
+        {searchResults &&
+          searchResults.map((searchResult) => (
+            <ProductCard key={searchResult._id} product={searchResult} />
+          ))}
+      </div>
+    </div>
+  );
 }
 
 export default SearchPage;
