@@ -15,7 +15,7 @@ const useGetProductDetails = (productId: string) => {
       const response = await axios.get(`/api/v1/product/${productId}`);
       return response.data as DetailsType;
     },
-    staleTime: 1000 * 60 * 60,
+    staleTime: 25 * 60 * 1000,
   });
 };
 

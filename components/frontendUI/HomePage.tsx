@@ -36,7 +36,7 @@ function HomePage() {
 
   const { sort, minPriceParam, maxPriceParam } = useSearchParamsValues();
 
-  const { data: products } = useGetCommerceProduct(
+  const { data: products, isLoading } = useGetCommerceProduct(
     minPriceParam,
     maxPriceParam,
     sort
@@ -90,6 +90,7 @@ function HomePage() {
                 sortOption={sortOption}
                 setSortOption={setSortOption}
                 clearState={onSortClear}
+                loading={isLoading}
               />
             </div>
           </div>

@@ -40,5 +40,6 @@ export const useGetCommerceProduct = (
       getCommerceProduct({ pageParam, queryParams: queryParams.toString() }),
     getNextPageParam: (lastPage: { page?: number }) =>
       lastPage.page ?? undefined,
+    staleTime: 25 * 60 * 1000,
   });
 };

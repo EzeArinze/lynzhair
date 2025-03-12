@@ -7,12 +7,14 @@ import {
 } from "@/components/ui/select";
 import { ProductCard } from "./ProductCard";
 import { productType } from "@/utils/types";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 
 interface ProductGridProps {
   products: productType[];
   sortOption: string | null;
   setSortOption: (value: string | null) => Promise<URLSearchParams>;
   clearState: () => void;
+  loading?: boolean;
 }
 
 export function ProductGrid({
@@ -20,6 +22,7 @@ export function ProductGrid({
   sortOption,
   setSortOption,
   clearState,
+  loading,
 }: ProductGridProps) {
   const handleSortOption = (value: string | null) => {
     if (value === "all") {
@@ -51,9 +54,13 @@ export function ProductGrid({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+        {loading ? (
+          <ProductCardSkeleton />
+        ) : (
+          products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
       </div>
     </div>
   );
