@@ -36,7 +36,9 @@ export default function RootLayout({
         <Navbar />
         <QueryProvider>
           <NuqsAdapter>
-            <main className="container mx-auto p-2 lg:w-[97%]">{children}</main>
+            <main className="container mx-auto p-2 lg:w-[97%] min-h-dvh">
+              {children}
+            </main>
           </NuqsAdapter>
         </QueryProvider>
         <Footer />

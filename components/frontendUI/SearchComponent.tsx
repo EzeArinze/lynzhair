@@ -6,9 +6,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface SearchComponentProps {
   className?: string;
   parentClassName?: string;
+  isMenuOpen?: (open: boolean) => void;
 }
 
-function SearchComponent({ className, parentClassName }: SearchComponentProps) {
+function SearchComponent({
+  className,
+  parentClassName,
+  isMenuOpen,
+}: SearchComponentProps) {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,6 +26,8 @@ function SearchComponent({ className, parentClassName }: SearchComponentProps) {
     const params = new URLSearchParams(searchParams);
     params.set("query", query);
     router.push(`/commerce/search-result?${params.toString()}`);
+
+    isMenuOpen?.(false);
   };
 
   return (

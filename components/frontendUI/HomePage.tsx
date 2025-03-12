@@ -7,6 +7,7 @@ import { MobileFilters } from "./MobileFilter";
 import { ProductGrid } from "./ProductGrid";
 // import { useNuqsContext } from "@/context/use-nuqs-state";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { useSearchParamsValues } from "@/utils/searchParams";
 
 function HomePage() {
   const [sortOption, setSortOption] = useQueryState("sort", {
@@ -33,7 +34,13 @@ function HomePage() {
     setMinPrice(null);
   };
 
-  const { data: products } = useGetCommerceProduct();
+  const { sort, minPriceParam, maxPriceParam } = useSearchParamsValues();
+
+  const { data: products } = useGetCommerceProduct(
+    minPriceParam,
+    maxPriceParam,
+    sort
+  );
 
   const getActiveFiltersCount = () => {
     let count = 0;

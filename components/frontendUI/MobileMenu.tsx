@@ -7,6 +7,7 @@ import {
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import { Suspense } from "react";
+import Image from "next/image";
 
 interface MobileMenuProps {
   setMobileMenuOpen?: (open: boolean) => void;
@@ -16,16 +17,26 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
   return (
     <SheetContent side="left" className="w-[300px] sm:w-[350px]">
       <section className="flex flex-col h-full">
-        <div className="flex items-center justify-between border-b py-4">
-          <span className="text-xl font-bold text-pink-600">
-            lynz<span className="text-black">hair</span>
-          </span>
+        <div className="flex items-center justify-between border-b">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/LynzHair-removebg-preview.png"
+              alt="Logo"
+              height={120}
+              width={100}
+              className=" object-center h-24 w-24"
+            />
+          </Link>
           <SheetTitle hidden>Menu</SheetTitle>
           <SheetDescription hidden>Mobile menu</SheetDescription>
         </div>
 
         <Suspense>
-          <SearchComponent className="pr-10" parentClassName="relative my-4" />
+          <SearchComponent
+            className="pr-10"
+            parentClassName="relative my-4"
+            isMenuOpen={setMobileMenuOpen}
+          />
         </Suspense>
 
         <nav className="flex flex-col space-y-4 py-4">
