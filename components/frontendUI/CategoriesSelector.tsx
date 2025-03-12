@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useGetCategories } from "@/services/productsServices/getCategories";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import CategorySkeleton from "./CategorySkeleton";
 
 interface HairCategorySelectorProps {
   onSelect?: (length: string) => void;
@@ -33,7 +34,7 @@ export default function HairCategorySelector({
   };
 
   return isFetching ? (
-    <p className="text-center">categories loading...</p>
+    <CategorySkeleton />
   ) : (
     <div className="max-w-[90vw] m-auto border-r-2 border-l-2 rounded-full px-2 py-2">
       <div className="flex  gap-2 overflow-x-auto hide-scrollbar whitespace-nowrap">
