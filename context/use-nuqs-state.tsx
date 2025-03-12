@@ -28,7 +28,7 @@ function NuqsContext({ children }: { children: React.ReactNode }) {
 
   const [maxPrice, setMaxPrice] = useQueryState(
     "maxPrice",
-    parseAsInteger.withDefault(0)
+    parseAsInteger.withDefault(1000)
   );
 
   const onClearPrice = () => {

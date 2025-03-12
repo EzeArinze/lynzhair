@@ -9,25 +9,29 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FilterSidebar } from "./Filter";
-import { MobileFiltersProps } from "@/utils/types";
+import { useNuqsContext } from "@/context/use-nuqs-state";
 
-export function MobileFilters({
-  onClearFilters,
-  maxPrice,
-  minPrice,
-  setMaxPrice,
-  setMinPrice,
-  activeFiltersCount = 0,
-}: MobileFiltersProps) {
+export function MobileFilters() {
+  const { onClearPrice, maxPrice, minPrice, setMaxPrice, setMinPrice } =
+    useNuqsContext();
+
+  const getActiveFiltersCount = () => {
+    let count = 0;
+    if (minPrice > 0 || maxPrice < 1000) count++;
+    return count;
+  };
+
+  const activeFilter = getActiveFiltersCount();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" size="sm" className="lg:hidden relative">
           <Filter className="w-4 h-4 mr-2" />
           Filters
-          {activeFiltersCount > 0 && (
+          {activeFilter > 0 && (
             <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-pink-600 text-white text-xs flex items-center justify-center">
-              {activeFiltersCount}
+              {activeFilter}
             </span>
           )}
         </Button>
@@ -45,7 +49,7 @@ export function MobileFilters({
             maxPrice={maxPrice}
             setMinPrice={setMinPrice}
             setMaxPrice={setMaxPrice}
-            onClearFilters={onClearFilters}
+            onClearFilters={onClearPrice}
             className="w-full shadow-none border-0 p-0"
           />
         </div>
