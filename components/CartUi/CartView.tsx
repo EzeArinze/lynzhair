@@ -10,33 +10,9 @@ import CartItems from "./CartItems";
 import CartColumn from "./CartColumn";
 import useBasketStore from "@/store/cartStore";
 
-// Mock cart items
-const initialCartItems = [
-  {
-    id: 1,
-    name: "Brazilian Body Wave Hair Bundle",
-    price: 129.99,
-    image: "/placeholder.svg?height=300&width=300",
-    quantity: 2,
-    length: "18 inches",
-    texture: "Body Wave",
-  },
-  {
-    id: 5,
-    name: "HD Lace Frontal",
-    price: 89.99,
-    image: "/placeholder.svg?height=300&width=300&text=Frontal",
-    quantity: 1,
-    length: "18 inches",
-    texture: "Straight",
-  },
-];
-
 export default function CartView() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cartItems, setCartItems] = useState(initialCartItems);
-
-  const getGroupedItem = useBasketStore((state) => state.getGroupedItem());
+  const { getGroupedItem, removeItem, incrementQuantity, decrementQuantity } =
+    useBasketStore();
 
   const [isClient, setIsClient] = useState(false);
 
@@ -46,7 +22,8 @@ export default function CartView() {
 
   if (!isClient) return null;
   // Calculate cart totals
-  const subtotal = getGroupedItem.reduce(
+  const groupedItems = getGroupedItem();
+  const subtotal = groupedItems?.reduce(
     (total, item) => total + item.product.price * item.quantity,
     0
   );
@@ -63,12 +40,12 @@ export default function CartView() {
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
             <p className="text-gray-500 mt-1">
-              {cartItems.length} {cartItems.length === 1 ? "item" : "items"} in
-              your cart
+              {groupedItems.length}{" "}
+              {groupedItems.length === 1 ? "item" : "items"} in your cart
             </p>
           </div>
 
-          {getGroupedItem.length > 0 ? (
+          {groupedItems.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
               {/* Cart items */}
               <div className="lg:col-span-2">
@@ -76,12 +53,18 @@ export default function CartView() {
                   <CartColumn />
 
                   {/* Cart items list */}
-                  {getGroupedItem.map((item) => (
+                  {groupedItems.map((item) => (
                     <div
                       key={item.product._id}
                       className="p-4 sm:p-6 border-b last:border-b-0"
                     >
-                      <CartItems item={item.product} quantity={item.quantity} />
+                      <CartItems
+                        item={item.product}
+                        quantity={item.quantity}
+                        onRemove={() => removeItem(item.product._id)}
+                        increment={() => incrementQuantity(item.product._id)}
+                        decrement={() => decrementQuantity(item.product._id)}
+                      />
                     </div>
                   ))}
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import formatCurrency from "@/utils/formatCurrency";
 
 function DetailsTabs({ description }: { description: string | undefined }) {
   return (
@@ -46,19 +47,22 @@ function DetailsTabs({ description }: { description: string | undefined }) {
                   <span className="font-medium">
                     Standard Shipping (3-5 business days)
                   </span>
-                  <span>$7.99 (Free on orders over $150)</span>
+                  <span>
+                    (Free on orders over
+                    {""} {formatCurrency(100000)})
+                  </span>
                 </li>
                 <li className="flex justify-between items-center border-b pb-2">
                   <span className="font-medium">
                     Express Shipping (2-3 business days)
                   </span>
-                  <span>$14.99</span>
+                  <span>{formatCurrency(8000)}</span>
                 </li>
                 <li className="flex justify-between items-center border-b pb-2">
                   <span className="font-medium">
                     Next Day Delivery (order by 2pm)
                   </span>
-                  <span>$24.99</span>
+                  <span>{formatCurrency(10000)}</span>
                 </li>
               </ul>
             </div>

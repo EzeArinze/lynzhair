@@ -29,6 +29,7 @@ function AddToCartButton({ product }: ProductCardProps) {
       asChild
     >
       <span className="cursor-pointer">
+        Remove from cart
         <Trash />
       </span>
     </Button>

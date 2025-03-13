@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { Heart, Minus, Plus } from "lucide-react";
+import { Heart } from "lucide-react";
 import { productType } from "@/utils/types";
 import AddToCartButton from "./AddToCartButton";
 
@@ -13,20 +13,6 @@ function AddToCartSection({ product }: addSectionType) {
     <section className="space-y-4">
       <div className="flex items-center space-x-4">
         <div className="flex items-center border rounded-md space-x-2">
-          <button
-            onClick={() => {}}
-            className="px-3 py-2 text-gray-600 hover:text-pink-600 disabled:opacity-50"
-            disabled={1 <= 1}
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span className="px-3 py-2 text-center w-12">{1}</span>
-          <button
-            onClick={() => {}}
-            className="px-3 py-2 text-gray-600 hover:text-pink-600"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
           <AddToCartButton product={product} />
         </div>
 

@@ -8,9 +8,18 @@ import React from "react";
 interface CartItemProp {
   item: productType;
   quantity: number;
+  onRemove: () => void;
+  increment: () => void;
+  decrement: () => void;
 }
 
-function CartItems({ item, quantity }: CartItemProp) {
+function CartItems({
+  item,
+  quantity,
+  onRemove,
+  increment,
+  decrement,
+}: CartItemProp) {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
       {/* Product info - mobile layout */}
@@ -20,12 +29,13 @@ function CartItems({ item, quantity }: CartItemProp) {
             src={item.images.at(0)?.public_url || "/placeholder.svg"}
             alt={item.name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover object-center"
           />
         </div>
         <div className="flex-1">
           <Link
-            href={`/product/${item._id}`}
+            href={`/commerce/product-detail/${item._id}`}
             className="text-lg font-medium text-gray-900 hover:text-pink-600"
           >
             {item.name}
@@ -34,7 +44,7 @@ function CartItems({ item, quantity }: CartItemProp) {
           <div className="flex justify-between items-center mt-2">
             <span className="font-medium">{formatCurrency(item.price)}</span>
             <button
-              onClick={() => {}}
+              onClick={onRemove}
               className="text-gray-400 hover:text-red-500"
             >
               <Trash2 className="h-5 w-5" />
@@ -42,7 +52,7 @@ function CartItems({ item, quantity }: CartItemProp) {
           </div>
           <div className="flex items-center mt-2">
             <button
-              onClick={() => {}}
+              onClick={decrement}
               className="p-1 rounded-md border text-gray-600 hover:text-pink-600"
               disabled={quantity <= 1}
             >
@@ -50,7 +60,7 @@ function CartItems({ item, quantity }: CartItemProp) {
             </button>
             <span className="px-3 py-1 text-center w-10">{quantity}</span>
             <button
-              onClick={() => {}}
+              onClick={increment}
               className="p-1 rounded-md border text-gray-600 hover:text-pink-600"
             >
               <Plus className="h-4 w-4" />
@@ -67,6 +77,7 @@ function CartItems({ item, quantity }: CartItemProp) {
               src={item.images.at(0)?.public_url || "/placeholder.svg"}
               alt={item.name}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover object-center"
             />
           </div>
@@ -77,11 +88,9 @@ function CartItems({ item, quantity }: CartItemProp) {
             >
               {item.name}
             </Link>
-            {/* <p className="text-sm text-gray-500 mt-1">
-              {item.length} | {item.texture}
-            </p> */}
+            <p className="text-sm text-gray-500 mt-1">{item.category}</p>
             <button
-              onClick={() => {}}
+              onClick={onRemove}
               className="text-sm text-gray-500 hover:text-red-500 mt-1 flex items-center"
             >
               <Trash2 className="h-3.5 w-3.5 mr-1" />
@@ -100,7 +109,7 @@ function CartItems({ item, quantity }: CartItemProp) {
       <div className="hidden sm:flex sm:col-span-2 justify-center items-center">
         <div className="flex items-center border rounded-md">
           <button
-            onClick={() => {}}
+            onClick={decrement}
             className="px-2 py-1 text-gray-600 hover:text-pink-600 disabled:opacity-50"
             disabled={quantity <= 1}
           >
@@ -108,7 +117,7 @@ function CartItems({ item, quantity }: CartItemProp) {
           </button>
           <span className="px-3 py-1 text-center w-10">{quantity}</span>
           <button
-            onClick={() => {}}
+            onClick={increment}
             className="px-2 py-1 text-gray-600 hover:text-pink-600"
           >
             <Plus className="h-4 w-4" />
