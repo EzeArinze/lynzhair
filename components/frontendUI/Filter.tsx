@@ -28,8 +28,8 @@ export function FilterSidebar({
   };
 
   return (
-    <div className={cn("w-full lg:w-72 shrink-0", className)}>
-      <div className="sticky top-20 bg-white p-6 rounded-lg border">
+    <div className={cn("w-full lg:w-72 shrink-0 sticky top-20", className)}>
+      <div className=" bg-white p-6 rounded-lg border">
         <h3 className="text-lg font-semibold mb-4">Filters</h3>
 
         <Accordion

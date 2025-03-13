@@ -9,8 +9,8 @@ export function Banner() {
           src="https://res.cloudinary.com/dsvpedluw/image/upload/f_webp/ik1fu6zwuwy4pueeioav"
           alt="Premium Quality Hair Extensions"
           fill
-          className="object-cover object-center brightness-50"
           priority
+          className="object-cover object-center brightness-50"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent flex items-center">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">

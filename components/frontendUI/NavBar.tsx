@@ -26,6 +26,7 @@ export function Navbar() {
                 alt="Logo"
                 height={120}
                 width={100}
+                priority
                 className="object-contain object-center h-32 w-auto"
               />
             </Link>
@@ -53,11 +54,13 @@ export function Navbar() {
               />
             </Suspense>
 
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-white shadow-md">
-                3
-              </span>
+            <Button variant="ghost" size="icon" className="relative" asChild>
+              <Link href={"/commerce/cart"}>
+                <ShoppingCart className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-white shadow-md">
+                  3
+                </span>
+              </Link>
             </Button>
 
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
