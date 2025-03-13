@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import formatCurrency from "@/utils/formatCurrency";
 
 interface orderSummaryProps {
   subtotal: number;
@@ -19,13 +20,13 @@ function OrderSummary({ subtotal, shipping = 0, total }: orderSummaryProps) {
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">Subtotal</span>
-            <span className="font-medium">${subtotal.toFixed(2)}</span>
+            <span className="font-medium">{formatCurrency(subtotal)}</span>
           </div>
 
           <div className="flex justify-between">
             <span className="text-gray-600">Shipping</span>
             <span className="font-medium">
-              {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
+              {shipping === 0 ? "Free" : `${formatCurrency(shipping)}`}
             </span>
           </div>
 
@@ -33,7 +34,7 @@ function OrderSummary({ subtotal, shipping = 0, total }: orderSummaryProps) {
 
           <div className="flex justify-between text-base font-semibold">
             <span>Total</span>
-            <span>${total.toFixed(2)}</span>
+            <span>{formatCurrency(total)}</span>
           </div>
         </div>
 

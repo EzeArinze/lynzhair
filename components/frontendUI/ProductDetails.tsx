@@ -6,14 +6,14 @@ import { Separator } from "@radix-ui/react-select";
 import Image from "next/image";
 import { useState } from "react";
 
-import { DetailsType } from "@/utils/types";
+import { productType } from "@/utils/types";
 import AddToCartSection from "../CartUi/AddToCartSection";
 import { Badge } from "../ui/badge";
 import formatCurrency from "@/utils/formatCurrency";
 import { percentageCalculator } from "@/utils/percentageCalculator";
 
 type ProductDetailsProp = {
-  details: DetailsType | undefined;
+  details: productType | undefined;
   // loading: boolean;
 };
 
@@ -123,7 +123,7 @@ function ProductDetails({ details }: ProductDetailsProp) {
         <Separator className="mb-4" />
 
         {/* Add to cart section */}
-        <AddToCartSection />
+        <AddToCartSection product={details} />
 
         {/* Shipping info */}
         <div className="mt-8 space-y-3">

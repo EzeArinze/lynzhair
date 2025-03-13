@@ -1,36 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import { Heart, Minus, Plus } from "lucide-react";
+import { productType } from "@/utils/types";
+import AddToCartButton from "./AddToCartButton";
 
-function AddToCartSection() {
-  const [quantity, setQuantity] = useState(1);
+interface addSectionType {
+  product: productType | undefined;
+}
 
-  // Increment and decrement quantity
-  const incrementQuantity = () => setQuantity((prev) => prev + 1);
-  const decrementQuantity = () =>
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-
+function AddToCartSection({ product }: addSectionType) {
   return (
     <section className="space-y-4">
       <div className="flex items-center space-x-4">
         <div className="flex items-center border rounded-md space-x-2">
           <button
-            onClick={decrementQuantity}
+            onClick={() => {}}
             className="px-3 py-2 text-gray-600 hover:text-pink-600 disabled:opacity-50"
-            disabled={quantity <= 1}
+            disabled={1 <= 1}
           >
             <Minus className="w-4 h-4" />
           </button>
-          <span className="px-3 py-2 text-center w-12">{quantity}</span>
+          <span className="px-3 py-2 text-center w-12">{1}</span>
           <button
-            onClick={incrementQuantity}
+            onClick={() => {}}
             className="px-3 py-2 text-gray-600 hover:text-pink-600"
           >
             <Plus className="w-4 h-4" />
           </button>
-          <Button className="flex-1 bg-pink-600 hover:bg-pink-700 text-white w-full">
-            Add to Cart
-          </Button>
+          <AddToCartButton product={product} />
         </div>
 
         <div className="space-x-2">

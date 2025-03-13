@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 // import { Input } from "@/components/ui/input"
@@ -8,6 +8,7 @@ import OrderSummary from "./OrderSummary";
 import EmptyCartPage from "./EmptyCart";
 import CartItems from "./CartItems";
 import CartColumn from "./CartColumn";
+import useBasketStore from "@/store/cartStore";
 
 // Mock cart items
 const initialCartItems = [
@@ -35,12 +36,21 @@ export default function CartView() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cartItems, setCartItems] = useState(initialCartItems);
 
+  const getGroupedItem = useBasketStore((state) => state.getGroupedItem());
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null;
   // Calculate cart totals
-  const subtotal = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+  const subtotal = getGroupedItem.reduce(
+    (total, item) => total + item.product.price * item.quantity,
     0
   );
-  const shipping = subtotal > 150 ? 0 : 7.99;
+  const shipping = subtotal > 150000 ? 0 : 4000;
   const total = subtotal + shipping;
 
   // Update item quantity
@@ -58,7 +68,7 @@ export default function CartView() {
             </p>
           </div>
 
-          {cartItems.length > 0 ? (
+          {getGroupedItem.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
               {/* Cart items */}
               <div className="lg:col-span-2">
@@ -66,12 +76,12 @@ export default function CartView() {
                   <CartColumn />
 
                   {/* Cart items list */}
-                  {cartItems.map((item) => (
+                  {getGroupedItem.map((item) => (
                     <div
-                      key={item.id}
+                      key={item.product._id}
                       className="p-4 sm:p-6 border-b last:border-b-0"
                     >
-                      <CartItems item={item} />
+                      <CartItems item={item.product} quantity={item.quantity} />
                     </div>
                   ))}
 

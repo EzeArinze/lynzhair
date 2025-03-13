@@ -1,16 +1,23 @@
+import formatCurrency from "@/utils/formatCurrency";
+import { productType } from "@/utils/types";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function CartItems({ item }) {
+interface CartItemProp {
+  item: productType;
+  quantity: number;
+}
+
+function CartItems({ item, quantity }: CartItemProp) {
   return (
     <section className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
       {/* Product info - mobile layout */}
       <div className="sm:hidden flex space-x-4">
         <div className="relative h-20 w-20 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
           <Image
-            src={item.image || "/placeholder.svg"}
+            src={item.images.at(0)?.public_url || "/placeholder.svg"}
             alt={item.name}
             fill
             className="object-cover object-center"
@@ -18,16 +25,14 @@ function CartItems({ item }) {
         </div>
         <div className="flex-1">
           <Link
-            href={`/product/${item.id}`}
+            href={`/product/${item._id}`}
             className="text-lg font-medium text-gray-900 hover:text-pink-600"
           >
             {item.name}
           </Link>
-          <p className="text-sm text-gray-500 mt-1">
-            {item.length} | {item.texture}
-          </p>
+          <p className="text-sm text-gray-500 mt-1">{item.category}</p>
           <div className="flex justify-between items-center mt-2">
-            <span className="font-medium">${item.price.toFixed(2)}</span>
+            <span className="font-medium">{formatCurrency(item.price)}</span>
             <button
               onClick={() => {}}
               className="text-gray-400 hover:text-red-500"
@@ -39,11 +44,11 @@ function CartItems({ item }) {
             <button
               onClick={() => {}}
               className="p-1 rounded-md border text-gray-600 hover:text-pink-600"
-              disabled={item.quantity <= 1}
+              disabled={quantity <= 1}
             >
               <Minus className="h-4 w-4" />
             </button>
-            <span className="px-3 py-1 text-center w-10">{item.quantity}</span>
+            <span className="px-3 py-1 text-center w-10">{quantity}</span>
             <button
               onClick={() => {}}
               className="p-1 rounded-md border text-gray-600 hover:text-pink-600"
@@ -59,7 +64,7 @@ function CartItems({ item }) {
         <div className="flex items-center space-x-4">
           <div className="relative h-20 w-20 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
             <Image
-              src={item.image || "/placeholder.svg"}
+              src={item.images.at(0)?.public_url || "/placeholder.svg"}
               alt={item.name}
               fill
               className="object-cover object-center"
@@ -67,7 +72,7 @@ function CartItems({ item }) {
           </div>
           <div>
             <Link
-              href={`/product/${item.id}`}
+              href={`/commerce/product-detail/${item._id}`}
               className="text-lg font-medium text-gray-900 hover:text-pink-600"
             >
               {item.name}
@@ -88,7 +93,7 @@ function CartItems({ item }) {
 
       {/* Price */}
       <div className="hidden sm:block sm:col-span-2 text-center">
-        <span className="font-medium">${item.price.toFixed(2)}</span>
+        <span className="font-medium">{formatCurrency(item.price)}</span>
       </div>
 
       {/* Quantity */}
@@ -97,11 +102,11 @@ function CartItems({ item }) {
           <button
             onClick={() => {}}
             className="px-2 py-1 text-gray-600 hover:text-pink-600 disabled:opacity-50"
-            disabled={item.quantity <= 1}
+            disabled={quantity <= 1}
           >
             <Minus className="h-4 w-4" />
           </button>
-          <span className="px-3 py-1 text-center w-10">{item.quantity}</span>
+          <span className="px-3 py-1 text-center w-10">{quantity}</span>
           <button
             onClick={() => {}}
             className="px-2 py-1 text-gray-600 hover:text-pink-600"
@@ -114,7 +119,7 @@ function CartItems({ item }) {
       {/* Total */}
       <div className="hidden sm:block sm:col-span-2 text-right">
         <span className="font-semibold">
-          ${(item.price * item.quantity).toFixed(2)}
+          {formatCurrency(item.price * quantity)}
         </span>
       </div>
     </section>
