@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 export interface BasketItem {
-  product: productType; // Single product objects
+  product: productType;
   quantity: number;
 }
 

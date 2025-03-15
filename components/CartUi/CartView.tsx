@@ -27,7 +27,7 @@ export default function CartView() {
     (total, item) => total + item.product.price * item.quantity,
     0
   );
-  const shipping = subtotal > 150000 ? 0 : 4000;
+  const shipping = subtotal >= 100000 ? 0 : 4000;
   const total = subtotal + shipping;
 
   // Update item quantity

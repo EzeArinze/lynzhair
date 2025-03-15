@@ -77,3 +77,13 @@ export interface DetailsType {
   images: Image[];
   __v: number;
 }
+
+export interface ShippingFormData {
+  fullName: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  shippingMethod: string;
+  agreeToTerms: boolean;
+}
