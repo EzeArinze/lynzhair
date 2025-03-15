@@ -1,7 +1,5 @@
-// import SearchPage from "@/components/frontendUI/SearchPage";
-import dynamic from "next/dynamic";
+import SearchPage from "@/components/frontendUI/SearchPage";
 import { Suspense } from "react";
-const SearchPage = dynamic(() => import("@/components/frontendUI/SearchPage"));
 
 function SearchResultPage() {
   return (
