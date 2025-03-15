@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
-import { ShippingForm } from "@/components/CartUi/CheckoutForm";
+// import { ShippingForm } from "@/components/CartUi/CheckoutForm";
 import { ShippingFormData } from "@/utils/types";
 import {
   express,
@@ -14,8 +14,24 @@ import {
   overnight,
   standard,
 } from "@/lib/constant/conatant";
-import OrderSummary from "../CartUi/OrderSummary";
+// import OrderSummary from "../CartUi/OrderSummary";
 import useBasketStore from "@/store/cartStore";
+import dynamic from "next/dynamic";
+import LoadingSpinner from "../Loader";
+
+const ShippingForm = dynamic(
+  () =>
+    import("@/components/CartUi/CheckoutForm").then((mod) => mod.ShippingForm),
+  {
+    loading: () => <LoadingSpinner />,
+    ssr: false, // Disable SSR for this component to reduce server load
+  }
+);
+
+const OrderSummary = dynamic(() => import("../CartUi/OrderSummary"), {
+  loading: () => <LoadingSpinner />,
+  ssr: true, // Keep SSR for this component as it's important for SEO
+});
 
 export default function CheckOut() {
   // State for form data

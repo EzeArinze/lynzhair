@@ -1,4 +1,13 @@
-import ProductList from "@/components/backendUI/ProductList";
+import LoadingSpinner from "@/components/Loader";
+import dynamic from "next/dynamic";
+
+// import ProductList from "@/components/backendUI/ProductList";
+const ProductList = dynamic(
+  () => import("@/components/backendUI/ProductList"),
+  {
+    loading: () => <LoadingSpinner />, // Optional loading indicator
+  }
+);
 
 export default function ProductsPage() {
   return (

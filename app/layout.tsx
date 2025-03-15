@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/frontendUI/NavBar";
-import Footer from "@/components/frontendUI/Footer";
+// import { Navbar } from "@/components/frontendUI/NavBar";
+// import Footer from "@/components/frontendUI/Footer";
 import QueryProvider from "@/hooks/QueryProvider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import NuqsContext from "@/context/use-nuqs-state";
@@ -31,21 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] items-stretch min-h-dvh`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <Navbar />
         <QueryProvider>
           <NuqsAdapter>
             <Suspense>
               <NuqsContext>
-                <main className="container mx-auto p-2 lg:w-[97%] min-h-dvh">
-                  {children}
-                </main>
+                <main>{children}</main>
               </NuqsContext>
             </Suspense>
           </NuqsAdapter>
         </QueryProvider>
-        <Footer />
       </body>
     </html>
   );
