@@ -39,8 +39,6 @@ export default function CheckOut() {
   }, []);
 
   if (!isClient) return null;
-  // Calculate cart totals
-  // const groupedItems = getGroupedItem();
   const subtotal = getGroupedItem?.reduce(
     (total, item) => total + item.product.price * item.quantity,
     0
@@ -66,7 +64,7 @@ export default function CheckOut() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // In a real app, you would process the order here
+    // process the order here
     console.log(
       "Order submitted:",
       formData,
@@ -74,7 +72,6 @@ export default function CheckOut() {
       total,
       qualifiesForFreeShipping
     );
-    // Redirect to payment gateway or order confirmation page
   };
 
   return (

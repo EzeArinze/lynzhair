@@ -3,6 +3,7 @@
 import { useGetSearchResult } from "@/services/productsServices/getSearchResult";
 import { useSearchParams } from "next/navigation";
 import { ProductCard } from "./ProductCard";
+import LoadingSpinner from "../Loader";
 
 function SearchPage() {
   const searchParams = useSearchParams();
@@ -24,7 +25,7 @@ function SearchPage() {
     );
 
   return isFetching ? (
-    <p>Loading</p>
+    <LoadingSpinner />
   ) : (
     <div className="">
       <h2 className="text-2xl font-semibold m-4 ">SearchPage</h2>
