@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AppSidebar } from "@/components/backendUI/AppSidebar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -15,23 +16,30 @@ import { Toaster } from "@/components/ui/sonner";
 // const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })
 // className={`${playfair.variable} ${lato.variable} font-sans`}
 
+export const metadata: Metadata = {
+  title: "Lynz_hair",
+  description: "Your one-stop shop for all your hair needs, top 1 in Nigeria.",
+};
+
 function layout({ children }: { children: ReactNode }) {
   return (
-    <div>
-      <QueryProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-              <SidebarTrigger className="-ml-1" />
-              <Separator orientation="vertical" className="mr-2 h-4" />
-            </header>
-            <main>{children}</main>
-            <Toaster />
-          </SidebarInset>
-        </SidebarProvider>
-      </QueryProvider>
-    </div>
+    <html lang="en">
+      <body>
+        <QueryProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+                <SidebarTrigger className="-ml-1" />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+              </header>
+              <main>{children}</main>
+              <Toaster />
+            </SidebarInset>
+          </SidebarProvider>
+        </QueryProvider>
+      </body>
+    </html>
   );
 }
 

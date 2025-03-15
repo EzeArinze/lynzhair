@@ -7,17 +7,16 @@ import ProductDetails from "./ProductDetails";
 import DetailsTabs from "./DetailsTabs";
 // import { getProductDetails } from "@/services/productsServices/productDetails";
 import useGetProductDetails from "@/services/productsServices/productDetails";
+import LoadingSpinner from "../Loader";
 
 export default function DetailsView({ id }: { id: string }) {
   const { data: details, isFetching } = useGetProductDetails(id);
 
   // const details = await getProductDetails(id);
 
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+  return isFetching ? (
+    <LoadingSpinner />
+  ) : (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 py-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

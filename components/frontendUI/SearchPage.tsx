@@ -28,7 +28,7 @@ function SearchPage() {
     <LoadingSpinner />
   ) : (
     <div className="">
-      <h2 className="text-2xl font-semibold m-4 ">SearchPage</h2>
+      <h2 className="font-bold p-4 m-2">{"Search Page".toUpperCase()}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto md:ml-2 lg:ml-2">
         {searchResults &&
           searchResults.map((searchResult) => (
