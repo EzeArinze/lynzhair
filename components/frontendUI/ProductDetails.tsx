@@ -11,6 +11,7 @@ import AddToCartSection from "../CartUi/AddToCartSection";
 import { Badge } from "../ui/badge";
 import formatCurrency from "@/utils/formatCurrency";
 import { percentageCalculator } from "@/utils/percentageCalculator";
+import { freeShippingThreshold } from "@/lib/constant/conatant";
 
 type ProductDetailsProp = {
   details: productType | undefined;
@@ -132,15 +133,15 @@ function ProductDetails({ details }: ProductDetailsProp) {
             <div>
               <h3 className="text-sm font-medium">Free Shipping</h3>
               <p className="text-sm text-gray-500">
-                On orders over {formatCurrency(50000)}. Delivery in 3-5 business
-                days.
+                On orders over {formatCurrency(freeShippingThreshold)}. Delivery
+                in 3-5 business days.
               </p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <RotateCcw className="w-5 h-5 text-pink-600 mt-0.5" />
             <div>
-              <h3 className="text-sm font-medium">30-Day Returns</h3>
+              <h3 className="text-sm font-medium">10-Day Returns</h3>
               <p className="text-sm text-gray-500">
                 Not satisfied? Return within 10 days for a full refund.
               </p>

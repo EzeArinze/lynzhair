@@ -1,6 +1,11 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import formatCurrency from "@/utils/formatCurrency";
+import {
+  express,
+  freeShippingThreshold,
+  overnight,
+} from "@/lib/constant/conatant";
 
 function DetailsTabs({ description }: { description: string | undefined }) {
   return (
@@ -49,20 +54,20 @@ function DetailsTabs({ description }: { description: string | undefined }) {
                   </span>
                   <span>
                     (Free on orders over
-                    {""} {formatCurrency(100000)})
+                    {""} {formatCurrency(freeShippingThreshold)})
                   </span>
                 </li>
                 <li className="flex justify-between items-center border-b pb-2">
                   <span className="font-medium">
                     Express Shipping (2-3 business days)
                   </span>
-                  <span>{formatCurrency(8000)}</span>
+                  <span>{formatCurrency(express)}</span>
                 </li>
                 <li className="flex justify-between items-center border-b pb-2">
                   <span className="font-medium">
                     Next Day Delivery (order by 2pm)
                   </span>
-                  <span>{formatCurrency(10000)}</span>
+                  <span>{formatCurrency(overnight)}</span>
                 </li>
               </ul>
             </div>
@@ -72,7 +77,7 @@ function DetailsTabs({ description }: { description: string | undefined }) {
               <p className="text-gray-700 mb-4">
                 We want you to be completely satisfied with your purchase. If
                 for any reason you&apos;re not happy with your order, we offer a
-                30-day return policy under the following conditions:
+                10-day return policy under the following conditions:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-gray-700">
                 <li>

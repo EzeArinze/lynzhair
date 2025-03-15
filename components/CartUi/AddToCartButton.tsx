@@ -24,7 +24,7 @@ function AddToCartButton({ product }: ProductCardProps) {
 
   return !!alreadExist ? (
     <Button
-      className="flex-1 bg-white border border-pink-600 hover:bg-pink-700 text-pink-600 hover:text-white "
+      className="flex-1 bg-white border border-pink-600 hover:bg-pink-700 text-pink-600 hover:text-white w-full"
       onClick={() => product && removeItem(product._id)}
       asChild
     >
