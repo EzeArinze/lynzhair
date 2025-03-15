@@ -9,6 +9,7 @@ import EmptyCartPage from "./EmptyCart";
 import CartItems from "./CartItems";
 import CartColumn from "./CartColumn";
 import useBasketStore from "@/store/cartStore";
+import { freeShippingThreshold, standard } from "@/lib/constant/conatant";
 
 export default function CartView() {
   const { getGroupedItem, removeItem, incrementQuantity, decrementQuantity } =
@@ -27,7 +28,7 @@ export default function CartView() {
     (total, item) => total + item.product.price * item.quantity,
     0
   );
-  const shipping = subtotal >= 100000 ? 0 : 4000;
+  const shipping = subtotal >= freeShippingThreshold ? 0 : standard;
   const total = subtotal + shipping;
 
   // Update item quantity

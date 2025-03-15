@@ -79,14 +79,14 @@ export default function CheckOut() {
 
   return (
     <section className="flex min-h-screen flex-col flex-1 py-10 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8  lg:w-[80%]">
         {/* Page title */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Checkout</h1>
 
           {/* Back to cart link */}
           <Link
-            href="/cart"
+            href="/commerce/cart"
             className="inline-flex items-center text-sm font-medium text-pink-600 hover:underline"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />

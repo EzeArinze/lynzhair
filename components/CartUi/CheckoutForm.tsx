@@ -211,8 +211,8 @@ export function ShippingForm({
 
             {qualifiesForFreeShipping && (
               <p className="text-green-600 text-sm mt-2">
-                You qualify for free standard shipping on orders over $
-                {freeShippingThreshold}!
+                You qualify for free standard shipping on orders over
+                {formatCurrency(freeShippingThreshold)}!
               </p>
             )}
           </div>

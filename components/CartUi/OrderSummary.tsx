@@ -29,7 +29,13 @@ function OrderSummary({
   const actualShipping =
     qualifiesForFreeShipping && shippingMethod === "standard" ? 0 : shipping;
 
-  return cartItems.length === 0 ? (
+  return subtotal === 0 ? (
+    <div className="bg-white rounded-lg border p-6 sticky top-20">
+      <h2 className="text-lg font-semibold mb-4">
+        Please add item to view summary
+      </h2>
+    </div>
+  ) : cartItems.length === 0 ? (
     <section className="lg:col-span-1">
       <div className="bg-white rounded-lg border p-6 sticky top-20">
         <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
@@ -81,7 +87,7 @@ function OrderSummary({
                 <span className="text-gray-500">x{item.quantity}</span>
               </span>
               <span className="font-medium">
-                ${(item.product.price * item.quantity).toFixed(2)}
+                {formatCurrency(item.product.price * item.quantity)}
               </span>
             </div>
           ))}
@@ -89,7 +95,7 @@ function OrderSummary({
 
         <div className="flex justify-between">
           <span className="text-gray-600">Subtotal</span>
-          <span className="font-medium">${subtotal.toFixed(2)}</span>
+          <span className="font-medium">{formatCurrency(subtotal)}</span>
         </div>
 
         <div className="flex justify-between">
@@ -97,7 +103,7 @@ function OrderSummary({
           <span className="font-medium">
             {qualifiesForFreeShipping && shippingMethod === "standard"
               ? "Free"
-              : `$${actualShipping.toFixed(2)}`}
+              : `${formatCurrency(actualShipping)}`}
           </span>
         </div>
 
@@ -105,7 +111,7 @@ function OrderSummary({
 
         <div className="flex justify-between text-base font-semibold">
           <span>Total</span>
-          <span>${(subtotal + actualShipping).toFixed(2)}</span>
+          <span>{formatCurrency(subtotal + actualShipping)}</span>
         </div>
       </div>
 
@@ -120,8 +126,8 @@ function OrderSummary({
       ) : (
         <div className="mt-4 p-3 bg-gray-50 border rounded-md text-sm text-gray-600">
           <p>
-            Add ${((freeShippingThreshold ?? 0) - subtotal).toFixed(2)} more to
-            qualify for free shipping.
+            Add {formatCurrency((freeShippingThreshold ?? 0) - subtotal)} more
+            to qualify for free shipping.
           </p>
         </div>
       )}
