@@ -1,4 +1,4 @@
-import getStatusColor from "./getStatusColor";
+import getStatusColor from "@/utils/getStatusColor";
 
 export const LIMIT = 10;
 

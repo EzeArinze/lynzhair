@@ -97,10 +97,11 @@ export function DataTable({
               <SelectValue>{itemsPerPage}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="5">5</SelectItem>
-              <SelectItem value="10">10</SelectItem>
-              <SelectItem value="20">20</SelectItem>
-              <SelectItem value="50">50</SelectItem>
+              {["5", "10", "20", "50"].map((perPage) => (
+                <SelectItem key={perPage} value={perPage}>
+                  {Number(perPage)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -218,7 +219,7 @@ export function DataTable({
           <div className="flex items-center space-x-1 ">
             <Button
               variant="outline"
-              size="icon"
+              size="sm"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
@@ -246,18 +247,18 @@ export function DataTable({
                 <Button
                   key={pageNumber}
                   variant={currentPage === pageNumber ? "default" : "outline"}
-                  size="icon"
+                  size="sm"
                   onClick={() => handlePageChange(pageNumber)}
-                  asChild
+                  className="cursor-pointer text-sm"
                 >
-                  <span className="text-sm p-0">{pageNumber}</span>
+                  {pageNumber}
                 </Button>
               );
             })}
 
             <Button
               variant="outline"
-              size="icon"
+              size="sm"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages || totalPages === 0}
             >

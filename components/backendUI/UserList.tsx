@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import MoreActionsOptions from "@/components/Options_action";
-import getStatusColor from "@/lib/constant/getStatusColor";
+import getStatusColor from "@/utils/getStatusColor";
 
 import { DataTable } from "./Table";
 

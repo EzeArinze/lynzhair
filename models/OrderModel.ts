@@ -19,6 +19,8 @@ interface IOrder extends Document {
   city: string;
   phone_number: string;
   status: string;
+  shippingMethod: string;
+  freeShipping: boolean;
   orderDate: Date;
 }
 
@@ -50,6 +52,8 @@ const OrderSchema: Schema = new Schema(
       enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
       required: true,
     },
+    freeShipping: { type: Boolean, required: true },
+    shippingMethod: { type: String, required: true },
     orderDate: { type: Date, required: true },
   },
   {

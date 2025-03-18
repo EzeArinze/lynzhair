@@ -4,12 +4,8 @@ export const Links = [
     href: "/",
   },
   {
-    name: "Shop",
-    href: "#",
-  },
-  {
     name: "About",
-    href: "#",
+    href: "/commerce/about",
   },
   {
     name: "Contact",

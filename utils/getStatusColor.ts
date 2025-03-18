@@ -11,7 +11,7 @@ const getStatusColor = (status: string) => {
     case "User":
       return "bg-gray-100 text-green";
     case "Admin":
-      return "bg-green-400 text-white";
+      return "bg-green-400 text-";
     default:
       return "bg-gray-100 text-gray-800";
   }
