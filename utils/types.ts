@@ -1,3 +1,4 @@
+import { LucideIcon } from "lucide-react";
 import { ComponentType } from "react";
 
 export interface ProductTypes {
@@ -113,3 +114,15 @@ export type SimpleTableProps = {
   pageSize?: number; // Number of items per page
   initialPage?: number; // Initial page number
 };
+
+export interface ContactCard {
+  id: string;
+  title: string;
+  description: string;
+  contact: string;
+  link: string;
+  icon: LucideIcon;
+  bgColor: string;
+  textColor: string;
+  hoverBorderColor: string;
+}
