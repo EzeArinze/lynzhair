@@ -13,7 +13,7 @@ import { Separator } from "./ui/separator";
 
 interface OrderActionsProps {
   Id: string;
-  onDelete: (Id: string) => void;
+  onDelete?: (Id: string) => void;
   onViewDetails?: (Id: string) => void;
 }
 
@@ -32,7 +32,7 @@ export default function MoreActionsOptions({
   };
 
   const handleDelete = () => {
-    onDelete(Id);
+    onDelete?.(Id);
   };
 
   return (

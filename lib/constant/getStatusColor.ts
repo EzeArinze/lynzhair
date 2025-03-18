@@ -8,6 +8,10 @@ const getStatusColor = (status: string) => {
       return "bg-purple-100 text-purple-800";
     case "Pending":
       return "bg-yellow-100 text-yellow-800";
+    case "User":
+      return "bg-gray-100 text-green";
+    case "Admin":
+      return "bg-green-400 text-white";
     default:
       return "bg-gray-100 text-gray-800";
   }

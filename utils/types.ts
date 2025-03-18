@@ -1,3 +1,5 @@
+import { ComponentType } from "react";
+
 export interface ProductTypes {
   _id: string;
   name: string;
@@ -87,3 +89,27 @@ export interface ShippingFormData {
   shippingMethod: string;
   agreeToTerms: boolean;
 }
+
+type Column = {
+  header: string;
+  key: string;
+  hideOnMobile?: boolean;
+};
+
+// Props for the table component
+export type SimpleTableProps = {
+  data: Record<string, unknown>[]; // Array of data objects with key-value pairs
+  columns: Column[];
+  title?: string;
+  idField?: string; // Name of the ID field in data objects
+  statusField?: string; // Name of the status field in data objects
+  statusOptions?: { value: string; label: string; color?: string }[]; // Status options
+  onStatusChange?: (id: string, newStatus: string) => void; // Status change handler
+  onDelete?: (id: string) => void;
+  ActionsComponent?: ComponentType<{
+    Id: string;
+    onDelete?: (id: string) => void;
+  }>; // Component for actions column
+  pageSize?: number; // Number of items per page
+  initialPage?: number; // Initial page number
+};
