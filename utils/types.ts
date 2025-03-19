@@ -15,7 +15,7 @@ export interface ProductTypes {
 export interface ProductFormProps {
   initialData?: Omit<ProductTypes, "id">;
   onSubmit: (data: Omit<ProductTypes, "id">) => void;
-  // onClose: () => void;
+  onClose?: () => void;
   isProcessing?: boolean;
 }
 

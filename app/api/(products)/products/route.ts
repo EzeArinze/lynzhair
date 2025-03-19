@@ -39,13 +39,9 @@ export async function POST(req: Request) {
       stock,
       images: uploadedImageUrls,
     });
-    await product.save();
-    console.log("Product saved:", product);
+    const newProduct = await product.save();
 
-    return NextResponse.json(
-      { message: "Product saved successfully" },
-      { status: 201 }
-    );
+    return NextResponse.json(newProduct, { status: 201 });
   } catch (err: unknown) {
     console.error("Error saving product:", err);
     return NextResponse.json(

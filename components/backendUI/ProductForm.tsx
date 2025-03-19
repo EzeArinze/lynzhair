@@ -17,8 +17,8 @@ export function ProductForm({
   initialData,
   onSubmit,
   isProcessing,
-}: // onClose,
-ProductFormProps) {
+  onClose,
+}: ProductFormProps) {
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>(
     initialData?.images
@@ -78,6 +78,8 @@ ProductFormProps) {
       stock,
       images: base64Images, // Send Base64 to API
     });
+
+    onClose?.();
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +101,7 @@ ProductFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 w-full sm:max-w-lg mx-auto p-6 shadow-lg rounded-lg overflow-y-scroll max-h-[80vh] hide-scrollbar"
+      className="space-y-6 w-full sm:max-w-lg mx-auto p-6 shadow-lg rounded-lg overflow-y-scroll max-h-[60vh] hide-scrollbar"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>

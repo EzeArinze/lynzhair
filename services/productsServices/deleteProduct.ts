@@ -1,31 +1,44 @@
+import { ProductTypes } from "@/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
-
-const deleteProduct = async (id: string) => {
-  try {
-    const res = await axios.delete(`/api/products/${id}`);
-    console.log(res.data.message);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export default deleteProduct;
-// Compare this snippet from app/api/products/%5Bid%5D/route.ts:
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => await axios.delete(`/api/products/${id}`),
+    mutationFn: async (id: string) => {
+      await axios.delete(`/api/products/${id}`);
+      return id;
+    },
+
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+
+      // Get the current products before deletion
+      const previousProducts = queryClient.getQueryData<ProductTypes[]>([
+        "products",
+      ]);
+
+      queryClient.setQueryData<ProductTypes[]>(["products"], (oldData) => {
+        return oldData ? oldData.filter((product) => product._id !== id) : [];
+      });
+
+      return { previousProducts };
+    },
+
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product deleted successfully");
     },
-    onError: (error) => {
+
+    onError: (error, _, context) => {
       console.error("Error deleting product:", error);
       toast.error("Failed to delete the product.");
+
+      // Rollback in case of failure
+      if (context?.previousProducts) {
+        queryClient.setQueryData(["products"], context.previousProducts);
+      }
     },
   });
 };

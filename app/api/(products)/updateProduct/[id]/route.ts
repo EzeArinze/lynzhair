@@ -42,12 +42,9 @@ export async function PUT(
     };
 
     // Update the product in the database
-    await Product.findByIdAndUpdate(id, product);
+    const updatedData = await Product.findByIdAndUpdate(id, product);
 
-    return NextResponse.json(
-      { message: "Product saved successfully" },
-      { status: 201 }
-    );
+    return NextResponse.json(updatedData, { status: 200 });
   } catch (err: unknown) {
     console.error("Error saving product:", err);
     return NextResponse.json(

@@ -7,15 +7,56 @@ export const useUpdateProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (updateDate: ProductTypes) =>
-      await axios.put(`/api/updateProduct/${updateDate._id}`, updateDate),
+    mutationFn: async (updatedData: ProductTypes) => {
+      const response = await axios.put(
+        `/api/updateProduct/${updatedData._id}`,
+        updatedData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      return response.data; // ✅ Return only the updated product data
+    },
+
+    onMutate: async (updatedData) => {
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+
+      const previousProducts = queryClient.getQueryData<ProductTypes[]>([
+        "products",
+      ]);
+
+      queryClient.setQueryData<ProductTypes[]>(["products"], (oldData) => {
+        if (!oldData) return [];
+        return oldData.map((product) =>
+          product._id === updatedData._id
+            ? {
+                ...product,
+                name: updatedData.name,
+                category: updatedData.category,
+                price: updatedData.price,
+                stock: updatedData.stock,
+                description: updatedData.description,
+                discount: updatedData.discount,
+              }
+            : product
+        );
+      });
+
+      return { previousProducts };
+    },
+
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product updated successfully");
     },
-    onError: (error) => {
-      console.error("Error updating product:", error);
+
+    onError: (error, _, context) => {
+      console.error("Error updating product:", error.message);
       toast.error("Failed to update product.");
+
+      // Rollback in case of an error
+      if (context?.previousProducts) {
+        queryClient.setQueryData(["products"], context.previousProducts);
+      }
     },
   });
 };

@@ -32,7 +32,7 @@ export function CtaSection() {
               asChild
               className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-6 text-lg"
             >
-              <Link href="/shop">
+              <Link href="/">
                 Shop Now
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Link>
