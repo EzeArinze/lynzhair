@@ -18,6 +18,7 @@ import formatCurrency from "@/utils/formatCurrency";
 import ProductSkeleton from "../ProductSkeleton";
 import { ProductTypes } from "@/utils/types";
 import { Modal } from "../Modal";
+import PaginationButton from "./PaginationButton";
 
 export default function ProductList() {
   const {
@@ -36,6 +37,8 @@ export default function ProductList() {
   const [editingProduct, setEditingProduct] = useState<ProductTypes | null>(
     null
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const openEditModal = (product: ProductTypes) => {
     setEditingProduct(product);
@@ -64,6 +67,14 @@ export default function ProductList() {
 
   if (isFetching) return <ProductSkeleton />;
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = productsData?.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil((productsData?.length || 0) / itemsPerPage);
+
   return (
     <>
       <div className="flex justify-end mb-4">
@@ -84,14 +95,14 @@ export default function ProductList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {!productsData?.length ? (
+          {!currentProducts?.length ? (
             <TableRow>
               <TableCell colSpan={6} className="text-center pt-4 font-semibold">
                 No data found
               </TableCell>
             </TableRow>
           ) : (
-            productsData?.map((product) => (
+            currentProducts.map((product) => (
               <TableRow key={product._id}>
                 <TableCell>
                   <ProductImages images={product.images} />
@@ -136,6 +147,15 @@ export default function ProductList() {
           )}
         </TableBody>
       </Table>
+
+      <PaginationButton
+        onClickLeft={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        onClickRight={() =>
+          setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+        }
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
 
       <Modal
         isOpen={isAddModalOpen}

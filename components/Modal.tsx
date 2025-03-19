@@ -1,17 +1,7 @@
-import { ReactNode } from "react";
 import { X } from "lucide-react";
+import { ModalType } from "@/utils/types";
 
-export const Modal = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-}: {
-  isOpen: boolean;
-  onClose?: () => void;
-  title: string;
-  children: ReactNode;
-}) => {
+export const Modal = ({ isOpen, onClose, title, children }: ModalType) => {
   const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose?.();

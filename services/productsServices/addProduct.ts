@@ -1,36 +1,3 @@
-// import axios from "axios";
-// import { ProductTypes } from "@/utils/types";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { toast } from "sonner";
-
-// export function useAddProduct() {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: async (initialData: Omit<ProductTypes, "_id">) => {
-//       const response = await axios.post("/api/products", initialData, {
-//         headers: { "Content-Type": "application/json" },
-//       });
-//       return response.data; // ✅ Return only the product data
-//     },
-
-//     onSuccess: async (newProduct) => {
-//       await queryClient.cancelQueries({ queryKey: ["products"] });
-
-//       queryClient.setQueryData<ProductTypes[]>(["products"], (oldData) => {
-//         return oldData ? [...oldData, newProduct] : [newProduct];
-//       });
-
-//       toast.success("Product added successfully");
-//     },
-
-//     onError: (error) => {
-//       console.error("Error adding product:", error.message);
-//       toast.error("Failed to update product.");
-//     },
-//   });
-// }
-
 import axios from "axios";
 import { ProductTypes } from "@/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

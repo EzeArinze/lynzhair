@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { ComponentType } from "react";
+import { ComponentType, ReactNode } from "react";
 
 export interface ProductTypes {
   _id: string;
@@ -125,4 +125,11 @@ export interface ContactCard {
   bgColor: string;
   textColor: string;
   hoverBorderColor: string;
+}
+
+export interface ModalType {
+  isOpen: boolean;
+  onClose?: () => void;
+  title: string;
+  children: ReactNode;
 }

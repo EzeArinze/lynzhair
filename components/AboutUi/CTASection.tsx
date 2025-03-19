@@ -25,7 +25,7 @@ export function CtaSection() {
           </h2>
           <p className="text-gray-700 mb-8 text-lg">
             Join thousands of satisfied customers who have elevated their style
-            with LynzHair&agos;s premium quality extensions.
+            with LynzHair&aqos;s premium quality extensions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
