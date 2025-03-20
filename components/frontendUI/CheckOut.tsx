@@ -1,23 +1,19 @@
 "use client";
 
 import type React from "react";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-
-// import { ShippingForm } from "@/components/CartUi/CheckoutForm";
 import { ShippingFormData } from "@/utils/types";
 import {
   express,
   freeShippingThreshold,
   overnight,
   standard,
-} from "@/lib/constant/conatant";
-// import OrderSummary from "../CartUi/OrderSummary";
-import useBasketStore from "@/store/cartStore";
+} from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "../Loader";
+import { useGroupedItems } from "@/utils/useGroupedItems";
 
 const ShippingForm = dynamic(
   () =>
@@ -45,20 +41,14 @@ export default function CheckOut() {
     agreeToTerms: false,
   });
 
-  // Calculate order totals
-  const getGroupedItem = useBasketStore((state) => state.getGroupedItem());
+  const getGroupedItem = useGroupedItems();
 
-  const [isClient, setIsClient] = useState(false);
+  const subtotal =
+    getGroupedItem?.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0
+    ) || 0;
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) return null;
-  const subtotal = getGroupedItem?.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
   const shipping =
     formData.shippingMethod === "standard"
       ? standard
@@ -71,7 +61,7 @@ export default function CheckOut() {
   // Free shipping threshold
   const qualifiesForFreeShipping = subtotal >= freeShippingThreshold;
 
-  const groupItem = getGroupedItem.map((group) => ({
+  const groupItem = getGroupedItem?.map((group) => ({
     product: group.product,
     quantity: group.quantity,
   }));
@@ -122,7 +112,7 @@ export default function CheckOut() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <OrderSummary
-              cartItems={getGroupedItem}
+              cartItems={getGroupedItem || undefined}
               subtotal={subtotal}
               shipping={shipping}
               total={total}

@@ -5,7 +5,7 @@ import {
   express,
   freeShippingThreshold,
   overnight,
-} from "@/lib/constant/conatant";
+} from "@/lib/constant/constant";
 
 function DetailsTabs({ description }: { description: string | undefined }) {
   return (

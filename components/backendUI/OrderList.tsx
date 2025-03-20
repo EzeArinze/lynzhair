@@ -111,7 +111,7 @@ import MoreActionsOptions from "@/components/Options_action";
 import formatCurrency from "@/utils/formatCurrency";
 import dummyOrder, { IOrder } from "@/utils/dummyOrder";
 // import { DataTable } from "./Table";
-import { statusOptions } from "@/lib/constant/conatant";
+import { statusOptions } from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
 // import UserList from "./UserList";
 const DataTable = dynamic(

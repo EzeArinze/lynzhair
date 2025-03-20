@@ -11,7 +11,7 @@ import AddToCartSection from "../CartUi/AddToCartSection";
 import { Badge } from "../ui/badge";
 import formatCurrency from "@/utils/formatCurrency";
 import { percentageCalculator } from "@/utils/percentageCalculator";
-import { freeShippingThreshold } from "@/lib/constant/conatant";
+import { freeShippingThreshold } from "@/lib/constant/constant";
 
 type ProductDetailsProp = {
   details: productType | undefined;

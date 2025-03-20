@@ -16,7 +16,7 @@ import {
 import { states } from "@/lib/constant/NigeriaStates";
 import { ShippingFormData } from "@/utils/types";
 import formatCurrency from "@/utils/formatCurrency";
-import { express, overnight, standard } from "@/lib/constant/conatant";
+import { express, overnight, standard } from "@/lib/constant/constant";
 
 interface ShippingFormProps {
   formData: ShippingFormData;

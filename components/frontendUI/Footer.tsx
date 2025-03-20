@@ -36,8 +36,8 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                { name: "Shop All", href: "/shop" },
-                { name: "New Arrivals", href: "/shop/new" },
+                { name: "Shop All", href: "#" },
+                { name: "New Arrivals", href: "#" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -56,8 +56,8 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Customer Service</h3>
             <ul className="space-y-2">
               {[
-                { name: "Contact Us", href: "/contact" },
-                { name: "Track Your Order", href: "/track-order" },
+                { name: "Contact Us", href: "#" },
+                { name: "Track Your Order", href: "#" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -102,13 +102,13 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4 mt-2 md:mt-0">
               <Link
-                href="/privacy"
+                href="#"
                 className="text-xs text-gray-500 hover:text-pink-600"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/terms"
+                href="/#"
                 className="text-xs text-gray-500 hover:text-pink-600"
               >
                 Terms of Service

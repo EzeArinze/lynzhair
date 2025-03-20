@@ -1,4 +1,4 @@
-import { LIMIT } from "@/lib/constant/conatant";
+import { LIMIT } from "@/lib/constant/constant";
 import connectDB from "@/lib/dbconnect";
 import { Product } from "@/models/ProductModel";
 import { NextResponse } from "next/server";

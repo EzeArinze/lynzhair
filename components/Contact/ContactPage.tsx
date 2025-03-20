@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Mail, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { contactCards } from "@/lib/constant/conatant";
+import { contactCards } from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
 const FAQ = dynamic(() => import("@/components/Contact/FAQ"), {
   ssr: false,

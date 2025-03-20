@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,19 +9,21 @@ import { MobileMenu } from "./MobileMenu";
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import Image from "next/image";
-import useBasketStore from "@/store/cartStore";
+import { useGroupedItems } from "@/utils/useGroupedItems";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
 
-  const getGrouped = useBasketStore((state) => state.getGroupedItem());
+  // const getGrouped = useBasketStore((state) => state.getGroupedItem());
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
 
-  if (!isClient) return null;
+  // if (!isClient) return null;
+
+  const getGrouped = useGroupedItems();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
@@ -68,7 +70,7 @@ export function Navbar() {
                 <ShoppingCart className="h-5 w-5" />
                 <span
                   className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full ${
-                    getGrouped.length === 0
+                    getGrouped?.length === 0
                       ? ""
                       : "bg-primary text-[10px] font-medium text-white shadow-md"
                   } `}
