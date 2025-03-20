@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+// import { useState } from "react";
 
 // Menu items.
 const items = [
@@ -42,6 +43,7 @@ const items = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  // const [isOpen, setIsOpen] = useState(false) come back to this later
 
   return (
     <Sidebar variant="inset">

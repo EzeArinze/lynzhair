@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { MobileMenu } from "./MobileMenu";
@@ -67,8 +66,14 @@ export function Navbar() {
             <Button variant="ghost" size="icon" className="relative" asChild>
               <Link href={"/commerce/cart"}>
                 <ShoppingCart className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-white shadow-md">
-                  {getGrouped.length}
+                <span
+                  className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full ${
+                    getGrouped.length === 0
+                      ? ""
+                      : "bg-primary text-[10px] font-medium text-white shadow-md"
+                  } `}
+                >
+                  {getGrouped?.length || ""}
                 </span>
               </Link>
             </Button>

@@ -9,11 +9,6 @@ export default function EmptyCartPage() {
     <section className="flex min-h-screen flex-col">
       <div className="flex-1 py-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Page title */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-          </div>
-
           {/* Empty cart state */}
           <div className="bg-white rounded-lg border p-10 text-center max-w-2xl mx-auto">
             <div className="bg-gray-50 rounded-full h-24 w-24 flex items-center justify-center mx-auto mb-6">
