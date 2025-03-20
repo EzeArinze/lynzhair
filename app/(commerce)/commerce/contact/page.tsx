@@ -1,6 +1,9 @@
+"use client";
 import dynamic from "next/dynamic";
 import React from "react";
-const ConatactPage = dynamic(() => import("@/components/Contact/ContactPage"));
+const ConatactPage = dynamic(() => import("@/components/Contact/ContactPage"), {
+  ssr: false,
+});
 
 function page() {
   return <ConatactPage />;
