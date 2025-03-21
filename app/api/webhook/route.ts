@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { SECRET } from "@/lib/constant/env";
+import { PAYSTACK_SECRET } from "@/lib/constant/env";
 
 export async function POST(req: Request) {
   try {
     const body = await req.text();
 
-    const hash = crypto.createHmac("sha512", SECRET).update(body).digest("hex");
+    const hash = crypto
+      .createHmac("sha512", PAYSTACK_SECRET)
+      .update(body)
+      .digest("hex");
 
     if (hash !== req.headers.get("x-paystack-signature")) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });

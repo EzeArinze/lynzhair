@@ -10,4 +10,6 @@ export const CLOUDINARY_URL = process.env.CLOUDINARY_URL as string;
 
 export const BASE_URL = process.env.NEXT_PUBLIC_URL as string;
 
-export const SECRET = process.env.PAYSTACK_SECRET_KEY as string;
+export const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY as string;
+
+export const PAYSTACK_PUBLIC = process.env.PAYSTACK_SECRET_KEY as string;

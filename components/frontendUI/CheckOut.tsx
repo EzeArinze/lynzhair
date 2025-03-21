@@ -71,13 +71,23 @@ export default function CheckOut() {
     e.preventDefault();
 
     // process the order here
-    console.log(
-      "Order submitted:",
-      formData,
-      groupItem,
-      total,
-      qualifiesForFreeShipping
-    );
+    const metadata = {
+      fullName: formData.fullName,
+      phone: formData.phone,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      shippingMethod: formData.shippingMethod,
+      qualifiesForFreeShipping,
+      totalAmount: total,
+      product: groupItem?.map((item) => ({
+        name: item.product.name,
+        image: item.product.images[0].public_url,
+        quantity: item.quantity,
+      })),
+    };
+
+    console.log("Metadata for Paystack:", metadata);
   };
 
   return (
