@@ -9,3 +9,5 @@ export const API_SECRET = process.env.CLOUDINARY_API_SECRET as string;
 export const CLOUDINARY_URL = process.env.CLOUDINARY_URL as string;
 
 export const BASE_URL = process.env.NEXT_PUBLIC_URL as string;
+
+export const SECRET = process.env.PAYSTACK_SECRET_KEY as string;

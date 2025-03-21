@@ -20,13 +20,13 @@ const ShippingForm = dynamic(
     import("@/components/CartUi/CheckoutForm").then((mod) => mod.ShippingForm),
   {
     loading: () => <LoadingSpinner />,
-    ssr: false, // Disable SSR for this component to reduce server load
+    ssr: false,
   }
 );
 
 const OrderSummary = dynamic(() => import("../CartUi/OrderSummary"), {
   loading: () => <LoadingSpinner />,
-  ssr: true, // Keep SSR for this component as it's important for SEO
+  ssr: true,
 });
 
 export default function CheckOut() {
