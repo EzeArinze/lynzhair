@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronRight, MessageCircle, Facebook, Instagram } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { SocialContact } from "@/lib/constant/constant";
 
 export function CtaSection() {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export function CtaSection() {
           </h2>
           <p className="text-gray-700 mb-8 text-lg">
             Join thousands of satisfied customers who have elevated their style
-            with LynzHair&aqos;s premium quality extensions.
+            with LynzHair&apos;s premium quality extensions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
@@ -47,7 +48,7 @@ export function CtaSection() {
                   Contact Us
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
+              <DialogContent className="sm:max-w-md w-[90%] overflow-y-auto rounded hide-scrollbar">
                 <DialogHeader>
                   <DialogTitle className="text-center text-2xl">
                     Get in Touch
@@ -57,59 +58,28 @@ export function CtaSection() {
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-6 py-4">
-                  <a
-                    href="https://wa.me/1234567890"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-green-50 hover:border-green-200 transition-colors"
-                  >
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                      <MessageCircle className="h-6 w-6 text-green-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">WhatsApp</h3>
-                      <p className="text-gray-600 text-sm">
-                        Quick responses during business hours
-                      </p>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://facebook.com/lynzhair"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-blue-50 hover:border-blue-200 transition-colors"
-                  >
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                      <Facebook className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">Facebook</h3>
-                      <p className="text-gray-600 text-sm">
-                        Message us or join our community
-                      </p>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://instagram.com/lynzhair"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
-                    className="flex items-center p-4 rounded-lg border border-gray-200 hover:bg-pink-50 hover:border-pink-200 transition-colors"
-                  >
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
-                      <Instagram className="h-6 w-6 text-pink-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">Instagram</h3>
-                      <p className="text-gray-600 text-sm">
-                        DM us or explore our latest styles
-                      </p>
-                    </div>
-                  </a>
+                  {SocialContact.map((item, index) => (
+                    <Link
+                      key={index}
+                      href={item.href}
+                      target={item.target}
+                      rel={item.rel}
+                      onClick={() => setOpen(false)}
+                      className={`flex items-center p-4 rounded-lg border border-gray-200 transition-colors ${item.className}`}
+                    >
+                      <div
+                        className={`w-12 h-12 ${item.iconBg} rounded-full flex items-center justify-center mr-4`}
+                      >
+                        <item.icon className={`h-6 w-6 ${item.iconColor}`} />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg">
+                          {item.platform}
+                        </h3>
+                        <p className="text-gray-600 text-sm">{item.label}</p>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
                 <div className="text-center text-sm text-gray-500 mt-2">
                   You can also email us at{" "}

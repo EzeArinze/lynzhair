@@ -61,3 +61,39 @@ export const contactCards: ContactCard[] = [
     hoverBorderColor: "hover:border-pink-300",
   },
 ];
+
+export const SocialContact = [
+  {
+    href: "https://wa.me/1234567890",
+    target: "_blank",
+    icon: MessageCircle,
+    rel: "noopener noreferrer",
+    label: "Quick responses during business hours",
+    platform: "WhatsApp",
+    className: "hover:bg-green-50 hover:border-green-200",
+    iconBg: "bg-green-100",
+    iconColor: "text-green-600",
+  },
+  {
+    href: "https://facebook.com/lynzhair",
+    target: "_blank",
+    icon: Facebook,
+    rel: "noopener noreferrer",
+    label: "Message us or join our community",
+    platform: "Facebook",
+    className: "hover:bg-blue-50 hover:border-blue-200",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-600",
+  },
+  {
+    href: "https://instagram.com/lynzhair",
+    target: "_blank",
+    icon: Instagram,
+    rel: "noopener noreferrer",
+    label: "DM us or explore our latest styles",
+    platform: "Instagram",
+    className: "hover:bg-pink-50 hover:border-pink-200",
+    iconBg: "bg-pink-100",
+    iconColor: "text-pink-600",
+  },
+];
