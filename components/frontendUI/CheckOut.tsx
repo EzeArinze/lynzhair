@@ -14,6 +14,9 @@ import {
 import dynamic from "next/dynamic";
 import LoadingSpinner from "../Loader";
 import { useGroupedItems } from "@/utils/useGroupedItems";
+import Script from "next/script";
+import { SCRIPT_SRC } from "@/lib/constant/env";
+import { initializePayment } from "@/actions/initializePayment";
 
 const ShippingForm = dynamic(
   () =>
@@ -72,13 +75,8 @@ export default function CheckOut() {
 
     // process the order here
     const metadata = {
-      fullName: formData.fullName,
-      phone: formData.phone,
-      address: formData.address,
-      city: formData.city,
-      state: formData.state,
-      shippingMethod: formData.shippingMethod,
-      qualifiesForFreeShipping,
+      ...formData,
+      method: qualifiesForFreeShipping,
       totalAmount: total,
       product: groupItem?.map((item) => ({
         name: item.product.name,
@@ -87,7 +85,7 @@ export default function CheckOut() {
       })),
     };
 
-    console.log("Metadata for Paystack:", metadata);
+    initializePayment(metadata);
   };
 
   return (
@@ -133,6 +131,7 @@ export default function CheckOut() {
           </div>
         </div>
       </div>
+      {SCRIPT_SRC && <Script src={SCRIPT_SRC} strategy="afterInteractive" />}
     </section>
   );
 }

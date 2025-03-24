@@ -14,3 +14,8 @@ export const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY as string;
 
 export const PAYSTACK_PUBLIC = process.env
   .NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string;
+
+export const PAYSTACK_INITIALIZE_URI = process.env
+  .PAYSTACK_INITIALIZE_URI as string;
+
+export const SCRIPT_SRC = process.env.SCRIPT_SRC as string;
