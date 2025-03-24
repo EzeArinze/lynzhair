@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
+import { Badge } from "../ui/badge";
 
 export function Banner() {
   return (
     <section className="relative">
-      <div className="h-[400px] md:h-[500px]  relative overflow-hidden">
+      <div className="h-[400px] md:h-[500px]  relative overflow-hidden rounded-lg">
         <Image
           src="https://res.cloudinary.com/dsvpedluw/image/upload/f_webp/ik1fu6zwuwy4pueeioav"
           alt="Premium Quality Hair Extensions"
@@ -22,9 +23,9 @@ export function Banner() {
                 Elevate your look with our luxury hair collections. 100% virgin
                 human hair.
               </p>
-              <Button className="bg-pink-600 hover:bg-pink-700 text-white">
-                Shop Now
-              </Button>
+              <Badge className="bg-pink-600 hover:bg-pink-700 text-white p-2">
+                Shop with us today
+              </Badge>
             </div>
           </div>
         </div>

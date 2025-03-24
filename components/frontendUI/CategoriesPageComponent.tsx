@@ -28,7 +28,7 @@ function CategoriesPageComponent() {
       {isFetching ? (
         <LoadingSpinner />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto md:ml-2 lg:ml-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto md:ml-2 lg:ml-2 w-[90%] sm:w-full ">
           {categoryProducts &&
             categoryProducts.map((categoryProduct) => (
               <ProductCard
