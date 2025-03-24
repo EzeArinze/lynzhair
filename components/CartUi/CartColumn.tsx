@@ -6,9 +6,10 @@ function CartColumn() {
       <div className="col-span-6">
         <span className="text-sm font-medium text-gray-600">Product</span>
       </div>
-      <div className="col-span-2 text-center">
+      {/* <div className="col-span-2 text-center">
         <span className="text-sm font-medium text-gray-600">Price</span>
-      </div>
+      </div> */}
+
       <div className="col-span-2 text-center">
         <span className="text-sm font-medium text-gray-600">Quantity</span>
       </div>

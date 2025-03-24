@@ -14,17 +14,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { states } from "@/lib/constant/NigeriaStates";
-import { ShippingFormData } from "@/utils/types";
+import { ShippingFormProps } from "@/utils/types";
 import formatCurrency from "@/utils/formatCurrency";
 import { express, overnight, standard } from "@/lib/constant/constant";
-
-interface ShippingFormProps {
-  formData: ShippingFormData;
-  setFormData: React.Dispatch<React.SetStateAction<ShippingFormData>>;
-  onSubmit: (e: React.FormEvent) => void;
-  qualifiesForFreeShipping: boolean;
-  freeShippingThreshold: number;
-}
 
 export function ShippingForm({
   formData,

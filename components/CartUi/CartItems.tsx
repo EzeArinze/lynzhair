@@ -89,6 +89,9 @@ function CartItems({
               {item.name}
             </Link>
             <p className="text-sm text-gray-500 mt-1">{item.category}</p>
+            <span className="text-sm font-medium">
+              {formatCurrency(item.price)}
+            </span>
             <button
               onClick={onRemove}
               className="text-sm text-gray-500 hover:text-red-500 mt-1 flex items-center"
@@ -101,9 +104,9 @@ function CartItems({
       </div>
 
       {/* Price */}
-      <div className="hidden sm:block sm:col-span-2 text-center">
+      {/* <div className="hidden sm:block sm:col-span-2 text-center">
         <span className="font-medium">{formatCurrency(item.price)}</span>
-      </div>
+      </div> */}
 
       {/* Quantity */}
       <div className="hidden sm:flex sm:col-span-2 justify-center items-center">
@@ -125,8 +128,8 @@ function CartItems({
         </div>
       </div>
 
-      {/* Total */}
-      <div className="hidden sm:block sm:col-span-2 text-right">
+      {/* Total: i add pl-6 */}
+      <div className="hidden sm:block sm:col-span-2 text-right pl-6">
         <span className="font-semibold">
           {formatCurrency(item.price * quantity)}
         </span>

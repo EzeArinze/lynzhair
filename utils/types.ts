@@ -133,3 +133,11 @@ export interface ModalType {
   title: string;
   children: ReactNode;
 }
+
+export interface ShippingFormProps {
+  formData: ShippingFormData;
+  setFormData: React.Dispatch<React.SetStateAction<ShippingFormData>>;
+  onSubmit: (e: React.FormEvent) => void;
+  qualifiesForFreeShipping: boolean;
+  freeShippingThreshold: number;
+}

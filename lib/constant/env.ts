@@ -12,4 +12,5 @@ export const BASE_URL = process.env.NEXT_PUBLIC_URL as string;
 
 export const PAYSTACK_SECRET = process.env.PAYSTACK_SECRET_KEY as string;
 
-export const PAYSTACK_PUBLIC = process.env.PAYSTACK_PUBLIC_KEY as string;
+export const PAYSTACK_PUBLIC = process.env
+  .NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY as string;
