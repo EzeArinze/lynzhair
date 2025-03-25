@@ -17,22 +17,42 @@ export async function POST(req: Request) {
 
     const event = JSON.parse(body);
 
-    if (event.event === "charge.success") {
-      const { reference, metadata, customer } = event.data;
+    if (
+      event.event === "charge.success" ||
+      event.event === "transfer.success"
+    ) {
+      const {
+        reference,
+        metadata,
+        customer,
+        status,
+        paid_at,
+        currency,
+        ip_address,
+      } = event.data;
 
-      //Build order dtat
       const orderData = {
         reference,
         metadata,
         customer,
+        status,
+        paid_at,
+        currency,
+        ip_address,
       };
 
-      // Save the order in Backend
+      // const { email , id} = customer;
+      // const { totalAmount, phone, fullName,address, city, state,shippingMethod, method} = metadata;
+      console.log("Order Data:", orderData);
+
+      // Save order to database
+      // const order = new Order(orderData);
+      // await order.save();
 
       return NextResponse.json(
         {
           orderData,
-          message: "Webhook successul and other created successfully",
+          message: "Webhook successful and order created successfully",
         },
         { status: 200 }
       );

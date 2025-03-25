@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         phone: phone,
         amount: Math.round(Number.parseFloat(amount) * 100), // Convert to kobo
         metadata,
-        callback_url: `${BASE_URL}/api/paystack/callback`,
+        callback_url: `${BASE_URL}/commerce/success`,
       },
       {
         headers: {

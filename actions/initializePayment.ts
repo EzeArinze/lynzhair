@@ -22,7 +22,6 @@ export const initializePayment = async (orderData: OrderData) => {
     }
 
     const data = response.data;
-    console.log("Data: ", data);
 
     // Redirect user to Paystack payment page
     if (data.data && data.data.authorization_url) {

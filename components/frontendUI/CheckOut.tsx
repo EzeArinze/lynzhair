@@ -85,6 +85,16 @@ export default function CheckOut() {
       })),
     };
 
+    setFormData({
+      fullName: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      shippingMethod: "standard",
+      agreeToTerms: false,
+    });
+
     initializePayment(metadata);
   };
 
