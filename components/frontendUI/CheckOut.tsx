@@ -79,6 +79,7 @@ export default function CheckOut() {
       method: qualifiesForFreeShipping,
       totalAmount: total,
       product: groupItem?.map((item) => ({
+        productId: item.product._id,
         name: item.product.name,
         image: item.product.images[0].public_url,
         quantity: item.quantity,
