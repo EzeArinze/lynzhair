@@ -78,7 +78,7 @@ export async function POST(req: Request) {
         status: "paid",
         freeShipping: method,
         shippingMethod,
-        orderDate: new Date(paid_at).toISOString(),
+        orderDate: new Date(paid_at).toISOString().slice(0, 19),
       };
 
       // Save order to database
