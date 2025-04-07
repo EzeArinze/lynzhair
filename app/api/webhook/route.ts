@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { PAYSTACK_SECRET } from "@/lib/constant/env";
+import { Order } from "@/models/OrderModel";
 
 export async function POST(req: Request) {
   try {
@@ -22,37 +23,76 @@ export async function POST(req: Request) {
       event.event === "transfer.success"
     ) {
       const {
+        id,
         reference,
         metadata,
         customer,
-        status,
+        // status,
         paid_at,
         currency,
-        ip_address,
+        // ip_address,
       } = event.data;
 
-      const orderData = {
-        reference,
-        metadata,
-        customer,
-        status,
-        paid_at,
+      if (
+        !metadata ||
+        !customer ||
+        !metadata.product ||
+        !metadata.totalAmount
+      ) {
+        throw new Error("Invalid webhook payload: Missing required fields");
+      }
+
+      const { email, id: UserId } = customer;
+      const {
+        totalAmount,
+        phone,
+        fullName,
+        address,
+        city,
+        state,
+        shippingMethod,
+        method,
+        product,
+      } = metadata;
+
+      // Build order data
+      const order = {
+        orderNumber: id,
+        paystackCheckoutSessionId: reference,
+        UserId: UserId,
+        customerName: fullName,
+        email,
+        paystackPaymentIntentId: reference,
+        products: product.map(
+          (item: { productId: string; quantity: number }) => ({
+            product: item.productId,
+            quantity: item.quantity,
+          })
+        ),
+        totalPrice: Number(totalAmount),
         currency,
-        ip_address,
+        address,
+        city,
+        state,
+        phone_number: phone,
+        status: "paid",
+        freeShipping: method,
+        shippingMethod,
+        orderDate: new Date(paid_at).toISOString(),
       };
 
-      // const { email , id} = customer;
-      // const { totalAmount, phone, fullName,address, city, state,shippingMethod, method} = metadata;
-      console.log("Order Data:", orderData);
-
       // Save order to database
-      // const order = new Order(orderData);
-      // await order.save();
+      try {
+        await new Order(order).save();
+        console.log("Successfully Created");
+      } catch (dbError) {
+        console.error("Error saving order to database:", dbError);
+        throw new Error("Failed to save order");
+      }
 
       return NextResponse.json(
         {
-          orderData,
-          message: "Webhook successful and order created successfully",
+          message: "Order proccessed successfully",
         },
         { status: 200 }
       );

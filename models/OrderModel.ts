@@ -46,6 +46,7 @@ const OrderSchema: Schema = new Schema(
     currency: { type: String, required: true },
     address: { type: String, required: true },
     city: { type: String, required: true },
+    state: { type: String, required: true },
     phone_number: { type: String, required: true },
     status: {
       type: String,
