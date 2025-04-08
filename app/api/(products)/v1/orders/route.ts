@@ -12,15 +12,20 @@ export async function GET() {
       await import("@/models/ProductModel");
     }
 
+    //get the email from the auth provider or the request body
     const orderPattern = new RegExp("example@gmail.com", "i");
 
     const query = {
       $or: [{ email: orderPattern }],
     };
 
-    const orders = await Order.find(query)
-      .populate("products.product")
-      .sort({ orderDate: -1 });
+    const orders = await Order.find(
+      query,
+      "orderNumber email products orderDate"
+    )
+      .populate("products.product", "name price images")
+      .sort({ orderDate: -1 })
+      .lean();
 
     return NextResponse.json(orders, { status: 200 });
   } catch (error) {
