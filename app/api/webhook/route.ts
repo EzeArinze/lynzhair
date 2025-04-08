@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { PAYSTACK_SECRET } from "@/lib/constant/env";
 import { Order } from "@/models/OrderModel";
+import connectDB from "@/lib/dbconnect";
 
 export async function POST(req: Request) {
   try {
@@ -27,40 +28,24 @@ export async function POST(req: Request) {
         reference,
         metadata,
         customer,
-        // status,
         paid_at,
         currency,
         // ip_address,
       } = event.data;
 
-      if (
-        !metadata ||
-        !customer ||
-        !metadata.product ||
-        !metadata.totalAmount
-      ) {
+      if (!metadata || !customer) {
         throw new Error("Invalid webhook payload: Missing required fields");
       }
 
       const { email, id: UserId } = customer;
-      const {
-        totalAmount,
-        phone,
-        fullName,
-        address,
-        city,
-        state,
-        shippingMethod,
-        method,
-        product,
-      } = metadata;
+      const { product } = metadata;
 
       // Build order data
       const order = {
         orderNumber: id,
         paystackCheckoutSessionId: reference,
         UserId: UserId,
-        customerName: fullName,
+        customerName: metadata.fullName,
         email,
         paystackPaymentIntentId: reference,
         products: product.map(
@@ -69,20 +54,21 @@ export async function POST(req: Request) {
             quantity: item.quantity,
           })
         ),
-        totalPrice: Number(totalAmount),
+        totalPrice: Number(metadata.totalAmount),
         currency,
-        address,
-        city,
-        state,
-        phone_number: phone,
+        address: metadata.address,
+        city: metadata.city,
+        state: metadata.state,
+        phone_number: metadata.phone,
         status: "paid",
-        freeShipping: method,
-        shippingMethod,
+        freeShipping: metadata.method,
+        shippingMethod: metadata.shippingMethod,
         orderDate: new Date(paid_at).toISOString().slice(0, 19),
       };
 
       // Save order to database
       try {
+        await connectDB();
         await new Order(order).save();
         console.log("Successfully Created");
       } catch (dbError) {
