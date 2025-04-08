@@ -63,7 +63,7 @@ const OrderSchema: Schema = new Schema(
 );
 
 const Order: Model<IOrder> =
-  mongoose.models.Order || mongoose.model<IOrder>("Order", OrderSchema);
+  mongoose.models?.Order || mongoose.model<IOrder>("Order", OrderSchema);
 
 export { Order };
 export type { IOrder };
