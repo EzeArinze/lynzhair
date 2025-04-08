@@ -28,24 +28,40 @@ export async function POST(req: Request) {
         reference,
         metadata,
         customer,
+        // status,
         paid_at,
         currency,
         // ip_address,
       } = event.data;
 
-      if (!metadata || !customer) {
+      if (
+        !metadata ||
+        !customer ||
+        !metadata.orderDetails.product ||
+        !metadata.orderDetails.totalAmount
+      ) {
         throw new Error("Invalid webhook payload: Missing required fields");
       }
 
       const { email, id: UserId } = customer;
-      const { product } = metadata;
+      const {
+        totalAmount,
+        phone,
+        fullName,
+        address,
+        city,
+        state,
+        shippingMethod,
+        method,
+        product,
+      } = metadata.orderDetails;
 
       // Build order data
       const order = {
         orderNumber: id,
         paystackCheckoutSessionId: reference,
         UserId: UserId,
-        customerName: metadata.fullName,
+        customerName: fullName,
         email,
         paystackPaymentIntentId: reference,
         products: product.map(
@@ -54,15 +70,15 @@ export async function POST(req: Request) {
             quantity: item.quantity,
           })
         ),
-        totalPrice: Number(metadata.totalAmount),
+        totalPrice: Number(totalAmount),
         currency,
-        address: metadata.address,
-        city: metadata.city,
-        state: metadata.state,
-        phone_number: metadata.phone,
+        address,
+        city,
+        state,
+        phone_number: phone,
         status: "paid",
-        freeShipping: metadata.method,
-        shippingMethod: metadata.shippingMethod,
+        freeShipping: method,
+        shippingMethod,
         orderDate: new Date(paid_at).toISOString().slice(0, 19),
       };
 
