@@ -1,8 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-// import HairCategorySelector from "./CategoriesSelector";
-import { useGetProductByCategories } from "@/services/productsServices/getProductByCategories";
+import { useGetProductByCategories } from "@/services/productsServices/getCategories";
 import { ProductCard } from "./ProductCard";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "../Loader";
