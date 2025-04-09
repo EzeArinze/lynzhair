@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await connectDB();
-    const data = await Product.find({});
+    const data = await Product.find({}).sort({ orderDate: -1 }).lean();
     if (!data) {
       return NextResponse.json(
         { message: "No Product Data in the DataBase" },
