@@ -24,8 +24,17 @@ export async function DELETE(
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    const deletePromises = product.images.map((img: { public_id: string }) =>
-      cloudinary.uploader.destroy(img.public_id)
+    const deletePromises = product.images.map(
+      async (img: { public_id: string }) => {
+        try {
+          return await cloudinary.uploader.destroy(img.public_id);
+        } catch (error) {
+          console.error(
+            `Failed to delete image with public_id: ${img.public_id}`,
+            error
+          );
+        }
+      }
     );
     await Promise.all(deletePromises);
 
