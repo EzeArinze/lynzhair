@@ -3,7 +3,6 @@ import connectDB from "@/lib/dbconnect";
 import { Product } from "@/models/ProductModel";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET /api/products/[id]
 export async function DELETE(
   req: NextRequest,
   {
