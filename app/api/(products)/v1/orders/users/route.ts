@@ -21,9 +21,9 @@ export async function GET() {
 
     const orders = await Order.find(
       query,
-      "orderNumber email products orderDate"
+      "orderNumber email products orderDate totalPrice status"
     )
-      .populate("products.product", "name price images")
+      .populate("products.product", "name images")
       .sort({ orderDate: -1 })
       .lean();
 

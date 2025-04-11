@@ -2,8 +2,10 @@ import { Badge } from "@/components/ui/badge";
 
 export const getStatusBadge = (status: string) => {
   switch (status) {
-    case "processing":
+    case "pending":
       return <Badge className="bg-blue-500">Processing</Badge>;
+    case "paid":
+      return <Badge className="bg-pink-500 ">Paid</Badge>;
     case "shipped":
       return <Badge className="bg-purple-500">Shipped</Badge>;
     case "delivered":

@@ -141,3 +141,25 @@ export interface ShippingFormProps {
   qualifiesForFreeShipping: boolean;
   freeShippingThreshold: number;
 }
+
+// Props for the OrderItem component
+interface Product {
+  _id: string;
+  name: string;
+  images: ProductImage[];
+}
+
+interface OrderItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface Order {
+  _id: string;
+  orderNumber: string;
+  email: string;
+  orderDate: string; // ISO date string
+  products: OrderItem[];
+  totalPrice: number;
+  status?: string; // Optional, defaults to "processing" if not provided
+}
