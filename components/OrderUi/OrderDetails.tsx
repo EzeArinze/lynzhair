@@ -54,14 +54,8 @@ const orderDetails = {
   actualDelivery: "March 19, 2025",
 };
 
-export default function OrderDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  // In a real app, you would fetch the order details based on the ID
-  const orderId = params.id || "123456";
-  console.log(orderId);
+export default function OrderDetailsPage({ orderId }: { orderId: string }) {
+  console.log(orderId || "Order ID not provided");
 
   return (
     <div className="flex min-h-screen flex-col">

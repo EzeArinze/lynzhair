@@ -1,5 +1,4 @@
 import formatCurrency from "@/utils/formatCurrency";
-import React from "react";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import Image from "next/image";

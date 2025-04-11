@@ -1,11 +1,7 @@
 import OrdersPage from "@/components/OrderUi/OrderPage";
 
 function UserOrder() {
-  return (
-    <section>
-      <OrdersPage />;
-    </section>
-  );
+  return <OrdersPage />;
 }
 
 export default UserOrder;
