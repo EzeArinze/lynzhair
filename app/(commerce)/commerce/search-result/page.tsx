@@ -3,11 +3,11 @@ import { Suspense } from "react";
 
 function SearchResultPage() {
   return (
-    <div>
+    <section>
       <Suspense>
         <SearchPage />
       </Suspense>
-    </div>
+    </section>
   );
 }
 
