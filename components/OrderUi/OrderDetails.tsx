@@ -69,7 +69,7 @@ export default function OrderDetailsPage({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
           <Link
-            href="/account/orders"
+            href="/commerce/orders"
             className="inline-flex items-center text-sm font-medium text-pink-600 mb-6 hover:underline"
           >
             <ChevronLeft className="w-4 h-4 mr-1" />
@@ -137,7 +137,7 @@ export default function OrderDetailsPage({
           <ShippingInformation orderDetails={orderDetails} />
 
           {/* Need Help Section */}
-          <NeedHelp />
+          <NeedHelp page="details" />
         </div>
       </main>
     </div>
