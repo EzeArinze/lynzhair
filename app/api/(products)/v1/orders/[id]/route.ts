@@ -3,7 +3,7 @@ import { Order } from "@/models/OrderModel";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET /api/products/[id]
+// GET /api/v1/orders/[id]
 export async function GET(
   req: NextRequest,
   {
