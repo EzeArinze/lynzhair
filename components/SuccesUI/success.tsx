@@ -5,24 +5,25 @@ import { motion } from "framer-motion";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ConfettiEffect from "./ConfettiEffect";
-
-// Mock order details - in a real app, this would come from your backend
-const orderDetails = {
-  orderNumber: "LH-" + Math.floor(10000000 + Math.random() * 90000000),
-  date: new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }),
-  estimatedDelivery: new Date(
-    Date.now() + 7 * 24 * 60 * 60 * 1000
-  ).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-  }),
-};
+import { useGetOrder } from "@/services/productsServices/getOrders";
+import ErrorSituation from "../Error";
 
 export default function SuccessPage() {
+  const { data: orderData, isLoading, error } = useGetOrder();
+
+  const newDate = (date: string) => {
+    const parsedDate = new Date(date);
+    return isNaN(parsedDate.getTime())
+      ? "N/A"
+      : parsedDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+  };
+
+  if (error) return <ErrorSituation situation="order details" />;
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 py-10 bg-gray-50">
@@ -56,9 +57,16 @@ export default function SuccessPage() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div>
                   <h2 className="text-xl font-semibold mb-1">
-                    Order #{orderDetails.orderNumber}
+                    Order #
+                    {isLoading
+                      ? "loading..."
+                      : orderData?.at(0)?.orderNumber || "N/A"}
                   </h2>
-                  <p className="text-gray-500">Placed on {orderDetails.date}</p>
+                  <p className="text-gray-500">
+                    Placed on{" "}
+                    {orderData?.at(0)?.orderDate &&
+                      newDate(orderData?.at(0)?.orderDate ?? "N/A")}
+                  </p>
                 </div>
                 <Button
                   asChild
@@ -84,7 +92,7 @@ export default function SuccessPage() {
                   <li className="flex items-start">
                     <CheckCircle className="h-5 w-5 text-pink-600 mt-0.5 mr-2 flex-shrink-0" />
                     <span className="text-sm text-gray-600">
-                      You can track your order status in your account dashboard.
+                      You can track your order status in your Order page.
                     </span>
                   </li>
                 </ul>
