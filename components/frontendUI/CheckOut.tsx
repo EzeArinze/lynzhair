@@ -7,6 +7,7 @@ import { ChevronLeft } from "lucide-react";
 import { ShippingFormData } from "@/utils/types";
 import {
   express,
+  free,
   freeShippingThreshold,
   overnight,
   standard,
@@ -57,6 +58,8 @@ export default function CheckOut() {
       ? standard
       : formData.shippingMethod === "express"
       ? express
+      : formData.shippingMethod === "free"
+      ? free
       : overnight;
 
   const total = subtotal + shipping;

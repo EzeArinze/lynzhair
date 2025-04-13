@@ -4,6 +4,7 @@ import { Facebook, Instagram, MessageCircle } from "lucide-react";
 
 export const LIMIT = 10;
 
+export const free = 0;
 export const Shipping = 4000;
 export const standard = 4000;
 export const express = 6000;
