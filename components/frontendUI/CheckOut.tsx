@@ -7,7 +7,6 @@ import { ChevronLeft } from "lucide-react";
 import { ShippingFormData } from "@/utils/types";
 import {
   express,
-  free,
   freeShippingThreshold,
   overnight,
   standard,
@@ -58,14 +57,15 @@ export default function CheckOut() {
       ? standard
       : formData.shippingMethod === "express"
       ? express
-      : formData.shippingMethod === "free"
-      ? free
       : overnight;
-
-  const total = subtotal + shipping;
 
   // Free shipping threshold
   const qualifiesForFreeShipping = subtotal >= freeShippingThreshold;
+
+  const total =
+    qualifiesForFreeShipping && formData.shippingMethod === "standard"
+      ? subtotal
+      : subtotal + shipping;
 
   const groupItem = getGroupedItem?.map((group) => ({
     product: group.product,
