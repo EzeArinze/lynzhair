@@ -5,18 +5,14 @@ import { getStatusBadge } from "@/hooks/getStatusbadge";
 import NeedHelp from "./NeedHelp";
 import ShippingInformation from "./ShippingInformation";
 import OrderItems from "./OrderItems";
+import { useGetOrderDetails } from "@/services/productsServices/getOrders";
 
 // Mock order data - in a real app, you would fetch this based on the order ID
 const orderDetails = {
   id: "LH-10042587",
   date: "March 15, 2025",
   status: "delivered",
-  statusHistory: [
-    { status: "Processing", date: "March 16, 2025" },
-    { status: "Shipped", date: "March 17, 2025" },
-    { status: "Out for Delivery", date: "March 19, 2025" },
-    { status: "Delivered", date: "March 19, 2025" },
-  ],
+
   items: [
     {
       id: "1",
@@ -57,6 +53,25 @@ const orderDetails = {
 export default function OrderDetailsPage({ orderId }: { orderId: string }) {
   console.log(orderId || "Order ID not provided");
 
+  const { data: orderDetail, isLoading, error } = useGetOrderDetails(orderId);
+
+  console.log("OrderDetails", { orderDetail, isLoading, error });
+
+  const statusHistory = [
+    { status: "Paid", date: orderDetail?.orderDate },
+    { status: "Pending", date: orderDetail?.updatedAt },
+    { status: "Shipped", date: orderDetail?.updatedAt },
+    { status: "Delivered", date: orderDetail?.updatedAt },
+  ];
+
+  const GetDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    });
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 py-10">
@@ -74,9 +89,14 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">
-                Order #{orderDetails.id}
+                Order #{orderDetail?.orderNumber}
               </h1>
-              <p className="text-gray-500">Placed on {orderDetails.date}</p>
+              <p className="text-gray-500">
+                Placed on{" "}
+                {orderDetail?.orderDate
+                  ? GetDate(orderDetail.orderDate)
+                  : "N/A"}
+              </p>
             </div>
             {/* <div className="mt-4 md:mt-0">
               <Button variant="outline" size="sm" className="flex items-center">
@@ -91,32 +111,42 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
             <div className="p-6 border-b">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Order Status</h2>
-                {getStatusBadge(orderDetails.status)}
+                {getStatusBadge(orderDetail?.status || "")}
               </div>
             </div>
 
             {/* Status Timeline */}
             <div className="p-6">
               <div className="relative">
-                {orderDetails.statusHistory.map((step, index) => (
+                {statusHistory.map((step, index) => (
                   <div key={index} className="flex mb-6 last:mb-0">
                     <div className="flex flex-col items-center mr-4">
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          index === orderDetails.statusHistory.length - 1
+                          step.status.toLowerCase() === orderDetail?.status
                             ? "bg-green-100 text-green-600"
                             : "bg-gray-100 text-gray-600"
                         }`}
                       >
                         {index + 1}
                       </div>
-                      {index < orderDetails.statusHistory.length - 1 && (
+                      {index < statusHistory.length - 1 && (
                         <div className="w-0.5 bg-gray-200 h-full mt-2"></div>
                       )}
                     </div>
                     <div>
-                      <h3 className="font-medium">{step.status}</h3>
-                      <p className="text-sm text-gray-500">{step.date}</p>
+                      <h3 className="font-medium">
+                        {step.status.toLowerCase() === "pending"
+                          ? "Proccessing"
+                          : step.status}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        {step.status.toLowerCase() === orderDetail?.status
+                          ? step.date
+                            ? GetDate(step.date)
+                            : "N/A"
+                          : new Date().toLocaleDateString()}
+                      </p>
                     </div>
                   </div>
                 ))}

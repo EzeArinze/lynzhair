@@ -1,4 +1,4 @@
-import { Order } from "@/utils/types";
+import { Order, OrderDetail } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -16,10 +16,10 @@ export const useGetOrder = () => {
 // Getting the Order details by id
 
 export const useGetOrderDetails = (id: string) => {
-  return useQuery({
+  return useQuery<OrderDetail>({
     queryKey: ["orderDetails", id],
     queryFn: async () => {
-      const { data } = await axios.get(`/api/v1/orders/${id}`);
+      const { data } = await axios.get<OrderDetail>(`/api/v1/orders/${id}`);
       return data || [];
     },
     staleTime: 1000 * 60 * 40,

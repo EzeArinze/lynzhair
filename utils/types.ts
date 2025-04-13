@@ -146,7 +146,7 @@ export interface ShippingFormProps {
 interface Product {
   _id: string;
   name: string;
-  images: ProductImage[];
+  images: Image[];
 }
 
 interface OrderItem {
@@ -162,4 +162,28 @@ export interface Order {
   products: OrderItem[];
   totalPrice: number;
   status?: string; // Optional, defaults to "processing" if not provided
+}
+
+// Types for OrderDetails
+export interface OrderDetail {
+  _id: string;
+  UserId: string;
+  address: string;
+  city: string;
+  state: string;
+  customerName: string;
+  email: string;
+  phone_number: string;
+  orderDate: string; // ISO date string
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  orderNumber: string;
+  shippingMethod: string;
+  freeShipping: boolean;
+  status: string;
+  totalPrice: number;
+  currency: string;
+  paystackCheckoutSessionId: string;
+  paystackPaymentIntentId: string;
+  products: OrderItem[];
 }
