@@ -1,20 +1,28 @@
+import {
+  DeliveryType,
+  getEstimatedDeliveryTime,
+} from "@/utils/getEstimatedtime";
+import { getShippingMethodInfo } from "@/utils/getShippingMethodInfo";
 import React from "react";
 
 interface OrderDetails {
-  shippingAddress: {
-    name: string;
-    address: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-  };
+  customerName: string;
+  address: string;
+  city: string;
+  state: string;
   status: string;
-  actualDelivery?: string;
-  estimatedDelivery: string;
+  updated_At?: string;
+  orderDate: string;
+  shippingMethod: string;
 }
 
-function ShippingInformation({ orderDetails }: { orderDetails: OrderDetails }) {
+function ShippingInformation({
+  orderDetails,
+  country,
+}: {
+  orderDetails: OrderDetails;
+  country: string;
+}) {
   return (
     <div className="bg-white rounded-lg border overflow-hidden mb-8">
       <div className="p-6 border-b">
@@ -27,14 +35,12 @@ function ShippingInformation({ orderDetails }: { orderDetails: OrderDetails }) {
               Shipping Address
             </h3>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="font-medium">{orderDetails.shippingAddress.name}</p>
-              <p>{orderDetails.shippingAddress.address}</p>
+              <p className="font-medium">{orderDetails?.customerName}</p>
+              <p>{orderDetails?.address}</p>
               <p>
-                {orderDetails.shippingAddress.city},{" "}
-                {orderDetails.shippingAddress.state}{" "}
-                {orderDetails.shippingAddress.zipCode}
+                {orderDetails?.city}, {orderDetails?.state}{" "}
               </p>
-              <p>{orderDetails.shippingAddress.country}</p>
+              <p>{country}</p>
             </div>
           </div>
 
@@ -43,14 +49,18 @@ function ShippingInformation({ orderDetails }: { orderDetails: OrderDetails }) {
               Delivery Information
             </h3>
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p>Standard Shipping (3-5 business days)</p>
-              {orderDetails.status === "delivered" ? (
+              <p>{getShippingMethodInfo(orderDetails?.shippingMethod)}</p>
+              {orderDetails?.status === "delivered" ? (
                 <p className="text-green-600 mt-2">
-                  Delivered on {orderDetails.actualDelivery}
+                  Delivered on {orderDetails?.updated_At}
                 </p>
               ) : (
                 <p className="mt-2">
-                  Estimated delivery: {orderDetails.estimatedDelivery}
+                  Estimated delivery:{" "}
+                  {getEstimatedDeliveryTime(
+                    orderDetails?.shippingMethod as DeliveryType,
+                    orderDetails?.orderDate
+                  )}
                 </p>
               )}
             </div>

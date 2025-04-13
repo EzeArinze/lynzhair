@@ -1,4 +1,4 @@
-type DeliveryType = "free" | "standard" | "express" | "overnight";
+export type DeliveryType = "free" | "standard" | "express" | "overnight";
 
 export function getEstimatedDeliveryTime(
   type: DeliveryType,
@@ -33,5 +33,6 @@ export function getEstimatedDeliveryTime(
   return estimatedDate.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
+    year: "numeric",
   });
 }

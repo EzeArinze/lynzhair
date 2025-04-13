@@ -6,71 +6,35 @@ import NeedHelp from "./NeedHelp";
 import ShippingInformation from "./ShippingInformation";
 import OrderItems from "./OrderItems";
 import { useGetOrderDetails } from "@/services/productsServices/getOrders";
+import ErrorSituation from "../Error";
+import React from "react";
 
-// Mock order data - in a real app, you would fetch this based on the order ID
-const orderDetails = {
-  id: "LH-10042587",
-  date: "March 15, 2025",
-  status: "delivered",
-
-  items: [
-    {
-      id: "1",
-      name: "Brazilian Body Wave Hair Bundle",
-      quantity: 2,
-      price: 129.99,
-      image: "/placeholder.svg?height=100&width=100",
-      length: "18 inches",
-      texture: "Body Wave",
-    },
-    {
-      id: "5",
-      name: "HD Lace Frontal",
-      quantity: 1,
-      price: 89.99,
-      image: "/placeholder.svg?height=100&width=100&text=Frontal",
-      length: "18 inches",
-      texture: "Straight",
-    },
-  ],
-  subtotal: 349.97,
-  shipping: 0,
-  tax: 28.0,
-  total: 377.97,
-  paymentMethod: "Visa ending in 4242",
-  shippingAddress: {
-    name: "Jane Smith",
-    address: "123 Main Street, Apt 4B",
-    city: "New York",
-    state: "NY",
-    zipCode: "10001",
-    country: "United States",
-  },
-  estimatedDelivery: "March 19-21, 2025",
-  actualDelivery: "March 19, 2025",
+const GetDate = (date: string) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  });
 };
 
 export default function OrderDetailsPage({ orderId }: { orderId: string }) {
-  console.log(orderId || "Order ID not provided");
-
   const { data: orderDetail, isLoading, error } = useGetOrderDetails(orderId);
 
-  console.log("OrderDetails", { orderDetail, isLoading, error });
+  const statusHistory = React.useMemo(
+    () => [
+      { status: "Paid", date: orderDetail?.orderDate || "" },
+      { status: "Pending", date: orderDetail?.updatedAt || "" },
+      { status: "Shipped", date: orderDetail?.updatedAt || "" }, // Example
+      { status: "Delivered", date: orderDetail?.updatedAt || "" }, // Example
+    ],
+    [orderDetail]
+  );
 
-  const statusHistory = [
-    { status: "Paid", date: orderDetail?.orderDate },
-    { status: "Pending", date: orderDetail?.updatedAt },
-    { status: "Shipped", date: orderDetail?.updatedAt },
-    { status: "Delivered", date: orderDetail?.updatedAt },
-  ];
+  const LoadingPlaceholder = (
+    <div className="animate-pulse bg-gray-100 rounded-lg h-24 mb-6"></div>
+  );
 
-  const GetDate = (date: string) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-    });
-  };
+  if (error) return <ErrorSituation situation="Order Details" />;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -119,7 +83,7 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
             <div className="p-6">
               <div className="relative">
                 {statusHistory.map((step, index) => (
-                  <div key={index} className="flex mb-6 last:mb-0">
+                  <div key={step.status} className="flex mb-6 last:mb-0">
                     <div className="flex flex-col items-center mr-4">
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -141,11 +105,13 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
                           : step.status}
                       </h3>
                       <p className="text-sm text-gray-500">
-                        {step.status.toLowerCase() === orderDetail?.status
-                          ? step.date
-                            ? GetDate(step.date)
-                            : "N/A"
-                          : new Date().toLocaleDateString()}
+                        {step.status.toLowerCase() === "paid"
+                          ? orderDetail?.orderDate
+                            ? GetDate(orderDetail.orderDate)
+                            : "Not Available"
+                          : step.date
+                          ? GetDate(step.date)
+                          : "Not Available"}
                       </p>
                     </div>
                   </div>
@@ -155,10 +121,19 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
           </div>
 
           {/* Order Items */}
-          <OrderItems orderDetails={orderDetails} />
+          {isLoading
+            ? LoadingPlaceholder
+            : orderDetail && <OrderItems orderDetails={orderDetail} />}
 
           {/* Shipping Information */}
-          <ShippingInformation orderDetails={orderDetails} />
+          {isLoading
+            ? LoadingPlaceholder
+            : orderDetail && (
+                <ShippingInformation
+                  orderDetails={orderDetail}
+                  country="Nigeria"
+                />
+              )}
 
           {/* Need Help Section */}
           <NeedHelp page="details" />

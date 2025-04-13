@@ -147,6 +147,8 @@ interface Product {
   _id: string;
   name: string;
   images: Image[];
+  price: number;
+  discount: number;
 }
 
 interface OrderItem {
