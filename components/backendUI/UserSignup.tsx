@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { Alert, AlertDescription } from "../ui/alert";
 import { schema } from "@/lib/Zschema";
 
-import authenticationSignUp from "@/services/authenticationSignUp";
+import authenticationSignUp from "@/services/auth_actions/authenticationSignUp";
 
 function UserSignup() {
   const [formDetails, setFormDetails] = useState({
@@ -66,11 +66,11 @@ function UserSignup() {
   return (
     <div className="mx-auto sm:w-2/3 p-4 space-y-4 w-full">
       <h1 className="p-2 mx-auto font-semibold text-xl text-center">
-        Create Admin User
+        Lynz_Hair
       </h1>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
-          <CardTitle>Create Admin Account</CardTitle>
+          <CardTitle>Create Account</CardTitle>
           <CardDescription>
             Enter your details to create a new admin account
           </CardDescription>
@@ -125,7 +125,7 @@ function UserSignup() {
             )}
 
             <Button className="w-full mt-4">
-              {loading ? "Creating..." : "Create Admin"}
+              {loading ? "Creating Account..." : "Sign Up"}
             </Button>
           </form>
         </CardContent>

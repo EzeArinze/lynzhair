@@ -1,18 +1,11 @@
-"use client";
-import LoadingSpinner from "@/components/Loader";
-import dynamic from "next/dynamic";
 import React from "react";
-
-// Dynamically import UserSignup
-const UserSignup = dynamic(() => import("@/components/backendUI/UserSignup"), {
-  loading: () => <LoadingSpinner />,
-  ssr: false,
-});
 
 function userPage() {
   return (
     <section>
-      <UserSignup />
+      <h1 className="text-center font-semibold mt-2">
+        This will be the User page (To display the user table)
+      </h1>
     </section>
   );
 }
