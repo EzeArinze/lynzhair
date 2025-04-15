@@ -1,30 +1,26 @@
 import { authClient } from "@/lib/better-auth/authClient";
 import { toast } from "sonner";
-// import axios from "axios";
 
-interface AuthenticationDetails {
-  username: string;
-  password: string;
+interface AuthenticationSignIn {
   email: string;
+  password: string;
 }
 
-export default async function authenticationSignUp({
-  username,
-  password,
+export default async function authenticationSignIn({
   email,
-}: AuthenticationDetails) {
+  password,
+}: AuthenticationSignIn) {
   try {
-    if (!username || !password || !email) return;
+    if (!email || !password) return;
 
-    const { data, error } = await authClient.signUp.email(
+    const { data, error } = await authClient.signIn.email(
       {
         email,
         password,
-        name: username,
       },
       {
         onRequest(ctx) {
-          console.log("Request made" + ctx);
+          console.log("Sign-in request made: ", ctx);
         },
         onError: (ctx) => {
           // Handle the error
@@ -43,15 +39,9 @@ export default async function authenticationSignUp({
       }
     );
 
-    // const { data: axiosData } = await axios.post("/api/signup", {
-    //   username: data?.user.name,
-    //   password,
-    //   email: data?.user.email,
-    // });
-
-    // return axiosData;
-    return console.log("User signed up successfully");
+    return console.log("User signed in successfully");
   } catch (error) {
-    console.error("Error signing up user:", error);
+    console.error("Error signing in user:", error);
+    toast.error("An unexpected error occurred during sign-in");
   }
 }
