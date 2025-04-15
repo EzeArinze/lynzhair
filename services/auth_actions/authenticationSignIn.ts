@@ -13,7 +13,7 @@ export default async function authenticationSignIn({
   try {
     if (!email || !password) return;
 
-    const { data, error } = await authClient.signIn.email(
+    await authClient.signIn.email(
       {
         email,
         password,
@@ -32,9 +32,8 @@ export default async function authenticationSignIn({
         },
         onSuccess: (ctx) => {
           toast.success(
-            `User with email ${data?.user.email} signed in successfully`
+            `User with email ${ctx.data?.user.email} signed in successfully`
           );
-          console.log("Sign-in successful: ", ctx || error?.message);
         },
       }
     );

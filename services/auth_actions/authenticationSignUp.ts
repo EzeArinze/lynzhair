@@ -16,7 +16,7 @@ export default async function authenticationSignUp({
   try {
     if (!username || !password || !email) return;
 
-    const { data, error } = await authClient.signUp.email(
+    await authClient.signUp.email(
       {
         email,
         password,
@@ -24,21 +24,22 @@ export default async function authenticationSignUp({
       },
       {
         onRequest(ctx) {
-          console.log("Request made" + ctx);
+          console.log("Request made: ", ctx);
         },
         onError: (ctx) => {
           // Handle the error
           if (ctx.error.status === 401) {
-            toast.error("Sign In Failed: Invalid credentials");
+            toast.error("Sign Up Failed: Invalid credentials");
           } else {
-            toast.error("Sign In Failed: " + ctx.error.message);
+            toast.error("Sign Up Failed: " + ctx.error.message);
           }
         },
         onSuccess: (ctx) => {
+          // Use ctx.data instead of data
           toast.success(
-            `User with email ${data?.user.email} signed in successfully`
+            `User with email ${ctx.data?.user.email} signed up successfully`
           );
-          console.log("Sign-in successful: ", ctx || error?.message);
+          console.log("Sign-up successful: ", ctx.data);
         },
       }
     );
@@ -53,5 +54,6 @@ export default async function authenticationSignUp({
     return console.log("User signed up successfully");
   } catch (error) {
     console.error("Error signing up user:", error);
+    toast.error("An unexpected error occurred during sign-up");
   }
 }

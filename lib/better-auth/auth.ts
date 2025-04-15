@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MONGO_URI } from "../constant/env";
+import { admin } from "better-auth/plugins";
 
 // Use your MongoDB connection string from the environment variables
 const client = new MongoClient(
@@ -17,6 +18,11 @@ export const auth = betterAuth({
   database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    // requireEmailVerification: true,
   },
+  plugins: [
+    admin({
+      defaultRole: "user",
+    }),
+  ],
 });

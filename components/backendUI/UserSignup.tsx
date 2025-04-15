@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from "../ui/alert";
 import { schema } from "@/lib/Zschema";
 
 import authenticationSignUp from "@/services/auth_actions/authenticationSignUp";
+import { Loader2 } from "lucide-react";
 
 function UserSignup() {
   const [formDetails, setFormDetails] = useState({
@@ -65,9 +66,8 @@ function UserSignup() {
 
   return (
     <div className="mx-auto sm:w-2/3 p-4 space-y-4 w-full">
-      <h1 className="p-2 mx-auto font-semibold text-xl text-center">
-        Lynz_Hair
-      </h1>
+      <div className="p-2 mx-auto" />
+
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle>Create Account</CardTitle>
@@ -124,8 +124,15 @@ function UserSignup() {
               </Alert>
             )}
 
-            <Button className="w-full mt-4">
-              {loading ? "Creating Account..." : "Sign Up"}
+            <Button className="w-full mt-4" disabled={loading}>
+              {loading ? (
+                <Loader2
+                  className="animate-spin w-5 h-5 mx-auto"
+                  color="white"
+                />
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </form>
         </CardContent>
