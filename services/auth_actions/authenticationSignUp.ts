@@ -37,7 +37,7 @@ export default async function authenticationSignUp({
         onSuccess: (ctx) => {
           // Use ctx.data instead of data
           toast.success(
-            `User with email ${ctx.data?.user.email} signed up successfully`
+            `Verification link has been sent to ${ctx.data?.user.email} click to verify and login`
           );
           console.log("Sign-up successful: ", ctx.data);
         },

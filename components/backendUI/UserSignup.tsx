@@ -72,7 +72,7 @@ function UserSignup() {
         <CardHeader>
           <CardTitle>Create Account</CardTitle>
           <CardDescription>
-            Enter your details to create a new admin account
+            Enter your details to create a new account
           </CardDescription>
         </CardHeader>
         <CardContent>
