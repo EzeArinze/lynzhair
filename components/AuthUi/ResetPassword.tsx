@@ -11,7 +11,7 @@ import PasswordStrength from "./PasswordStrength";
 import { getPasswordStrength } from "@/utils/getPasswordStrength";
 import ResetSuccessful from "./ResetSuccessful";
 
-export default function ResetPasswordPage() {
+export default function ResetPassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
