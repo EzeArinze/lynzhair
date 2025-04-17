@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import React from "react";
 
 // Dynamically import UserSignup
-const UserSignup = dynamic(() => import("@/components/backendUI/UserSignup"), {
+const UserSignup = dynamic(() => import("@/components/AuthUi/UserSignup"), {
   loading: () => <LoadingSpinner />,
   ssr: false,
 });
