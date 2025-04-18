@@ -24,8 +24,6 @@ export function Navbar() {
     useSignOut();
   }
 
-  console.log(session, "session");
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -82,7 +80,12 @@ export function Navbar() {
             </Button>
 
             {session ? (
-              <Button variant="ghost" size="icon" onClick={SignOut}>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={SignOut}
+              >
                 <UserIcon className="h-5 w-5" />
               </Button>
             ) : (

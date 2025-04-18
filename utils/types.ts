@@ -130,7 +130,7 @@ export interface ContactCard {
 export interface ModalType {
   isOpen: boolean;
   onClose?: () => void;
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 

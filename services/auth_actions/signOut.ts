@@ -7,7 +7,6 @@ export async function useSignOut() {
       fetchOptions: {
         onSuccess: () => {
           toast.success("User signed out successfully");
-          window.location.replace("/");
         },
       },
     });

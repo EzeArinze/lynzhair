@@ -16,13 +16,21 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Form submission handler
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log("Form submitted:", { email, password, rememberMe });
-    authenticationSignIn({ email, password });
+    try {
+      setIsLoading(true);
+      await authenticationSignIn({ email, password });
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -101,8 +109,9 @@ export default function SignIn() {
                 <Button
                   type="submit"
                   className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                  disabled={isLoading}
                 >
-                  Sign In
+                  {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
 
