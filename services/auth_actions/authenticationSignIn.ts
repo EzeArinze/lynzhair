@@ -34,6 +34,7 @@ export default async function authenticationSignIn({
           toast.success(
             `User with email ${ctx.data?.user.email} signed in successfully`
           );
+          window.location.href = "/"; // Redirect to the dashboard or any other page
         },
       }
     );

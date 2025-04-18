@@ -4,7 +4,7 @@ export async function forgottenPassword(email: string) {
   try {
     await authClient.forgetPassword({
       email,
-      redirectTo: "/reset-password",
+      redirectTo: "/auth/reset-password",
     });
   } catch (error) {
     console.log("Error sending password reset email:", error);

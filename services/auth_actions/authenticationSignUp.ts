@@ -23,9 +23,6 @@ export default async function authenticationSignUp({
         name: username,
       },
       {
-        onRequest(ctx) {
-          console.log("Request made: ", ctx);
-        },
         onError: (ctx) => {
           // Handle the error
           if (ctx.error.status === 401) {
@@ -40,6 +37,7 @@ export default async function authenticationSignUp({
             `Verification link has been sent to ${ctx.data?.user.email} click to verify and login`
           );
           console.log("Sign-up successful: ", ctx.data);
+          window.location.href = "/auth/signin";
         },
       }
     );

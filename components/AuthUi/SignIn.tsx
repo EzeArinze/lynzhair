@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import ContinueWith from "./ContinueWith";
+import authenticationSignIn from "@/services/auth_actions/authenticationSignIn";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +22,7 @@ export default function SignIn() {
     e.preventDefault();
     // Handle form submission logic here
     console.log("Form submitted:", { email, password, rememberMe });
+    authenticationSignIn({ email, password });
   };
 
   return (

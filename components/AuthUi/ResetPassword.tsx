@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import PasswordStrength from "./PasswordStrength";
 import { getPasswordStrength } from "@/utils/getPasswordStrength";
 import ResetSuccessful from "./ResetSuccessful";
+import { passwordReset } from "@/services/auth_actions/resetPassword";
+import { toast } from "sonner";
 
 export default function ResetPassword() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +19,7 @@ export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Password strength criteria
   const hasMinLength = password.length >= 8;
@@ -42,11 +45,23 @@ export default function ResetPassword() {
   ];
 
   // Form submission handler
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log("Form submitted:", { password });
-    setIsSubmitted(true);
+    if (!password || !passwordConfirm) {
+      toast.error("Password and confirmation are required.");
+    }
+
+    try {
+      setIsLoading(true);
+      await passwordReset(password);
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      throw new Error("Error resetting password. Please try again.");
+    } finally {
+      setIsLoading(false);
+      setIsSubmitted(true);
+    }
   };
 
   return (
@@ -150,9 +165,11 @@ export default function ResetPassword() {
                   <Button
                     type="submit"
                     className="w-full bg-pink-600 hover:bg-pink-700 text-white"
-                    disabled={!passwordsMatch || passwordStrength < 3}
+                    disabled={
+                      !passwordsMatch || passwordStrength < 3 || isLoading
+                    }
                   >
-                    Reset Password
+                    {isLoading ? "Reseting..." : "Reset Password"}
                   </Button>
                 </form>
               ) : (

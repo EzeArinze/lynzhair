@@ -8,17 +8,25 @@ import { ArrowLeft, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { forgottenPassword } from "@/services/auth_actions/forgotPassword";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Form submission handler
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", { email });
-    setIsSubmitted(true);
+    if (!email) return;
+    try {
+      setIsLoading(true);
+      await forgottenPassword(email);
+    } finally {
+      setIsLoading(false);
+      setIsSubmitted(true);
+      setEmail("");
+    }
   };
 
   return (
@@ -64,8 +72,9 @@ export default function ForgotPassword() {
                   <Button
                     type="submit"
                     className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                    disabled={isLoading}
                   >
-                    Send Reset Link
+                    {isLoading ? "Sending..." : "Send Reset Link"}
                   </Button>
                 </form>
               ) : (

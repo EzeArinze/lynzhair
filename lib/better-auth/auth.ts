@@ -16,6 +16,12 @@ const db = client.db(process.env.NEXT_PUBLIC_MONGODB_NAME || "better-auth-db");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds
+    },
+  },
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url, token }) => {
