@@ -8,6 +8,7 @@ import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import { Suspense } from "react";
 import Image from "next/image";
+import SignInSignOut from "../AuthUi/SignInSignOut";
 
 interface MobileMenuProps {
   setMobileMenuOpen?: (open: boolean) => void;
@@ -15,7 +16,10 @@ interface MobileMenuProps {
 
 export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
   return (
-    <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+    <SheetContent
+      side="left"
+      className="w-[300px] sm:w-[350px] flex flex-col justify-around"
+    >
       <section className="flex flex-col h-full">
         <div className="flex items-center justify-between border-b">
           <Link href="/" className="flex items-center">
@@ -52,6 +56,7 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
           ))}
         </nav>
       </section>
+      <SignInSignOut isMenu={true} />
     </SheetContent>
   );
 }

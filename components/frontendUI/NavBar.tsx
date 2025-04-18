@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { ShoppingCart, Menu, LogIn, UserIcon } from "lucide-react";
+import { ShoppingCart, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { MobileMenu } from "./MobileMenu";
@@ -10,19 +10,12 @@ import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import Image from "next/image";
 import { useGroupedItems } from "@/utils/useGroupedItems";
-import { authClient } from "@/lib/better-auth/authClient";
-import { useSignOut } from "@/services/auth_actions/signOut";
+import SignInSignOut from "../AuthUi/SignInSignOut";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const getGrouped = useGroupedItems();
-
-  const { data: session } = authClient.useSession();
-
-  function SignOut() {
-    useSignOut();
-  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
@@ -79,22 +72,7 @@ export function Navbar() {
               </Link>
             </Button>
 
-            {session ? (
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={SignOut}
-              >
-                <UserIcon className="h-5 w-5" />
-              </Button>
-            ) : (
-              <Link href={"/auth/signin"} className="hidden md:flex">
-                <Button variant="ghost" size="icon">
-                  <LogIn className="h-5 w-5" />
-                </Button>
-              </Link>
-            )}
+            <SignInSignOut isMenu={false} />
 
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
