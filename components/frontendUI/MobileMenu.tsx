@@ -8,7 +8,7 @@ import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import { Suspense } from "react";
 import Image from "next/image";
-import SignInSignOut from "../AuthUi/SignInSignOut";
+import SignInSignOut from "../AuthUi/AuthOperation";
 
 interface MobileMenuProps {
   setMobileMenuOpen?: (open: boolean) => void;
@@ -56,7 +56,10 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
           ))}
         </nav>
       </section>
-      <SignInSignOut isMenu={true} />
+      <SignInSignOut
+        isMenu={true}
+        isMenuOpen={() => setMobileMenuOpen?.(false)}
+      />
     </SheetContent>
   );
 }

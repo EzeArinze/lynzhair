@@ -10,7 +10,7 @@ import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import Image from "next/image";
 import { useGroupedItems } from "@/utils/useGroupedItems";
-import SignInSignOut from "../AuthUi/SignInSignOut";
+import SignInSignOut from "../AuthUi/AuthOperation";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
