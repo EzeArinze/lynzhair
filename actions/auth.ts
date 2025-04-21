@@ -3,7 +3,6 @@ import { toast } from "sonner";
 
 export const useAuthentication = () => {
   const { data: session } = authClient.useSession();
-  // const { data: activeSession } = await authClient.getSession()
 
   async function SignOut() {
     try {

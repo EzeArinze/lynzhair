@@ -60,6 +60,7 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
         isMenu={true}
         isMenuOpen={() => setMobileMenuOpen?.(false)}
       />
+      {/* remember incase you decide to use kinde */}
     </SheetContent>
   );
 }

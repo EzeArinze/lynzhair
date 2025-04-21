@@ -36,19 +36,11 @@ export default async function authenticationSignUp({
           toast.success(
             `Verification link has been sent to ${ctx.data?.user.email} click to verify and login`
           );
-          console.log("Sign-up successful: ", ctx.data);
           window.location.href = "/auth/signin";
         },
       }
     );
 
-    // const { data: axiosData } = await axios.post("/api/signup", {
-    //   username: data?.user.name,
-    //   password,
-    //   email: data?.user.email,
-    // });
-
-    // return axiosData;
     return console.log("User signed up successfully");
   } catch (error) {
     console.error("Error signing up user:", error);

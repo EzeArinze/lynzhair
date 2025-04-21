@@ -22,6 +22,8 @@ export default function ForgotPassword() {
     try {
       setIsLoading(true);
       await forgottenPassword(email);
+    } catch (error) {
+      console.log("error from the forgot password", error);
     } finally {
       setIsLoading(false);
       setIsSubmitted(true);

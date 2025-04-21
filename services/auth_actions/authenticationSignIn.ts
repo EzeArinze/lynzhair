@@ -19,9 +19,6 @@ export default async function authenticationSignIn({
         password,
       },
       {
-        onRequest(ctx) {
-          console.log("Sign-in request made: ", ctx);
-        },
         onError: (ctx) => {
           // Handle the error
           if (ctx.error.status === 401) {
