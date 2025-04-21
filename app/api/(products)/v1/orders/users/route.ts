@@ -53,9 +53,9 @@ export async function GET() {
     }
 
     // Get the user's session
-    const session = await authClient.getSession();
+    const session = authClient.useSession();
 
-    const userEmail = session?.data?.user?.email;
+    const userEmail = session?.data?.user.email;
 
     if (!userEmail) {
       return NextResponse.json(
