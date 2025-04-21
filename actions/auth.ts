@@ -6,13 +6,7 @@ export const useAuthentication = () => {
 
   async function SignOut() {
     try {
-      await authClient.signOut({
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success("Signed out");
-          },
-        },
-      });
+      await authClient.signOut();
     } catch (error) {
       toast.error("An unexpected error occurred during sign-out");
       console.error("Error signing out user:", error);

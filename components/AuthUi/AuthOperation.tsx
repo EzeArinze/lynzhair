@@ -19,8 +19,8 @@ function SignInSignOut({
   isMenu: boolean;
   isMenuOpen?: () => void;
 }) {
-  const { session, SignOut } = useAuthentication();
-  const [popoverOpen, setPopoverOpen] = useState(false); // State to control popover
+  const { session, SignOut, isPending } = useAuthentication();
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   const userInitial = useMemo(
     () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
@@ -36,11 +36,18 @@ function SignInSignOut({
     setPopoverOpen(false);
   }, [isMenuOpen]);
 
-  // Handle sign-out and close popover
   const handleSignOut = useCallback(() => {
     SignOut();
     setPopoverOpen(false);
   }, [SignOut]);
+
+  if (isPending) {
+    return (
+      <div className="flex items-center space-x-4">
+        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+      </div>
+    );
+  }
 
   // Render for menu layout
   if (isMenu) {
@@ -97,7 +104,7 @@ function SignInSignOut({
           </div>
         ) : (
           <Link href={"/auth/signin"} className="flex w-full">
-            <Button size="icon" className="w-full">
+            <Button size="icon" className="w-full" disabled={isPending}>
               <LogIn className="h-5 w-5" />
               <span>Sign In</span>
             </Button>

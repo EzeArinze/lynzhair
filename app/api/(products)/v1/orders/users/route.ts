@@ -57,9 +57,6 @@ export async function GET(req: Request) {
       headers: req.headers,
     });
 
-    // Debugging: Log the session object
-    console.log("Session:", session);
-
     if (!session?.user?.email) {
       return NextResponse.json(
         { message: "Unauthorized: No user email found" },
