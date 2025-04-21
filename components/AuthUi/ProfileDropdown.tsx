@@ -10,22 +10,24 @@ import Link from "next/link";
 
 export function ProfileDropdown({
   onClick,
-  email,
+  initials,
 }: {
   onClick: () => void;
-  email: string;
+  initials: string;
 }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-800 font-semibold p-2"
+          className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-500 font-semibold p-2"
+          size={"icon"}
+          type="button"
         >
-          {email}
+          {initials}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-52 space-y-2 mb-3">
+      <PopoverContent className="w-52 space-y-2 mt-3 mr-2">
         <Link href={"/commerce/orders"} className="flex justify-between">
           <span className="">Orders</span>
           <ShoppingBasketIcon className="w-5 h-5" />

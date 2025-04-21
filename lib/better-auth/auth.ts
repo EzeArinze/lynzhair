@@ -30,7 +30,7 @@ export const auth = betterAuth({
         subject: "Reset your password",
         text: `Click the link to reset your password: ${url}`,
       });
-      console.log(token);
+      console.log(url, token);
     },
   },
   emailVerification: {

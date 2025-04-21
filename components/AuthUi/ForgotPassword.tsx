@@ -99,12 +99,6 @@ export default function ForgotPassword() {
                     >
                       Resend Email
                     </Button>
-                    <Button
-                      asChild
-                      className="w-full bg-pink-600 hover:bg-pink-700 text-white"
-                    >
-                      <Link href="/auth/signin">Return to Sign In</Link>
-                    </Button>
                   </div>
                 </div>
               )}

@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useAuthentication } from "@/actions/auth";
-import { LogIn, UserIcon } from "lucide-react";
+import { LogIn, UserIcon, LogOut, ShoppingBasketIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { LogOut, ShoppingBasketIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
+import { ProfileDropdown } from "./ProfileDropdown";
 
 function SignInSignOut({
   isMenu = false,
@@ -23,21 +22,33 @@ function SignInSignOut({
   const { session, SignOut } = useAuthentication();
   const [popoverOpen, setPopoverOpen] = useState(false); // State to control popover
 
-  const userInitial = session?.user.email.slice(0, 2).toUpperCase() || "N/A";
-  const userEmail = session?.user.email || "N/A";
+  const userInitial = useMemo(
+    () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
+    [session]
+  );
+  const userEmail = useMemo(() => session?.user.email || "N/A", [session]);
 
-  const handleMenuClick = () => {
+  // Handle menu click and close popover
+  const handleMenuClick = useCallback(() => {
     if (isMenuOpen) {
       isMenuOpen(); // Trigger the external menu open logic
     }
-    setPopoverOpen(false); // Close the popover
-  };
+    setPopoverOpen(false);
+  }, [isMenuOpen]);
 
+  // Handle sign-out and close popover
+  const handleSignOut = useCallback(() => {
+    SignOut();
+    setPopoverOpen(false);
+  }, [SignOut]);
+
+  // Render for menu layout
   if (isMenu) {
     return (
       <div className="mb-4">
         {session ? (
           <div className="flex items-center justify-between w-full space-x-4">
+            {/* Popover for menu */}
             <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -53,17 +64,14 @@ function SignInSignOut({
                   className="flex justify-between"
                   onClick={handleMenuClick} // Close popover on click
                 >
-                  <span className="">Orders</span>
+                  <span>Orders</span>
                   <ShoppingBasketIcon className="w-5 h-5" />
                 </Link>
                 <Separator className="w-full h-[1px] my-2 bg-gray-300" />
                 <Button
                   type="button"
                   size="icon"
-                  onClick={() => {
-                    SignOut();
-                    setPopoverOpen(false); // Close popover after sign-out
-                  }}
+                  onClick={handleSignOut}
                   className="flex items-center space-x-2 px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
                 >
                   <LogOut className="h-5 w-5" />
@@ -72,20 +80,26 @@ function SignInSignOut({
               </PopoverContent>
             </Popover>
 
+            {/* User email display */}
             <Button
               type="button"
               size="icon"
               className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition w-full"
             >
               <UserIcon className="h-5 w-5" />
-              <span className="text-sm font-medium">{userEmail}</span>
+              <span
+                className="text-sm font-medium truncate max-w-[150px]"
+                title={userEmail}
+              >
+                {userEmail}
+              </span>
             </Button>
           </div>
         ) : (
           <Link href={"/auth/signin"} className="flex w-full">
             <Button size="icon" className="w-full">
               <LogIn className="h-5 w-5" />
-              <span>SignIn</span>
+              <span>Sign In</span>
             </Button>
           </Link>
         )}
@@ -93,16 +107,18 @@ function SignInSignOut({
     );
   }
 
+  // Render for non-menu layout
   return (
     <div className="hidden md:flex">
       {session ? (
-        <Button type="button" variant="ghost" size="icon" onClick={SignOut}>
-          <UserIcon className="h-5 w-5" />
-        </Button>
+        <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
       ) : (
         <Link href={"/auth/signin"}>
-          <Button variant="ghost" size="icon">
-            <LogIn className="h-5 w-5" />
+          <Button
+            variant="ghost"
+            className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
+          >
+            Sign in
           </Button>
         </Link>
       )}
