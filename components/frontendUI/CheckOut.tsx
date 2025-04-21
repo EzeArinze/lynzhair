@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { ShippingFormData } from "@/utils/types";
@@ -17,6 +17,7 @@ import { useGroupedItems } from "@/utils/useGroupedItems";
 import Script from "next/script";
 import { SCRIPT_SRC } from "@/lib/constant/env";
 import { initializePayment } from "@/actions/initializePayment";
+import { useAuthentication } from "@/actions/auth";
 
 const ShippingForm = dynamic(
   () =>
@@ -33,6 +34,10 @@ const OrderSummary = dynamic(() => import("../CartUi/OrderSummary"), {
 });
 
 export default function CheckOut() {
+  const { session } = useAuthentication();
+
+  const email = useMemo(() => session?.user?.email || "", [session]);
+
   // State for form data
   const [formData, setFormData] = useState<ShippingFormData>({
     fullName: "",
@@ -99,7 +104,7 @@ export default function CheckOut() {
       agreeToTerms: false,
     });
 
-    initializePayment(metadata);
+    initializePayment(metadata, email);
   };
 
   return (

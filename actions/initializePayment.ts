@@ -7,9 +7,15 @@ interface OrderData {
   [key: string]: unknown;
 }
 
-export const initializePayment = async (orderData: OrderData) => {
+export const initializePayment = async (
+  orderData: OrderData,
+  email: string
+) => {
+  // Removed useAuthentication hook usage
+
   try {
     const response = await axios.post(`${BASE_URL}/api/initialize`, {
+      email,
       phone: orderData?.phone,
       amount: orderData?.totalAmount,
       metadata: {

@@ -9,11 +9,11 @@ import {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { phone, amount, metadata } = body;
+    const { email, phone, amount, metadata } = body;
 
-    if (!phone || !amount) {
+    if (!phone || !amount || !email) {
       return NextResponse.json(
-        { error: "Email and amount are required" },
+        { error: "Email ,amount and phone are required" },
         { status: 400 }
       );
     }
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const response = await axios.post(
       `${PAYSTACK_INITIALIZE_URI}`,
       {
-        email: "example@gmail.com",
+        email,
         phone: phone,
         amount: Math.round(Number.parseFloat(amount) * 100), // Convert to kobo
         metadata,

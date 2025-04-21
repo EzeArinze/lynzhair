@@ -46,7 +46,7 @@ function SignInSignOut({
   if (isMenu) {
     return (
       <div className="mb-4">
-        {session ? (
+        {session?.user ? (
           <div className="flex items-center justify-between w-full space-x-4">
             {/* Popover for menu */}
             <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
