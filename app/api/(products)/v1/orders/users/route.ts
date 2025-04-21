@@ -13,7 +13,7 @@
 //     }
 
 //     //get the email from the auth provider or the request body
-//     const orderPattern = new RegExp("example@gmail.com", "i");
+//     const orderPattern = new RegExp("nuelrinz@gmail.com", "i");
 
 //     const query = {
 //       $or: [{ email: orderPattern }],
@@ -41,21 +41,24 @@ import { Order } from "@/models/OrderModel";
 import connectDB from "@/lib/dbconnect";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { authClient } from "@/lib/better-auth/authClient";
+import { auth } from "@/lib/better-auth/auth"; // Import the auth instance
 
 export async function GET(req: Request) {
   try {
     await connectDB();
 
-    // Check if Product model exists, if not, just import it
+    // Ensure the Product model is loaded
     if (!mongoose.models.Product) {
       await import("@/models/ProductModel");
     }
 
-    // Get the user's session from the request
-    const { data: session } = await authClient.getSession({
-      fetchOptions: { headers: req.headers },
+    // Retrieve the user's session using headers
+    const session = await auth.api.getSession({
+      headers: req.headers,
     });
+
+    // Debugging: Log the session object
+    console.log("Session:", session);
 
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -73,6 +76,7 @@ export async function GET(req: Request) {
       $or: [{ email: orderPattern }],
     };
 
+    // Fetch orders from the database
     const orders = await Order.find(
       query,
       "orderNumber email products orderDate totalPrice status"
