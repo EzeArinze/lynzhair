@@ -43,7 +43,7 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { authClient } from "@/lib/better-auth/authClient";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     await connectDB();
 
@@ -52,17 +52,19 @@ export async function GET() {
       await import("@/models/ProductModel");
     }
 
-    // Get the user's session
-    const session = authClient.useSession();
+    // Get the user's session from the request
+    const { data: session } = await authClient.getSession({
+      fetchOptions: { headers: req.headers },
+    });
 
-    const userEmail = session?.data?.user.email;
-
-    if (!userEmail) {
+    if (!session?.user?.email) {
       return NextResponse.json(
         { message: "Unauthorized: No user email found" },
         { status: 401 }
       );
     }
+
+    const userEmail = session.user.email; // Extract the user's email
 
     // Create a case-insensitive regex pattern for the user's email
     const orderPattern = new RegExp(userEmail, "i");

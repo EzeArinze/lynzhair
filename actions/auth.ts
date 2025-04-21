@@ -2,7 +2,7 @@ import { authClient } from "@/lib/better-auth/authClient";
 import { toast } from "sonner";
 
 export const useAuthentication = () => {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   async function SignOut() {
     try {
@@ -19,5 +19,5 @@ export const useAuthentication = () => {
     }
   }
 
-  return { session, SignOut };
+  return { session, SignOut, isPending };
 };
