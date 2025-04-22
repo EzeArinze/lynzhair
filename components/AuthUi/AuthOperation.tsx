@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useCallback } from "react";
 import { useAuthentication } from "@/actions/auth";
 import { LogIn, UserIcon, LogOut, ShoppingBasketIcon } from "lucide-react";
@@ -13,7 +15,7 @@ import { Separator } from "../ui/separator";
 import { ProfileDropdown } from "./ProfileDropdown";
 
 function SignInSignOut({
-  isMenu = false,
+  isMenu,
   isMenuOpen,
 }: {
   isMenu: boolean;
@@ -101,30 +103,32 @@ function SignInSignOut({
     );
   }
 
-  return (
-    <>
-      {isPending && (
-        <div className="flex items-center space-x-4">
-          <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
-        </div>
-      )}
-      <div className="hidden md:flex">
-        {session ? (
-          <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
-        ) : (
-          <Link href={"/auth/signin"}>
-            <Button
-              variant="ghost"
-              className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
-              disabled={isPending}
-              size="icon"
-            >
-              <LogIn className="h-5 w-5" />
-            </Button>
-          </Link>
-        )}
+  // Render for non-menu layout
+  if (isPending) {
+    return (
+      <div className="hidden md:flex items-center space-x-4">
+        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
       </div>
-    </>
+    );
+  }
+
+  return (
+    <div className="hidden md:flex">
+      {session ? (
+        <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
+      ) : (
+        <Link href={"/auth/signin"}>
+          <Button
+            variant="ghost"
+            className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
+            disabled={isPending}
+            size="icon"
+          >
+            <LogIn className="h-5 w-5" />
+          </Button>
+        </Link>
+      )}
+    </div>
   );
 }
 
