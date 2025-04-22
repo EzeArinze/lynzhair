@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useAuthentication } from "@/actions/auth";
 import { LogIn, UserIcon, LogOut, ShoppingBasketIcon } from "lucide-react";
 import React from "react";
@@ -19,14 +19,9 @@ function SignInSignOut({
   isMenu: boolean;
   isMenuOpen?: () => void;
 }) {
-  const { session, SignOut, isPending } = useAuthentication();
+  const { session, SignOut, isPending, userEmail, userInitial } =
+    useAuthentication();
   const [popoverOpen, setPopoverOpen] = useState(false);
-
-  const userInitial = useMemo(
-    () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
-    [session]
-  );
-  const userEmail = useMemo(() => session?.user.email || "N/A", [session]);
 
   // Handle menu click and close popover
   const handleMenuClick = useCallback(() => {
@@ -40,14 +35,6 @@ function SignInSignOut({
     SignOut();
     setPopoverOpen(false);
   }, [SignOut]);
-
-  if (isPending) {
-    return (
-      <div className="flex items-center space-x-4">
-        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
-      </div>
-    );
-  }
 
   // Render for menu layout
   if (isMenu) {
@@ -115,6 +102,14 @@ function SignInSignOut({
   }
 
   // Render for non-menu layout
+  if (isPending) {
+    return (
+      <div className="flex items-center space-x-4">
+        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="hidden md:flex">
       {session ? (
