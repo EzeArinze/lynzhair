@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useCallback } from "react";
 import { useAuthentication } from "@/actions/auth";
 import { LogIn, UserIcon, LogOut, ShoppingBasketIcon } from "lucide-react";
