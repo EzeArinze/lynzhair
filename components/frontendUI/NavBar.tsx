@@ -4,7 +4,14 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { MobileMenu } from "./MobileMenu";
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
@@ -80,10 +87,15 @@ export function Navbar() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
+
               <SheetContent
                 side="left"
                 className="w-[300px] sm:w-[350px] flex flex-col justify-around"
               >
+                <SheetHeader>
+                  <SheetTitle hidden>Menu</SheetTitle>
+                  <SheetDescription hidden>Mobile menu</SheetDescription>
+                </SheetHeader>
                 <MobileMenu setMobileMenuOpen={setMobileMenuOpen} />
                 <SignInSignOut
                   isMenu={true}

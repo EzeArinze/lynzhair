@@ -2,12 +2,14 @@ import Image from "next/image";
 // import { Button } from "@/components/ui/button";
 import { Badge } from "../ui/badge";
 
+// https://res.cloudinary.com/dsvpedluw/image/upload/f_webp/ik1fu6zwuwy4pueeioav
+
 export function Banner() {
   return (
     <section className="relative">
       <div className="h-[400px] md:h-[500px]  relative overflow-hidden rounded-lg">
         <Image
-          src="https://res.cloudinary.com/dsvpedluw/image/upload/f_webp/ik1fu6zwuwy4pueeioav"
+          src="/BannerImage.webp"
           alt="Premium Quality Hair Extensions"
           fill
           priority

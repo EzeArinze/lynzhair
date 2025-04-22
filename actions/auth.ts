@@ -5,14 +5,7 @@ import { toast } from "sonner";
 export const useAuthentication = () => {
   const { data: session, isPending, error } = authClient.useSession();
 
-  // const userInitial = useMemo(
-  //   () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
-  //   [session]
-  // );
-
-  // const userEmail = useMemo(() => session?.user.email || "N/A", [session]);
-
-  const userInitial = session?.user.email?.slice(0, 2).toUpperCase() ?? "N/A";
+  const userInitial = session?.user.email?.slice(0, 1).toUpperCase() ?? "N/A";
   const userEmail = session?.user.email ?? "N/A";
 
   async function signOut() {

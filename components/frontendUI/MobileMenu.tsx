@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import { Suspense } from "react";
@@ -20,11 +19,9 @@ export function MobileMenu({ setMobileMenuOpen }: MobileMenuProps) {
             alt="Logo"
             height={120}
             width={100}
-            className=" object-center h-24 w-24"
+            className=" object-center h-16 w-20"
           />
         </Link>
-        <SheetTitle hidden>Menu</SheetTitle>
-        <SheetDescription hidden>Mobile menu</SheetDescription>
       </div>
 
       <Suspense>
