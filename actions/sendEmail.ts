@@ -15,7 +15,7 @@ const resend = new Resend(RESEND_API_KEY);
 
 export const sendEmail = async ({ to, subject, text, url }: SendEmailProps) => {
   const { error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "Acme <Nuelrinz@resend.dev>",
     to,
     subject,
     // html: `<strong>${text}: ${url} </strong>`,
