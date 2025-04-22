@@ -22,10 +22,10 @@ export default function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log("Form submitted:", { email, password, rememberMe });
+
     try {
       setIsLoading(true);
-      await authenticationSignIn({ email, password });
+      await authenticationSignIn({ email, password, rememberMe });
     } catch (error) {
       console.error("Error during sign-in:", error);
     } finally {

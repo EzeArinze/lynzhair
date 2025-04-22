@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import ContinueWith from "./ContinueWith";
 import { Label } from "../ui/label";
+import SignUpSeccessful from "./SignUpSeccessful";
 
 function UserSignup() {
   const [formDetails, setFormDetails] = useState({
@@ -20,6 +21,7 @@ function UserSignup() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,6 +50,7 @@ function UserSignup() {
       }
     } finally {
       setLoading(false);
+      setIsSubmitted((prev) => !prev);
     }
 
     setFormDetails({
@@ -72,87 +75,91 @@ function UserSignup() {
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-8">
-              <form onSubmit={handleSubmit}>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="username">Username</Label>
-                    <Input
-                      id="username"
-                      name="username"
-                      placeholder="Enter your username"
-                      value={formDetails.username}
-                      onChange={handleChange}
-                    />
+            {!isSubmitted ? (
+              <div className="bg-white rounded-lg shadow-sm border p-8">
+                <form onSubmit={handleSubmit}>
+                  <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-2">
+                      <Label htmlFor="username">Username</Label>
+                      <Input
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        value={formDetails.username}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-2">
+                      <Label htmlFor="email">Email Address</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formDetails.email}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-2">
+                      <Label htmlFor="password">Password</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        value={formDetails.password}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-2">
+                      <Label htmlFor="confirm-password">Confirm Password</Label>
+                      <Input
+                        id="confirm-password"
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Re-enter your password"
+                        value={formDetails.confirmPassword}
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email"
-                      value={formDetails.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      name="password"
-                      placeholder="Enter your password"
-                      value={formDetails.password}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    <Label htmlFor="confirm-password">Confirm Password</Label>
-                    <Input
-                      id="confirm-password"
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Re-enter your password"
-                      value={formDetails.confirmPassword}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                {error && (
-                  <Alert variant="destructive" className="mt-4">
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
-                <Button
-                  className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-4"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <Loader2
-                      className="animate-spin w-5 h-5 mx-auto"
-                      color="white"
-                    />
-                  ) : (
-                    "Sign Up"
+                  {error && (
+                    <Alert variant="destructive" className="mt-4">
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
                   )}
-                </Button>
-              </form>
 
-              <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
-                  Already have an account?{" "}
-                  <Link
-                    href="/auth/signin"
-                    className="text-pink-600 hover:underline font-medium"
+                  <Button
+                    className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-4"
+                    disabled={loading}
                   >
-                    Sign In
-                  </Link>
-                </p>
+                    {loading ? (
+                      <Loader2
+                        className="animate-spin w-5 h-5 mx-auto"
+                        color="white"
+                      />
+                    ) : (
+                      "Sign Up"
+                    )}
+                  </Button>
+                </form>
+
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-gray-600">
+                    Already have an account?{" "}
+                    <Link
+                      href="/auth/signin"
+                      className="text-pink-600 hover:underline font-medium"
+                    >
+                      Sign In
+                    </Link>
+                  </p>
+                </div>
+                <ContinueWith />
               </div>
-              <ContinueWith />
-            </div>
+            ) : (
+              <SignUpSeccessful />
+            )}
           </div>
         </div>
       </div>

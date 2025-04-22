@@ -124,8 +124,10 @@ function SignInSignOut({
           <Button
             variant="ghost"
             className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
+            disabled={isPending}
+            size="icon"
           >
-            Sign in
+            <LogIn className="h-5 w-5" />
           </Button>
         </Link>
       )}

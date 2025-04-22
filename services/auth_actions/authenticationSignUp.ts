@@ -21,6 +21,7 @@ export default async function authenticationSignUp({
         email,
         password,
         name: username,
+        callbackURL: "/",
       },
       {
         onError: (ctx) => {
@@ -36,7 +37,7 @@ export default async function authenticationSignUp({
           toast.success(
             `Verification link has been sent to ${ctx.data?.user.email} click to verify and login`
           );
-          window.location.href = "/auth/signin";
+          // window.location.href = "/auth/signin";
         },
       }
     );

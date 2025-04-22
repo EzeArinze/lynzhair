@@ -24,23 +24,22 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token }) => {
+    requireEmailVerification: true,
+    sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
         subject: "Reset your password",
         text: `Click the link to reset your password: ${url}`,
       });
-      console.log(url, token);
     },
   },
   emailVerification: {
-    sendVerificationEmail: async ({ user, url, token }) => {
+    sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
         subject: "Verify your email address",
         text: `Click the link to verify your email: ${url}`,
       });
-      console.log(token);
     },
   },
   plugins: [

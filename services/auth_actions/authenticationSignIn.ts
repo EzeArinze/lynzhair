@@ -4,11 +4,13 @@ import { toast } from "sonner";
 interface AuthenticationSignIn {
   email: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export default async function authenticationSignIn({
   email,
   password,
+  rememberMe,
 }: AuthenticationSignIn) {
   try {
     if (!email || !password) return;
@@ -17,6 +19,8 @@ export default async function authenticationSignIn({
       {
         email,
         password,
+        rememberMe,
+        callbackURL: "/",
       },
       {
         onError: (ctx) => {
@@ -28,10 +32,8 @@ export default async function authenticationSignIn({
           }
         },
         onSuccess: (ctx) => {
-          toast.success(
-            `User with email ${ctx.data?.user.email} signed in successfully`
-          );
-          window.location.href = "/"; // Redirect to the dashboard or any other page
+          toast.success(`${ctx.data?.user.email} signed in successfully`);
+          // window.location.href = "/";
         },
       }
     );
