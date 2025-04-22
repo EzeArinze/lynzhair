@@ -101,32 +101,30 @@ function SignInSignOut({
     );
   }
 
-  // Render for non-menu layout
-  if (isPending) {
-    return (
-      <div className="flex items-center space-x-4">
-        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
-      </div>
-    );
-  }
-
   return (
-    <div className="hidden md:flex">
-      {session ? (
-        <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
-      ) : (
-        <Link href={"/auth/signin"}>
-          <Button
-            variant="ghost"
-            className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
-            disabled={isPending}
-            size="icon"
-          >
-            <LogIn className="h-5 w-5" />
-          </Button>
-        </Link>
+    <>
+      {isPending && (
+        <div className="flex items-center space-x-4">
+          <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+        </div>
       )}
-    </div>
+      <div className="hidden md:flex">
+        {session ? (
+          <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
+        ) : (
+          <Link href={"/auth/signin"}>
+            <Button
+              variant="ghost"
+              className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"
+              disabled={isPending}
+              size="icon"
+            >
+              <LogIn className="h-5 w-5" />
+            </Button>
+          </Link>
+        )}
+      </div>
+    </>
   );
 }
 

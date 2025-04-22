@@ -14,7 +14,7 @@ interface SendEmailProps {
 const resend = new Resend(RESEND_API_KEY);
 
 export const sendEmail = async ({ to, subject, text, url }: SendEmailProps) => {
-  const { data, error } = await resend.emails.send({
+  const { error } = await resend.emails.send({
     from: "Acme <onboarding@resend.dev>",
     to,
     subject,
@@ -25,6 +25,5 @@ export const sendEmail = async ({ to, subject, text, url }: SendEmailProps) => {
   if (error) {
     return console.error({ error });
   }
-
-  console.log({ data });
+  return console.log("Email sent successfully");
 };

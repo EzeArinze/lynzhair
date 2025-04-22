@@ -10,11 +10,7 @@ const UserSignup = dynamic(() => import("@/components/AuthUi/UserSignup"), {
 });
 
 function signUpPage() {
-  return (
-    <section>
-      <UserSignup />
-    </section>
-  );
+  return <UserSignup />;
 }
 
 export default signUpPage;
