@@ -3,7 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,11 +107,17 @@ export default function SignIn() {
 
                 {/* Submit Button */}
                 <Button
-                  type="submit"
-                  className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                  className="w-full bg-pink-600 hover:bg-pink-700 text-white mt-4"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Signing in..." : "Sign In"}
+                  {isLoading ? (
+                    <Loader2
+                      className="animate-spin w-5 h-5 mx-auto"
+                      color="white"
+                    />
+                  ) : (
+                    "Sign in"
+                  )}
                 </Button>
               </form>
 
