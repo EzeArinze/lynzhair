@@ -19,7 +19,7 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 5 * 60, // Cache duration in seconds
+      maxAge: 8 * 60 * 60, // Cache duration in seconds
     },
   },
   emailAndPassword: {
@@ -29,7 +29,8 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Reset your password",
-        text: `Click the link to reset your password: ${url}`,
+        text: `Click the link to reset your password`,
+        url,
       });
     },
   },
@@ -38,7 +39,8 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Verify your email address",
-        text: `Click the link to verify your email: ${url}`,
+        text: `Click the link to verify your email`,
+        url,
       });
     },
   },
