@@ -1,18 +1,21 @@
 import { authClient } from "@/lib/better-auth/authClient";
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { toast } from "sonner";
 
 export const useAuthentication = () => {
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending, error } = authClient.useSession();
 
-  const userInitial = useMemo(
-    () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
-    [session]
-  );
+  // const userInitial = useMemo(
+  //   () => session?.user.email.slice(0, 2).toUpperCase() || "N/A",
+  //   [session]
+  // );
 
-  const userEmail = useMemo(() => session?.user.email || "N/A", [session]);
+  // const userEmail = useMemo(() => session?.user.email || "N/A", [session]);
 
-  async function SignOut() {
+  const userInitial = session?.user.email?.slice(0, 2).toUpperCase() ?? "N/A";
+  const userEmail = session?.user.email ?? "N/A";
+
+  async function signOut() {
     try {
       await authClient.signOut();
     } catch (error) {
@@ -21,5 +24,5 @@ export const useAuthentication = () => {
     }
   }
 
-  return { session, SignOut, isPending, userInitial, userEmail };
+  return { session, signOut, isPending, userInitial, userEmail, error };
 };

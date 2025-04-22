@@ -19,7 +19,7 @@ function SignInSignOut({
   isMenu: boolean;
   isMenuOpen?: () => void;
 }) {
-  const { session, SignOut, isPending, userEmail, userInitial } =
+  const { session, signOut, isPending, userEmail, userInitial } =
     useAuthentication();
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -32,9 +32,9 @@ function SignInSignOut({
   }, [isMenuOpen]);
 
   const handleSignOut = useCallback(() => {
-    SignOut();
+    signOut();
     setPopoverOpen(false);
-  }, [SignOut]);
+  }, [signOut]);
 
   // Render for menu layout
   if (isMenu) {
