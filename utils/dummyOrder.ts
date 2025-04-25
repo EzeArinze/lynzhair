@@ -24,7 +24,7 @@ interface IOrder {
   address: string;
   city: string;
   phone_number: string;
-  status: "Pending" | "Processing" | "Shipped" | "Completed";
+  status: "pending" | "paid" | "shipped" | "cancelled" | "delivered";
   orderDate: Date;
 }
 
@@ -54,7 +54,7 @@ const dummyOrder: IOrder[] = [
     address: "123 Main St",
     city: "Anytown",
     phone_number: "555-123-4567",
-    status: "Pending",
+    status: "pending",
     orderDate: new Date(),
   },
 
@@ -76,7 +76,7 @@ const dummyOrder: IOrder[] = [
     address: "123 Main St",
     city: "Anytown",
     phone_number: "555-123-4567",
-    status: "Processing",
+    status: "delivered",
     orderDate: new Date(new Date().setDate(new Date().getDate() - 1)),
   },
 ];

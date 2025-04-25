@@ -105,14 +105,13 @@
 
 "use client";
 
-import { useState } from "react";
-
 import MoreActionsOptions from "@/components/Options_action";
 import formatCurrency from "@/utils/formatCurrency";
-import dummyOrder, { IOrder } from "@/utils/dummyOrder";
 // import { DataTable } from "./Table";
 import { statusOptions } from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
+import { useAdminOrders } from "@/services/productsServices/getAdminOrders";
+import { Order } from "@/utils/types";
 // import UserList from "./UserList";
 const DataTable = dynamic(
   () => import("./Table").then((mod) => mod.DataTable),
@@ -122,33 +121,36 @@ const DataTable = dynamic(
 );
 
 export default function OrderList() {
-  const [orders, setOrders] = useState(dummyOrder);
+  // const [orders, setOrders] = useState(dummyOrder);
+  const { data: orders } = useAdminOrders();
 
   // Handle status change
-  const handleStatusChange = (orderId: string, newStatus: IOrder["status"]) => {
-    setOrders(
-      orders.map((order) =>
-        order.orderNumber === orderId ? { ...order, status: newStatus } : order
-      )
-    );
+  const handleStatusChange = (orderId: string, newStatus: Order["status"]) => {
+    console.table({ newStatus, orderId });
+    // setOrders(
+    //   orders.map((order) =>
+    //     order.orderNumber === orderId ? { ...order, status: newStatus } : order
+    //   )
+    // );
   };
 
   // Handle delete
   const handleDelete = (orderId: string) => {
-    setOrders(orders.filter((order) => order.orderNumber !== orderId));
+    console.log("Deleting order with ID:", orderId);
+    // setOrders(orders.filter((order) => order.orderNumber !== orderId));
   };
 
   // Format the data for display
-  const formattedOrders = orders.map((order, index) => ({
+  const formattedOrders = orders?.map((order, index) => ({
     ...order,
     index: index + 1,
-    date: order.orderDate.toISOString().split("T")[0],
+    date: new Date(order.orderDate).toISOString().split("T")[0],
     total: formatCurrency(order.totalPrice),
   }));
 
   // Define columns
   const columns = [
-    { header: "Order ID", key: "index", hideOnMobile: true },
+    { header: "List Number", key: "index", hideOnMobile: true },
     { header: "Customer", key: "customerName" },
     { header: "Date", key: "date", hideOnMobile: true },
     { header: "Total", key: "total" },
@@ -157,14 +159,14 @@ export default function OrderList() {
   return (
     <>
       <DataTable
-        data={formattedOrders}
+        data={formattedOrders || []}
         columns={columns}
         title="Orders"
         idField="orderNumber"
         statusField="status"
         statusOptions={statusOptions}
         onStatusChange={(id, newStatus) =>
-          handleStatusChange(id, newStatus as IOrder["status"])
+          handleStatusChange(id, newStatus as Order["status"])
         }
         onDelete={handleDelete}
         ActionsComponent={MoreActionsOptions}

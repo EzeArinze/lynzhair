@@ -17,15 +17,15 @@ export const RecentOrderLimit = 6;
 export const statusOptions = [
   { value: "pending", label: "Pending", color: getStatusColor("pending") },
   {
-    value: "Processing",
-    label: "Processing",
-    color: getStatusColor("Processing"),
+    value: "paid",
+    label: "Paid",
+    color: getStatusColor("paid"),
   },
-  { value: "Shipped", label: "Shipped", color: getStatusColor("Shipped") },
+  { value: "shipped", label: "Shipped", color: getStatusColor("shipped") },
   {
-    value: "Completed",
-    label: "Completed",
-    color: getStatusColor("Completed"),
+    value: "cancelled",
+    label: "Cancelled",
+    color: getStatusColor("cancelled"),
   },
 ];
 
