@@ -23,12 +23,7 @@ export default function MoreActionsOptions({
   onViewDetails,
 }: OrderActionsProps) {
   const handleViewDetails = () => {
-    if (onViewDetails) {
-      onViewDetails(Id);
-    } else {
-      // Default behavior if no handler is provided
-      console.log("View details for ID:", Id);
-    }
+    onViewDetails?.(Id);
   };
 
   const handleDelete = () => {

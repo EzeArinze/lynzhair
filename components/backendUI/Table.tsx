@@ -31,6 +31,7 @@ export function DataTable({
   statusOptions = [],
   onStatusChange,
   onDelete,
+  viewDetails,
   ActionsComponent,
   pageSize = 5,
   initialPage = 1,
@@ -185,6 +186,7 @@ export function DataTable({
                     <ActionsComponent
                       Id={item[idField] as string}
                       onDelete={onDelete}
+                      onViewDetails={viewDetails}
                     />
                   </TableCell>
                 )}

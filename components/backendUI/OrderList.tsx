@@ -134,6 +134,10 @@ export default function OrderList() {
     // );
   };
 
+  const handleViewDetails = (orderId: string) => {
+    console.log("Displaying the details for order :", orderId);
+  };
+
   // Handle delete
   const handleDelete = (orderId: string) => {
     console.log("Deleting order with ID:", orderId);
@@ -150,7 +154,7 @@ export default function OrderList() {
 
   // Define columns
   const columns = [
-    { header: "List Number", key: "index", hideOnMobile: true },
+    { header: "Number", key: "index", hideOnMobile: true },
     { header: "Customer", key: "customerName" },
     { header: "Date", key: "date", hideOnMobile: true },
     { header: "Total", key: "total" },
@@ -162,13 +166,14 @@ export default function OrderList() {
         data={formattedOrders || []}
         columns={columns}
         title="Orders"
-        idField="orderNumber"
+        idField="_id"
         statusField="status"
         statusOptions={statusOptions}
         onStatusChange={(id, newStatus) =>
           handleStatusChange(id, newStatus as Order["status"])
         }
         onDelete={handleDelete}
+        viewDetails={handleViewDetails}
         ActionsComponent={MoreActionsOptions}
       />
 

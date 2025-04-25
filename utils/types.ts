@@ -107,9 +107,11 @@ export type SimpleTableProps = {
   statusOptions?: { value: string; label: string; color?: string }[]; // Status options
   onStatusChange?: (id: string, newStatus: string) => void; // Status change handler
   onDelete?: (id: string) => void;
+  viewDetails?: (id: string) => void;
   ActionsComponent?: ComponentType<{
     Id: string;
     onDelete?: (id: string) => void;
+    onViewDetails?: (id: string) => void;
   }>; // Component for actions column
   pageSize?: number; // Number of items per page
   initialPage?: number; // Initial page number
@@ -191,6 +193,7 @@ export interface OrderDetail {
 }
 
 export interface RecentOrder {
+  _id: string;
   orderNumber: string;
   customerName: string;
   status: string;

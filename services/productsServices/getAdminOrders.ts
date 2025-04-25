@@ -23,7 +23,7 @@ export const useAdminOrders = () => {
       const { data } = await axios.get<RecentOrder[]>(`/api/v1/orders/admin`);
       return data || [];
     },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 30,
     // conditionally fetch if the user is authenticated
     // enabled: !!user,
   });
