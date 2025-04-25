@@ -189,3 +189,12 @@ export interface OrderDetail {
   paystackPaymentIntentId: string;
   products: OrderItem[];
 }
+
+export interface RecentOrder {
+  orderNumber: string;
+  customerName: string;
+  status: string;
+  createdAt: string;
+  orderDate: string;
+  totalPrice: number;
+}

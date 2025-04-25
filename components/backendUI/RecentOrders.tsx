@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -7,37 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-
-const recentOrders = [
-  { id: "1", customer: "John Doe", total: "NGN 120.00", status: "Completed" },
-  { id: "2", customer: "Jane Smith", total: "NGN 85.50", status: "Processing" },
-  { id: "3", customer: "Bob Johnson", total: "NGN 200.00", status: "Shipped" },
-  { id: "4", customer: "Alice Brown", total: "NGN 75.25", status: "Pending" },
-  {
-    id: "5",
-    customer: "Charlie Davis",
-    total: "NGN 150.75",
-    status: "Completed",
-  },
-];
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "Completed":
-      return "bg-green-100 text-green-800";
-    case "Processing":
-      return "bg-blue-100 text-blue-800";
-    case "Shipped":
-      return "bg-purple-100 text-purple-800";
-    case "Pending":
-      return "bg-yellow-100 text-yellow-800";
-    default:
-      return "bg-gray-100 text-gray-800";
-  }
-};
+import { useAdminRecentOrders } from "@/services/productsServices/getAdminOrders";
+import RecentOrderState from "./RecentOrderState";
+import formatCurrency from "@/utils/formatCurrency";
+import { Badge } from "../ui/badge";
+import getStatusColor from "@/utils/getStatusColor";
 
 export default function RecentOrders() {
+  const { data: recentOrder, isFetching, isError } = useAdminRecentOrders();
+
   return (
     <Card>
       <CardHeader>
@@ -48,21 +28,29 @@ export default function RecentOrders() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Order ID</TableHead>
+                <TableHead className="w-[100px]">Order NB</TableHead>
                 <TableHead>Customer</TableHead>
                 <TableHead>Total</TableHead>
                 <TableHead className="text-right">Status</TableHead>
               </TableRow>
             </TableHeader>
+            <RecentOrderState
+              isError={isError}
+              isFetching={isFetching}
+              length={recentOrder?.length || 0}
+            />
             <TableBody>
-              {recentOrders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-medium">{order.id}</TableCell>
-                  <TableCell className=" sm:table-cell">
-                    {order.customer}
+              {recentOrder?.map((order) => (
+                <TableRow key={order.orderNumber}>
+                  <TableCell className="font-medium">
+                    {order.orderNumber}
                   </TableCell>
-                  <TableCell>{order.total}</TableCell>
+                  <TableCell className=" sm:table-cell">
+                    {order.customerName}
+                  </TableCell>
+                  <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
                   <TableCell className="text-right">
+                    {/* {getStatusBadge(order.status)} */}
                     <Badge className={getStatusColor(order.status)}>
                       {order.status}
                     </Badge>

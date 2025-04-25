@@ -1,13 +1,24 @@
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "Completed":
-      return "bg-green-100 text-green-800";
-    case "Processing":
-      return "bg-blue-100 text-blue-800";
+    case "paid":
+      return "bg-pink-500 text-white";
+    case "delivered":
+      return "bg-green-500 text-white";
     case "Shipped":
-      return "bg-purple-100 text-purple-800";
+      return "bg-purple-500 text-white";
     case "Pending":
-      return "bg-yellow-100 text-yellow-800";
+      return "bg-blue-500 text-white";
+    case "Cancelled":
+      return "bg-red-100 text-red-800";
+    default:
+      return "bg-gray-500 text-gray-800";
+  }
+};
+
+export default getStatusColor;
+
+export const getUserStatusColor = (status: string) => {
+  switch (status) {
     case "User":
       return "bg-gray-100 text-green";
     case "Admin":
@@ -16,5 +27,3 @@ const getStatusColor = (status: string) => {
       return "bg-gray-100 text-gray-800";
   }
 };
-
-export default getStatusColor;

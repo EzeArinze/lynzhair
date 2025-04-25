@@ -3,7 +3,7 @@ import connectDB from "@/lib/dbconnect";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await connectDB();
 
@@ -12,12 +12,21 @@ export async function GET() {
       await import("@/models/ProductModel");
     }
 
-    const orders = await Order.find(
+    // Parse query parameters
+    const { searchParams } = new URL(request.url);
+    const limit = parseInt(searchParams.get("limit") || "0", 10); // Default to 0 (no limit)
+    const recent = searchParams.get("recent") === "true";
+
+    let query = Order.find(
       {},
       "orderNumber customerName status createdAt orderDate totalPrice"
-    )
-      .sort({ orderDate: -1 })
-      .lean();
+    ).sort({ orderDate: -1 });
+
+    if (recent) {
+      query = query.limit(limit || 6); // Limit to 6 most recent orders by default
+    }
+
+    const orders = await query.lean();
 
     return NextResponse.json(orders, { status: 200 });
   } catch (error) {

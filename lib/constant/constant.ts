@@ -12,6 +12,8 @@ export const overnight = 8000;
 
 export const freeShippingThreshold = 50000;
 
+export const RecentOrderLimit = 6;
+
 export const statusOptions = [
   { value: "pending", label: "Pending", color: getStatusColor("pending") },
   {

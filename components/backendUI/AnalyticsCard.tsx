@@ -10,7 +10,7 @@ const analyticsData = [
   },
   { title: "Total Sales", value: "1,234", icon: ShoppingCart, change: "+8%" },
   // { title: "New Customers", value: "321", icon: Users, change: "+23%" },
-  { title: "Conversion Rate", value: "3.5%", icon: TrendingUp, change: "+5%" },
+  { title: "Number of Users", value: "10", icon: TrendingUp, change: "+5%" },
 ];
 
 export default function AnalyticsCards() {
