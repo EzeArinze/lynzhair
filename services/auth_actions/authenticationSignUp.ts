@@ -1,5 +1,5 @@
 import { authClient } from "@/lib/better-auth/authClient";
-import { BETTER_AUTH_URL } from "@/lib/constant/env";
+// import { BETTER_AUTH_URL } from "@/lib/constant/env";
 import { toast } from "sonner";
 // import axios from "axios";
 
@@ -22,7 +22,7 @@ export default async function authenticationSignUp({
         email,
         password,
         name: username,
-        callbackURL: `${BETTER_AUTH_URL}`,
+        callbackURL: `/`,
       },
       {
         onError: (ctx) => {
