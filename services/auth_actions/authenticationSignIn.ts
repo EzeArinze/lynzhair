@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/better-auth/authClient";
+import { BETTER_AUTH_URL } from "@/lib/constant/env";
 import { toast } from "sonner";
 
 interface AuthenticationSignIn {
@@ -20,7 +21,7 @@ export default async function authenticationSignIn({
         email,
         password,
         rememberMe,
-        callbackURL: "/",
+        callbackURL: `${BETTER_AUTH_URL}`,
       },
       {
         onError: (ctx) => {

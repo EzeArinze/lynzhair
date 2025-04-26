@@ -21,3 +21,5 @@ export const PAYSTACK_INITIALIZE_URI = process.env
 export const SCRIPT_SRC = process.env.SCRIPT_SRC as string;
 
 export const RESEND_API_KEY = process.env.RESEND_API_KEY as string;
+
+export const BETTER_AUTH_URL = process.env.BETTER_AUTH_URL as string;
