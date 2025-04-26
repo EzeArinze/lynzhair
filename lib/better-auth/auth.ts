@@ -4,6 +4,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MONGO_URI } from "../constant/env";
 import { admin } from "better-auth/plugins";
 import { sendEmail } from "@/actions/sendEmail";
+import { nextCookies } from "better-auth/next-js";
 
 if (!MONGO_URI) {
   throw new Error("MONGO_URI is not defined in the environment variables.");
@@ -35,6 +36,8 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
+    sendOnSignUp: true,
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
@@ -48,5 +51,6 @@ export const auth = betterAuth({
     admin({
       defaultRole: "user",
     }),
+    nextCookies(),
   ],
 });
