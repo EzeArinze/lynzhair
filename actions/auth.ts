@@ -1,5 +1,6 @@
+// import { auth } from "@/lib/better-auth/auth";
 import { authClient } from "@/lib/better-auth/authClient";
-// import { useMemo } from "react";
+// import { headers } from "next/headers";
 import { toast } from "sonner";
 
 export const useAuthentication = () => {
@@ -19,3 +20,20 @@ export const useAuthentication = () => {
 
   return { session, signOut, isPending, userInitial, userEmail, error };
 };
+
+/// This function is used to get the session on the server side
+/// It is used in the server components and API routes
+// export const useServerSession = async () => {
+//   const session = await auth.api.getSession({
+//     headers: await headers(),
+//   });
+
+//   const userInitial = session?.user.email?.slice(0, 1).toUpperCase() ?? "N/A";
+//   const userEmail = session?.user.email ?? "N/A";
+
+//   if (!session) {
+//     return { session: null, userInitial, userEmail };
+//   }
+
+//   return { session, userInitial, userEmail };
+// };

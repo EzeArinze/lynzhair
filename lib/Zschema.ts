@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const schema = z
+export const siginUpSchema = z
   .object({
     username: z
       .string()
@@ -12,6 +12,10 @@ export const schema = z
       .max(40, "Max 40 characters"),
     password: z
       .string()
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,8}$/, {
+        message:
+          "Password must be 6-8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
+      })
       .min(6, "Password must be at least 6 characters")
       .max(8, "Max 8 characters"),
     confirmPassword: z

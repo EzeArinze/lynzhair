@@ -41,8 +41,6 @@ export default async function authenticationSignUp({
         },
       }
     );
-
-    return console.log("User signed up successfully");
   } catch (error) {
     console.error("Error signing up user:", error);
     toast.error("An unexpected error occurred during sign-up");

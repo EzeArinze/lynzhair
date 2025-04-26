@@ -23,8 +23,8 @@ export default function SignIn() {
     e.preventDefault();
     // Handle form submission logic here
 
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await authenticationSignIn({ email, password, rememberMe });
     } catch (error) {
       console.error("Error during sign-in:", error);

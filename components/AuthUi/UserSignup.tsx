@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription } from "../ui/alert";
-import { schema } from "@/lib/Zschema";
+import { siginUpSchema } from "@/lib/Zschema";
 import authenticationSignUp from "@/services/auth_actions/authenticationSignUp";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -31,18 +31,19 @@ function UserSignup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    const validation = schema.safeParse(formDetails);
+    const validation = siginUpSchema.safeParse(formDetails);
 
     if (!validation.success) {
       setError(validation.error.errors[0].message);
+      setLoading(false);
       return;
     }
 
     const { username, email, password } = formDetails;
 
     try {
-      setLoading(true);
       await authenticationSignUp({ username, email, password });
     } catch (error) {
       if (error instanceof Error) {
