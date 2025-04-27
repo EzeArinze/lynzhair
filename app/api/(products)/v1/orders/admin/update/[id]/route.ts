@@ -35,7 +35,7 @@ export async function PUT(
         { status: 404 }
       );
 
-    await Order.findByIdAndUpdate(id, status);
+    await Order.findByIdAndUpdate(id, { status });
 
     return NextResponse.json(
       { message: "Order Updated successfully" },

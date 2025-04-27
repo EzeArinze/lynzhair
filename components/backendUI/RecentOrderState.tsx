@@ -3,9 +3,9 @@ import { TableBody, TableCell, TableRow } from "../ui/table";
 import { Loader2 } from "lucide-react";
 
 interface RecentOrderStateProps {
-  isError: boolean;
-  isFetching: boolean;
-  length: number;
+  isError?: boolean;
+  isFetching?: boolean;
+  length?: number;
 }
 
 function RecentOrderState({

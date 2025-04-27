@@ -8,21 +8,27 @@ import dynamic from "next/dynamic";
 import { useAdminOrders } from "@/services/productsServices/getAdminOrders";
 import { Order } from "@/utils/types";
 import { useRouter } from "next/navigation";
+import { useUpdateOrder } from "@/services/productsServices/updateOrder";
+import LoadingSpinner from "../Loader";
 
 const DataTable = dynamic(
   () => import("./Table").then((mod) => mod.DataTable),
   {
     ssr: false,
+    loading: () => <LoadingSpinner />,
   }
 );
 
 export default function OrderList() {
   const { data: orders } = useAdminOrders();
+  const { mutate: updateOrder } = useUpdateOrder();
   const router = useRouter();
 
   // Handle status change
   const handleStatusChange = (orderId: string, newStatus: Order["status"]) => {
-    console.table({ newStatus, orderId });
+    if (newStatus) {
+      updateOrder({ id: orderId, status: newStatus });
+    }
   };
 
   const handleViewDetails = (orderId: string) => {

@@ -28,7 +28,7 @@ export default function RecentOrders() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Order NB</TableHead>
+                <TableHead className="w-[100px]">Order</TableHead>
                 <TableHead>Customer</TableHead>
                 <TableHead>Total</TableHead>
                 <TableHead className="text-right">Status</TableHead>

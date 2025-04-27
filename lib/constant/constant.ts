@@ -15,13 +15,18 @@ export const freeShippingThreshold = 50000;
 export const RecentOrderLimit = 6;
 
 export const statusOptions = [
-  { value: "pending", label: "Pending", color: getStatusColor("pending") },
   {
     value: "paid",
     label: "Paid",
     color: getStatusColor("paid"),
   },
+  { value: "pending", label: "Pending", color: getStatusColor("pending") },
   { value: "shipped", label: "Shipped", color: getStatusColor("shipped") },
+  {
+    value: "delivered",
+    label: "delivered",
+    color: getStatusColor("delivered"),
+  },
   {
     value: "cancelled",
     label: "Cancelled",
