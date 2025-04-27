@@ -8,7 +8,7 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: async (id: string) => {
-      await axios.delete(`/api/products/${id}`);
+      await axios.delete(`/api/v2/products/${id}`);
       return id;
     },
 

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const getProducts = async () => {
-  const productdata = await axios.get("/api/getProducts");
+  const productdata = await axios.get("/api/v2/getProducts");
   return productdata.data as Omit<ProductTypes, "id">[];
 };
 

@@ -9,7 +9,7 @@ export const useUpdateProduct = () => {
   return useMutation({
     mutationFn: async (updatedData: ProductTypes) => {
       const response = await axios.put(
-        `/api/updateProduct/${updatedData._id}`,
+        `/api/v2/updateProduct/${updatedData._id}`,
         updatedData,
         {
           headers: { "Content-Type": "application/json" },

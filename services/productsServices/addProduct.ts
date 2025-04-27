@@ -8,7 +8,7 @@ export function useAddProduct() {
 
   return useMutation({
     mutationFn: async (initialData: Omit<ProductTypes, "_id">) => {
-      const response = await axios.post("/api/products", initialData, {
+      const response = await axios.post("/api/v2/products", initialData, {
         headers: { "Content-Type": "application/json" },
       });
       return response.data; // ✅ Return only the new product data
