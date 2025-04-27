@@ -10,6 +10,7 @@ import { Order } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useUpdateOrder } from "@/services/productsServices/updateOrder";
 import LoadingSpinner from "../Loader";
+import { useDeleteOrder } from "@/services/productsServices/deleteOrder";
 
 const DataTable = dynamic(
   () => import("./Table").then((mod) => mod.DataTable),
@@ -22,6 +23,7 @@ const DataTable = dynamic(
 export default function OrderList() {
   const { data: orders } = useAdminOrders();
   const { mutate: updateOrder } = useUpdateOrder();
+  const { mutate: deleteOrder } = useDeleteOrder();
   const router = useRouter();
 
   // Handle status change
@@ -37,6 +39,9 @@ export default function OrderList() {
 
   // Handle delete
   const handleDelete = (orderId: string) => {
+    if (orderId) {
+      deleteOrder(orderId);
+    }
     console.log("Deleting order with ID:", orderId);
   };
 

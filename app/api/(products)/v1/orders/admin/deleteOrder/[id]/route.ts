@@ -2,7 +2,10 @@ import connectDB from "@/lib/dbconnect";
 import { Order } from "@/models/OrderModel";
 import { NextResponse } from "next/server";
 
-export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     await connectDB();
 
