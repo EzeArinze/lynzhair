@@ -20,22 +20,14 @@ function AddToCartSection({ product }: addSectionType) {
             <span className="sr-only">Add to wishlist</span>
           </Button>
         </div>
-        {/* </div> */}
-
-        {/* <div className="space-x-2">
-          <Button variant="outline" size="icon" className="rounded-full">
-            <Heart className="w-5 h-5 text-pink-600" />
-            <span className="sr-only">Add to wishlist</span>
-          </Button>
-        </div> */}
       </div>
 
-      <Button
+      {/* <Button
         variant="outline"
         className="w-full border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
       >
         Buy Now
-      </Button>
+      </Button> */}
     </section>
   );
 }

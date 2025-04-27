@@ -13,6 +13,13 @@ export async function PUT(
 
     const { id } = await params;
 
+    if (!id) {
+      return NextResponse.json(
+        { message: "No id found, please provide an ID" },
+        { status: 403 }
+      );
+    }
+
     const { name, description, category, price, discount, stock } =
       await req.json();
 

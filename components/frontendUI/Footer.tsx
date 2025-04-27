@@ -56,8 +56,8 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Customer Service</h3>
             <ul className="space-y-2">
               {[
-                { name: "Contact Us", href: "#" },
-                { name: "Track Your Order", href: "#" },
+                { name: "Contact Us", href: "/commerce/contact" },
+                { name: "Track Your Order", href: "/commerce/orders" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

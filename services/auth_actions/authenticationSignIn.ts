@@ -28,8 +28,6 @@ export default async function authenticationSignIn({
           // Handle the error
           if (ctx.error.status === 401) {
             toast.error("Sign In Failed: Invalid credentials");
-          } else if (ctx.error.status === 403) {
-            toast.error("Please verify your email address");
           } else {
             toast.error("Sign In Failed: " + ctx.error.message);
           }
