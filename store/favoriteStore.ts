@@ -28,4 +28,12 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
     const { favorites } = get();
     return favorites.some((item) => item.id === id);
   },
+  clearFavorites: () =>
+    set(() => ({
+      favorites: [],
+    })),
+  getFavorites: () => {
+    const { favorites } = get();
+    return favorites;
+  },
 }));
