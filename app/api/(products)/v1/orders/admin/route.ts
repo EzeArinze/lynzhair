@@ -28,6 +28,22 @@ export async function GET(request: Request) {
 
     const orders = await query.lean();
 
+    if (!orders) {
+      return NextResponse.json({ message: "No orders found" }, { status: 404 });
+    }
+
+    // const totalAmountResult = await Order.aggregate([
+    //   { $group: { _id: null, totalAmount: { $sum: "$totalPrice" } } },
+    // ]);
+
+    // const totalRevenue = totalAmountResult[0]?.totalAmount || 0;
+
+    // const totalOrders = await Order.countDocuments({});
+
+    // const newOrder = { orders, totalRevenue, totalOrders };
+
+    // console.log("newOrder: ", newOrder);
+
     return NextResponse.json(orders, { status: 200 });
   } catch (error) {
     console.error("Error fetching orders:", error);

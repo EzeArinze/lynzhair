@@ -1,19 +1,49 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import formatCurrency from "@/utils/formatCurrency";
 import { DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
+import { useMemo } from "react";
+import { AnalyticsCardsSkeleton } from "./AnalyticsCardsSkeleton";
 
-const analyticsData = [
-  {
-    title: "Total Revenue",
-    value: "NGN 54,231",
-    icon: DollarSign,
-    change: "+12%",
-  },
-  { title: "Total Sales", value: "1,234", icon: ShoppingCart, change: "+8%" },
-  // { title: "New Customers", value: "321", icon: Users, change: "+23%" },
-  { title: "Number of Users", value: "10", icon: TrendingUp, change: "+5%" },
-];
+export interface AnalyticsData {
+  totalRevenue: number;
+  totalOrders: number;
+  totalCustomers: number;
+}
 
-export default function AnalyticsCards() {
+export default function AnalyticsCards({
+  analytics,
+  isFetching,
+}: {
+  analytics: AnalyticsData;
+  isFetching?: boolean;
+  Error?: boolean;
+}) {
+  const analyticsData = useMemo(
+    () => [
+      {
+        title: "Total Revenue",
+        value: formatCurrency(analytics.totalRevenue),
+        icon: DollarSign,
+        change: "+12%",
+      },
+      {
+        title: "Total Sales",
+        value: analytics.totalOrders,
+        icon: ShoppingCart,
+        change: "+8%",
+      },
+      {
+        title: "Customers",
+        value: analytics.totalCustomers,
+        icon: TrendingUp,
+        change: "+5%",
+      },
+    ],
+    [analytics]
+  );
+
+  if (isFetching) return <AnalyticsCardsSkeleton />;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {analyticsData.map((item, index) => (

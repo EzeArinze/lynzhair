@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -9,15 +7,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAdminRecentOrders } from "@/services/productsServices/getAdminOrders";
+// import { useAdminRecentOrders } from "@/services/productsServices/getAdminOrders";
 import RecentOrderState from "./RecentOrderState";
 import formatCurrency from "@/utils/formatCurrency";
 import { Badge } from "../ui/badge";
 import getStatusColor from "@/utils/getStatusColor";
+import { RecentOrder } from "@/utils/types";
 
-export default function RecentOrders() {
-  const { data: recentOrder, isFetching, isError } = useAdminRecentOrders();
+interface recentTypes {
+  recentOrder: RecentOrder[] | undefined;
+  isFetching: boolean;
+  Error: boolean;
+}
 
+export default function RecentOrders({
+  recentOrder,
+  isFetching,
+  Error,
+}: recentTypes) {
   return (
     <Card>
       <CardHeader>
@@ -35,7 +42,7 @@ export default function RecentOrders() {
               </TableRow>
             </TableHeader>
             <RecentOrderState
-              isError={isError}
+              isError={Error}
               isFetching={isFetching}
               length={recentOrder?.length || 0}
             />

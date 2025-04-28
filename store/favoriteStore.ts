@@ -12,6 +12,8 @@ type FavoriteStore = {
   addToFavorites: (item: FavoriteItem) => void;
   removeFromFavorites: (id: string) => void;
   isFavorite: (id: string) => boolean;
+  clearFavorites: () => void;
+  getFavorites: () => FavoriteItem[];
 };
 
 export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
