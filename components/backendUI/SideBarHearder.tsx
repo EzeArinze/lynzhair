@@ -20,18 +20,23 @@ async function SideBarHearder() {
 
   return (
     <header className="flex justify-between h-16 shrink-0 items-center gap-2 border-b px-4">
-      <span className="flex items-center">
+      <div className="flex items-center">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
-      </span>
+      </div>
 
-      <span className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
         {session ? (
-          <span>
+          <span className="flex items-center gap-2">
             <Badge className="w-8 h-8 flex items-center justify-center rounded-md bg-gray-200 text-gray-800 font-semibold p-2">
               {userInitial}
             </Badge>
-            <span className="text-sm font-medium">{userEmail}</span>
+            <h3
+              className="text-sm font-medium truncate max-w-[110px] border-inherit"
+              title={userEmail}
+            >
+              {userEmail}
+            </h3>
           </span>
         ) : (
           <Link href={"/auth/signin"} className="flex w-full ">
@@ -41,7 +46,7 @@ async function SideBarHearder() {
             </Badge>
           </Link>
         )}
-      </span>
+      </div>
     </header>
   );
 }

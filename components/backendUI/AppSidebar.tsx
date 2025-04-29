@@ -1,10 +1,17 @@
 "use client";
 
-import { ShoppingBasket, Database, User2, LayoutDashboard } from "lucide-react";
+import {
+  ShoppingBasket,
+  Database,
+  User2,
+  LayoutDashboard,
+  UserIcon,
+} from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -16,6 +23,8 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useAuthentication } from "@/actions/auth";
+import { Button } from "../ui/button";
 // import { useState } from "react";
 
 // Menu items.
@@ -45,10 +54,11 @@ const items = [
 export function AppSidebar() {
   const pathname = usePathname();
   const { toggleSidebar } = useSidebar();
+  const { signOut, session, isPending } = useAuthentication();
 
   return (
     <Sidebar variant="inset">
-      <SidebarContent className="bg-white">
+      <SidebarContent className="bg-white flex flex-col h-full justify-between">
         <SidebarGroup>
           <SidebarGroupLabel className="mb-8 mt-4 font-bold text-lg">
             <Image
@@ -90,6 +100,25 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {session && !isPending && (
+          <SidebarFooter>
+            <div className="flex-col items-center justify-between p-4 text-sm text-muted-foreground">
+              <Button
+                type="button"
+                size="icon"
+                className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition w-full"
+                onClick={() => {
+                  signOut();
+                  // window.location.href = "/auth/signin";
+                }}
+              >
+                <UserIcon className="h-5 w-5" />
+                <span className="text-sm font-medium">Sign Out</span>
+              </Button>
+            </div>
+          </SidebarFooter>
+        )}
       </SidebarContent>
     </Sidebar>
   );

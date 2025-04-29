@@ -1,4 +1,4 @@
-import { RecentOrder } from "@/utils/types";
+import { OrdersResponse } from "@/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
@@ -15,21 +15,35 @@ export const useDeleteOrder = () => {
     onMutate: async (
       id: string
     ): Promise<{
-      previousRecentOrders: RecentOrder[] | undefined;
-      previousAdminOrders: RecentOrder[] | undefined;
+      previousRecentOrders: OrdersResponse | undefined;
+      previousAdminOrders: OrdersResponse | undefined;
     }> => {
       await queryClient.cancelQueries({ queryKey: ["adminOrders"] });
       await queryClient.cancelQueries({ queryKey: ["recentOrders"] });
 
-      const previousAdminOrders = queryClient.getQueryData<RecentOrder[]>([
+      const previousAdminOrders = queryClient.getQueryData<OrdersResponse>([
         "adminOrders",
       ]);
-      const previousRecentOrders = queryClient.getQueryData<RecentOrder[]>([
+      const previousRecentOrders = queryClient.getQueryData<OrdersResponse>([
         "recentOrders",
       ]);
 
-      queryClient.setQueryData<RecentOrder[]>(["adminOrders"], (oldData) => {
-        return oldData ? oldData.filter((data) => data._id !== id) : [];
+      queryClient.setQueryData<OrdersResponse>(["adminOrders"], (oldData) => {
+        return oldData
+          ? {
+              ...oldData,
+              orders: oldData.orders.filter((data) => data._id !== id),
+            }
+          : undefined;
+      });
+
+      queryClient.setQueryData<OrdersResponse>(["recentOrders"], (oldData) => {
+        return oldData
+          ? {
+              ...oldData,
+              orders: oldData.orders.filter((data) => data._id !== id),
+            }
+          : undefined;
       });
 
       return { previousAdminOrders, previousRecentOrders };
