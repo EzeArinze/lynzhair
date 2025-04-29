@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       event.event === "transfer.success"
     ) {
       const {
-        id,
+        id: paystackId,
         reference,
         metadata,
         customer,
@@ -58,12 +58,12 @@ export async function POST(req: Request) {
 
       // Build order data
       const order = {
-        orderNumber: id,
-        paystackCheckoutSessionId: reference,
+        orderNumber: reference,
+        paystackCheckoutSessionId: paystackId,
         UserId: UserId,
         customerName: fullName,
         email,
-        paystackPaymentIntentId: reference,
+        paystackPaymentIntentId: paystackId,
         products: product.map(
           (item: { productId: string; quantity: number }) => ({
             product: item.productId,

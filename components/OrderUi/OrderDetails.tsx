@@ -8,14 +8,7 @@ import OrderItems from "./OrderItems";
 import { useGetOrderDetails } from "@/services/productsServices/getOrders";
 import ErrorSituation from "../Error";
 import React from "react";
-
-const GetDate = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "2-digit",
-  });
-};
+import { GetDate } from "@/utils/getDate";
 
 export default function OrderDetailsPage({ orderId }: { orderId: string }) {
   const { data: orderDetail, isLoading, error } = useGetOrderDetails(orderId);
@@ -24,8 +17,8 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
     () => [
       { status: "Paid", date: orderDetail?.orderDate || "" },
       { status: "Pending", date: orderDetail?.updatedAt || "" },
-      { status: "Shipped", date: orderDetail?.updatedAt || "" }, // Example
-      { status: "Delivered", date: orderDetail?.updatedAt || "" }, // Example
+      { status: "Shipped", date: orderDetail?.updatedAt || "" },
+      { status: "Delivered", date: orderDetail?.updatedAt || "" },
     ],
     [orderDetail]
   );
@@ -75,7 +68,11 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
             <div className="p-6 border-b">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Order Status</h2>
-                {getStatusBadge(orderDetail?.status || "")}
+                {isLoading ? (
+                  <div className="animate-pulse bg-gray-100 rounded-lg h-10 mb-6" />
+                ) : (
+                  getStatusBadge(orderDetail?.status || "")
+                )}
               </div>
             </div>
 
@@ -110,8 +107,8 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
                             ? GetDate(orderDetail.orderDate)
                             : "Not Available"
                           : step.date
-                          ? GetDate(step.date)
-                          : "Not Available"}
+                            ? GetDate(step.date)
+                            : "Not Available"}
                       </p>
                     </div>
                   </div>

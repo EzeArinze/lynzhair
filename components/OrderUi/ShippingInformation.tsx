@@ -1,26 +1,17 @@
+import { GetDate } from "@/utils/getDate";
 import {
   DeliveryType,
   getEstimatedDeliveryTime,
 } from "@/utils/getEstimatedtime";
 import { getShippingMethodInfo } from "@/utils/getShippingMethodInfo";
+import { OrderDetail } from "@/utils/types";
 import React from "react";
-
-interface OrderDetails {
-  customerName: string;
-  address: string;
-  city: string;
-  state: string;
-  status: string;
-  updated_At?: string;
-  orderDate: string;
-  shippingMethod: string;
-}
 
 function ShippingInformation({
   orderDetails,
   country,
 }: {
-  orderDetails: OrderDetails;
+  orderDetails: OrderDetail;
   country: string;
 }) {
   return (
@@ -52,7 +43,7 @@ function ShippingInformation({
               <p>{getShippingMethodInfo(orderDetails?.shippingMethod)}</p>
               {orderDetails?.status === "delivered" ? (
                 <p className="text-green-600 mt-2">
-                  Delivered on {orderDetails?.updated_At}
+                  Delivered on {GetDate(orderDetails?.updatedAt)}
                 </p>
               ) : (
                 <p className="mt-2">
