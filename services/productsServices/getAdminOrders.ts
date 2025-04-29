@@ -1,13 +1,13 @@
 import { RecentOrderLimit } from "@/lib/constant/constant";
-import { RecentOrder } from "@/utils/types";
+import { OrdersResponse } from "@/utils/types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export const useAdminRecentOrders = () => {
-  return useQuery<RecentOrder[]>({
+  return useQuery<OrdersResponse>({
     queryKey: ["recentOrders"],
     queryFn: async () => {
-      const { data } = await axios.get<RecentOrder[]>(
+      const { data } = await axios.get<OrdersResponse>(
         `/api/v1/orders/admin?recent=true&limit=${RecentOrderLimit}`
       );
       return data || [];
@@ -17,10 +17,10 @@ export const useAdminRecentOrders = () => {
 };
 
 export const useAdminOrders = () => {
-  return useQuery<RecentOrder[]>({
+  return useQuery<OrdersResponse>({
     queryKey: ["adminOrders"],
     queryFn: async () => {
-      const { data } = await axios.get<RecentOrder[]>(`/api/v1/orders/admin`);
+      const { data } = await axios.get<OrdersResponse>(`/api/v1/orders/admin`);
       return data || [];
     },
     staleTime: 1000 * 60 * 30,

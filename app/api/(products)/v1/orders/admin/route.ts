@@ -26,11 +26,15 @@ export async function GET(request: Request) {
       query = query.limit(limit || 6); // Limit to 6 most recent orders by default
     }
 
-    const orders = await query.lean();
+    // const orders = await query.lean();
 
-    if (!orders) {
-      return NextResponse.json({ message: "No orders found" }, { status: 404 });
-    }
+    // if (!orders) {
+    //   return NextResponse.json({ message: "No orders found" }, { status: 404 });
+    // }
+
+    // const totalCustomers = (await Order.distinct("customerName")).length;
+
+    // const totalOrders = await Order.countDocuments({});
 
     // const totalAmountResult = await Order.aggregate([
     //   { $group: { _id: null, totalAmount: { $sum: "$totalPrice" } } },
@@ -38,13 +42,29 @@ export async function GET(request: Request) {
 
     // const totalRevenue = totalAmountResult[0]?.totalAmount || 0;
 
-    // const totalOrders = await Order.countDocuments({});
+    const [orders, totalCustomers, totalOrders, totalAmountResult] =
+      await Promise.all([
+        query.lean(),
+        Order.distinct("customerName").then((customers) => customers.length),
+        Order.countDocuments({}),
+        Order.aggregate([
+          { $group: { _id: null, totalAmount: { $sum: "$totalPrice" } } },
+        ]),
+      ]);
 
-    // const newOrder = { orders, totalRevenue, totalOrders };
+    if (!orders) {
+      return NextResponse.json({ message: "No orders found" }, { status: 404 });
+    }
+    const totalRevenue = totalAmountResult[0]?.totalAmount || 0;
 
-    // console.log("newOrder: ", newOrder);
+    const response = {
+      totalCustomers,
+      totalOrders,
+      totalRevenue,
+      orders,
+    };
 
-    return NextResponse.json(orders, { status: 200 });
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Error fetching orders:", error);
     return NextResponse.json(

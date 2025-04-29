@@ -46,7 +46,7 @@ export default function OrderList() {
   };
 
   // Format the data for display
-  const formattedOrders = orders?.map((order, index) => ({
+  const formattedOrders = orders?.orders?.map((order, index) => ({
     ...order,
     index: index + 1,
     date: new Date(order.orderDate).toISOString().split("T")[0],

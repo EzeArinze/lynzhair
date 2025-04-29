@@ -12,10 +12,10 @@ import RecentOrderState from "./RecentOrderState";
 import formatCurrency from "@/utils/formatCurrency";
 import { Badge } from "../ui/badge";
 import getStatusColor from "@/utils/getStatusColor";
-import { RecentOrder } from "@/utils/types";
+import { OrdersResponse } from "@/utils/types";
 
 interface recentTypes {
-  recentOrder: RecentOrder[] | undefined;
+  recentOrder: OrdersResponse | undefined;
   isFetching: boolean;
   Error: boolean;
 }
@@ -44,10 +44,10 @@ export default function RecentOrders({
             <RecentOrderState
               isError={Error}
               isFetching={isFetching}
-              length={recentOrder?.length || 0}
+              length={recentOrder?.orders.length || 0}
             />
             <TableBody>
-              {recentOrder?.map((order) => (
+              {recentOrder?.orders.map((order) => (
                 <TableRow key={order.orderNumber}>
                   <TableCell className="font-medium">
                     {order.orderNumber}

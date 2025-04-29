@@ -37,7 +37,7 @@ const OrderSchema: Schema = new Schema(
   {
     orderNumber: { type: String, required: true },
     paystackCheckoutSessionId: { type: String, required: true },
-    UserId: { type: String, required: true },
+    UserId: { type: String, required: true, index: true },
     customerName: { type: String, required: true },
     email: { type: String, required: true },
     paystackPaymentIntentId: { type: String, required: true },

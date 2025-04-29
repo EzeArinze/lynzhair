@@ -201,3 +201,10 @@ export interface RecentOrder {
   orderDate: string;
   totalPrice: number;
 }
+
+export type OrdersResponse = {
+  totalCustomers: number; // Total number of unique customers
+  totalOrders: number; // Total number of orders
+  totalRevenue: number; // Total revenue from all orders
+  orders: RecentOrder[]; // Array of individual orders
+};
