@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import { AppSidebar } from "@/components/backendUI/AppSidebar";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 // import { Playfair_Display, Lato } from "next/font/google"
 import React, { ReactNode } from "react";
 import "@/app/globals.css";
 import QueryProvider from "@/hooks/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+
+import SideBarHearder from "@/components/backendUI/SideBarHearder";
 
 // const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 // const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })
@@ -29,10 +26,12 @@ function layout({ children }: { children: ReactNode }) {
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-              <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+              {/* <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-              </header>
+                <User className="w-5 h-5" />
+              </header> */}
+              <SideBarHearder />
               <main>{children}</main>
               <Toaster />
             </SidebarInset>

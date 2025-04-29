@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -43,7 +44,7 @@ const items = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  // const [isOpen, setIsOpen] = useState(false) come back to this later
+  const { toggleSidebar } = useSidebar();
 
   return (
     <Sidebar variant="inset">
@@ -64,8 +65,20 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={item.url === pathname}>
-                    <Link href={item.url} className="py-5 px-4 mb-2">
+                  <SidebarMenuButton
+                    asChild
+                    className={`${item.url === pathname ? "bg-muted" : ""}`}
+                  >
+                    <Link
+                      href={item.url}
+                      className="py-5 px-4 mb-2"
+                      onClick={() => {
+                        // Only toggle the sidebar on small screens
+                        if (window.innerWidth < 768) {
+                          toggleSidebar();
+                        }
+                      }}
+                    >
                       <item.icon className="w-8 h-8" />
                       <span className="font-medium text-base">
                         {item.title}

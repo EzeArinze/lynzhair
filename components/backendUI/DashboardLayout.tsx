@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import AnalyticsCards from "./AnalyticsCard";
 import RecentOrders from "./RecentOrders";
 import { useAdminRecentOrders } from "@/services/productsServices/getAdminOrders";
@@ -19,11 +19,14 @@ function DashboardLayout() {
   //   ? new Set(recentOrder?.orders?.map((order) => order.customerName)).size
   //   : 0; // Unique customers (Numbers of unique customer names)
 
-  const analyticsData = {
-    totalRevenue: recentOrder?.totalRevenue || 0,
-    totalOrders: recentOrder?.totalOrders || 0,
-    totalCustomers: recentOrder?.totalCustomers || 0,
-  };
+  const analyticsData = useMemo(
+    () => ({
+      totalRevenue: recentOrder?.totalRevenue || 0,
+      totalOrders: recentOrder?.totalOrders || 0,
+      totalCustomers: recentOrder?.totalCustomers || 0,
+    }),
+    [recentOrder]
+  );
 
   return (
     <div className="flex flex-1 flex-col gap-8 p-4">

@@ -1,6 +1,4 @@
-// import { auth } from "@/lib/better-auth/auth";
 import { authClient } from "@/lib/better-auth/authClient";
-// import { headers } from "next/headers";
 import { toast } from "sonner";
 
 export const useAuthentication = () => {
