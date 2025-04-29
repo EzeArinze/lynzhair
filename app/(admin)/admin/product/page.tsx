@@ -2,12 +2,9 @@
 import dynamic from "next/dynamic";
 
 // import ProductList from "@/components/backendUI/ProductList";
-const ProductList = dynamic(
-  () => import("@/components/backendUI/ProductList"),
-  {
-    ssr: false,
-  }
-);
+const ProductList = dynamic(() => import("@/components/AdminUI/ProductList"), {
+  ssr: false,
+});
 
 export default function ProductsPage() {
   return (

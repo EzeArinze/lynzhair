@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/backendUI/DashboardLayout";
+import DashboardLayout from "@/components/AdminUI/DashboardLayout";
 
 export default function Page() {
   return <DashboardLayout />;
