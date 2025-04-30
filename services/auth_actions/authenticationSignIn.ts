@@ -45,3 +45,14 @@ export default async function authenticationSignIn({
     toast.error("An unexpected error occurred during sign-in");
   }
 }
+
+export const signInWithGoogle = async () => {
+  try {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  } catch (error) {
+    console.error("Error signing in with Google:", error);
+    toast.error("An unexpected error occurred during sign-in");
+  }
+};

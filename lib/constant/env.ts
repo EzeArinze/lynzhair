@@ -23,3 +23,7 @@ export const SCRIPT_SRC = process.env.SCRIPT_SRC as string;
 export const RESEND_API_KEY = process.env.RESEND_API_KEY as string;
 
 export const BETTER_AUTH_URL = process.env.BETTER_AUTH_URL as string;
+
+export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
+
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;

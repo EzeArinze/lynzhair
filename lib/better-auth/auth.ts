@@ -1,7 +1,11 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { MONGO_URI } from "../constant/env";
+import {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  MONGO_URI,
+} from "../constant/env";
 import { admin } from "better-auth/plugins";
 import { sendEmail } from "@/actions/sendEmail";
 import { nextCookies } from "better-auth/next-js";
@@ -35,6 +39,14 @@ export const auth = betterAuth({
       });
     },
   },
+
+  socialProviders: {
+    google: {
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+    },
+  },
+
   emailVerification: {
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
@@ -47,6 +59,7 @@ export const auth = betterAuth({
       });
     },
   },
+
   plugins: [
     admin({
       defaultRole: "user",
