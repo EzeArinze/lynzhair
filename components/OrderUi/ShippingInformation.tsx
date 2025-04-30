@@ -14,6 +14,8 @@ function ShippingInformation({
   orderDetails: OrderDetail;
   country: string;
 }) {
+  const deliveredDate = orderDetails?.updatedAt;
+
   return (
     <div className="bg-white rounded-lg border overflow-hidden mb-8">
       <div className="p-6 border-b">
@@ -43,7 +45,7 @@ function ShippingInformation({
               <p>{getShippingMethodInfo(orderDetails?.shippingMethod)}</p>
               {orderDetails?.status === "delivered" ? (
                 <p className="text-green-600 mt-2">
-                  Delivered on {GetDate(orderDetails?.updatedAt)}
+                  Delivered on {GetDate(deliveredDate)}
                 </p>
               ) : (
                 <p className="mt-2">

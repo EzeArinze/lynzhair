@@ -1,6 +1,6 @@
 const shippingMethodInfo: Record<string, string> = {
-  free: "Standard Shipping (3-5 business days)",
-  standard: "Standard Shipping (3-5 business days)",
+  free: "Standard (3-5 business days)",
+  standard: "Standard (3-5 business days)",
   express: "Express (2-3 business days)",
   overnight: "Overnight (next business day)",
 };

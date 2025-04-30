@@ -1,3 +1,4 @@
+import OrderDetailsPage from "@/components/AdminUI/OrderDetails";
 import React from "react";
 
 async function page({ params }: { params: Promise<{ id: string }> }) {
@@ -7,7 +8,7 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
 
   //680635b8800477221aa9a677
 
-  return <div>OrderDetails Page with : {id}</div>;
+  return <OrderDetailsPage id={id} />;
 }
 
 export default page;
