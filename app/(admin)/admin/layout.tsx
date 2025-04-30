@@ -7,8 +7,8 @@ import "@/app/globals.css";
 import QueryProvider from "@/hooks/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
 
-import { AppSidebar } from "@/components/AdminUI/AppSidebar";
-import SideBarHearder from "@/components/AdminUI/SideBarHearder";
+import { AppSidebar } from "@/components/adminUI/AppSidebar";
+import SideBarHearder from "@/components/adminUI/SideBarHearder";
 
 // const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 // const lato = Lato({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-lato" })

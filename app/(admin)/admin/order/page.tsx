@@ -1,4 +1,4 @@
-import OrderList from "@/components/AdminUI/OrderList";
+import OrderList from "@/components/adminUI/OrderList";
 
 export default function OrdersPage() {
   return (

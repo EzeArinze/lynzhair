@@ -1,4 +1,4 @@
-import OrderDetailsPage from "@/components/AdminUI/OrderDetails";
+import OrderDetailsPage from "@/components/adminUI/OrderDetails";
 import React from "react";
 
 async function page({ params }: { params: Promise<{ id: string }> }) {

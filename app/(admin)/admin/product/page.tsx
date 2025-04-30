@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 
 // import ProductList from "@/components/backendUI/ProductList";
-const ProductList = dynamic(() => import("@/components/AdminUI/ProductList"), {
+const ProductList = dynamic(() => import("@/components/adminUI/ProductList"), {
   ssr: false,
 });
 
