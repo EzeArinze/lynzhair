@@ -6,8 +6,6 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
 
   const id = resolvedParam.id;
 
-  //680635b8800477221aa9a677
-
   return <OrderDetailsPage id={id} />;
 }
 

@@ -56,14 +56,6 @@ export default function OrderDetailsPage({ id }: { id: string }) {
     );
   }
 
-  // Calculate subtotal
-  // const subtotal = order.products.reduce((sum, item) => {
-  //   return sum + item.product.price * item.quantity;
-  // }, 0);
-
-  // Calculate shipping cost
-  // const shippingCost = order.freeShipping ? 0 : 1500;
-
   return (
     <section className="space-y-6 w-[80%] mx-auto mt-10">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
