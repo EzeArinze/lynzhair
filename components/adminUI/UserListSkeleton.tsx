@@ -10,7 +10,7 @@ function SkeletonDiv({ className = "" }) {
 
 export default function UsersLoading() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-[85%] mx-auto">
       <SkeletonDiv className="h-10 w-48" />
 
       <div className="flex flex-col sm:flex-row gap-4 justify-between">

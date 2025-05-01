@@ -17,13 +17,24 @@ const getStatusColor = (status: string) => {
 
 export default getStatusColor;
 
-export const getUserStatusColor = (status: string) => {
-  switch (status) {
-    case "User":
-      return "bg-gray-100 text-green";
-    case "Admin":
-      return "bg-green-400 text-";
+export const getUserStatusColor = (role: string) => {
+  switch (role) {
+    case "user":
+      return "bg-blue-100 text-blue-800";
+    case "admin":
+      return "bg-green-100 text-green-800";
     default:
       return "bg-gray-100 text-gray-800";
+  }
+};
+
+export const getBannedStatusColor = (status: boolean) => {
+  switch (status) {
+    case true:
+      return "bg-red-100 text-red-800"; // Red for "banned"
+    case false:
+      return "bg-green-100 text-green-800"; // Green for "not banned"
+    default:
+      return "bg-gray-100 text-gray-800"; // Default color
   }
 };

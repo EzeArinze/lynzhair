@@ -1,11 +1,13 @@
-import UserList from "@/components/adminUI/UserList";
+import UserView from "@/components/adminUI/UserView";
 import React from "react";
 
 function userPage() {
   return (
-    <section className="space-y-6">
-      <h1 className="text-2xl font-bold sm:text-3xl">User Management</h1>
-      <UserList />
+    <section className="mt-4 ">
+      <h1 className="text-2xl font-bold sm:text-3xl pl-6 mb-4">
+        User Management
+      </h1>
+      <UserView />
     </section>
   );
 }

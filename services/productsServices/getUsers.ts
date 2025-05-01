@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-// import { authClient } from "@/lib/better-auth/authClient";
-import { auth } from "@/lib/better-auth/auth";
+import { authClient } from "@/lib/better-auth/authClient";
+// import { auth } from "@/lib/better-auth/auth";
 
 const fetchUsers = async ({
   pageParam = 1,
@@ -11,7 +11,7 @@ const fetchUsers = async ({
   pageSize?: number;
 }) => {
   try {
-    const res = await auth.api.listUsers({
+    const res = await authClient.admin.listUsers({
       query: {
         limit: pageSize,
         offset: (pageParam - 1) * pageSize,
@@ -20,7 +20,7 @@ const fetchUsers = async ({
       },
     });
 
-    const users = res.users || [];
+    const users = res.data?.users || [];
     // const total = res?.total || users.length;
     const totalPages = Math.ceil(users.length / pageSize);
     const hasNextPage = pageParam < totalPages;
@@ -45,7 +45,7 @@ export const useInfiniteUsers = (pageSize: number = 10) => {
       fetchUsers({ pageParam, pageSize }),
     getNextPageParam: (lastPage: { nextPage: number | null }) =>
       lastPage.nextPage,
-    staleTime: 1000 * 60 * 15,
+    staleTime: 1000 * 60 * 5,
     initialPageParam: 1,
   });
 };
