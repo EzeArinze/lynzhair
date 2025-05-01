@@ -1,11 +1,11 @@
+import UserList from "@/components/adminUI/UserList";
 import React from "react";
 
 function userPage() {
   return (
-    <section>
-      <h1 className="text-center font-semibold mt-2">
-        This will be the User page (To display the user table)
-      </h1>
+    <section className="space-y-6">
+      <h1 className="text-2xl font-bold sm:text-3xl">User Management</h1>
+      <UserList />
     </section>
   );
 }
