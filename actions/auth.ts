@@ -4,6 +4,7 @@ import { toast } from "sonner";
 export const useAuthentication = () => {
   const { data: session, isPending, error } = authClient.useSession();
 
+  const user = session?.user ?? null;
   const userInitial = session?.user.email?.slice(0, 1).toUpperCase() ?? "N/A";
   const userEmail = session?.user.email ?? "N/A";
 
@@ -17,7 +18,7 @@ export const useAuthentication = () => {
     }
   }
 
-  return { session, signOut, isPending, userInitial, userEmail, error };
+  return { session, signOut, isPending, userInitial, userEmail, error, user };
 };
 
 /// This function is used to get the session on the server side

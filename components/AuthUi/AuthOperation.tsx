@@ -92,7 +92,7 @@ function SignInSignOut({
             </Button>
           </div>
         ) : (
-          <Link href={"/auth/signin"} className="flex w-full">
+          <Link href={"/auth/sign-in"} className="flex w-full">
             <Button size="icon" className="w-full" disabled={isPending}>
               <LogIn className="h-5 w-5" />
               <span>Sign In</span>
@@ -117,7 +117,7 @@ function SignInSignOut({
       {session ? (
         <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
       ) : (
-        <Link href={"/auth/signin"}>
+        <Link href={"/auth/sign-in"}>
           <Button
             variant="ghost"
             className="px-4 py-2 bg-white text-primary rounded-md hover:bg-primary-dark transition w-full"

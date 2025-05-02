@@ -17,6 +17,7 @@ import { states } from "@/lib/constant/NigeriaStates";
 import { ShippingFormProps } from "@/utils/types";
 import formatCurrency from "@/utils/formatCurrency";
 import { express, overnight, standard } from "@/lib/constant/constant";
+import { useAuthentication } from "@/actions/auth";
 
 export function ShippingForm({
   formData,
@@ -25,6 +26,8 @@ export function ShippingForm({
   qualifiesForFreeShipping,
   freeShippingThreshold,
 }: ShippingFormProps) {
+  const { user } = useAuthentication();
+
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -232,9 +235,9 @@ export function ShippingForm({
           <Button
             type="submit"
             className="w-full bg-pink-600 hover:bg-pink-700 text-white py-6 text-lg"
-            disabled={!formData.agreeToTerms}
+            disabled={!(formData.agreeToTerms && user)}
           >
-            Proceed to Payment
+            {!user ? "Sign in to Proceed" : " Proceed to Payment"}
           </Button>
 
           <p className="text-center text-sm text-gray-500">
