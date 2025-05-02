@@ -8,6 +8,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import NuqsContext from "@/context/use-nuqs-state";
 import { Suspense } from "react";
 
+import WelcomeLoader from "@/components/frontendUI/WelcomeLoader";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,7 +37,7 @@ export default function RootLayout({
       >
         <QueryProvider>
           <Navbar />
-          <Suspense>
+          <Suspense fallback={<WelcomeLoader />}>
             <NuqsAdapter>
               <NuqsContext>
                 <main className="container mx-auto p-2 lg:w-[97%] min-h-dvh">

@@ -21,7 +21,7 @@ function SignInSignOut({
   isMenu: boolean;
   isMenuOpen?: () => void;
 }) {
-  const { session, signOut, isPending, userEmail, userInitial } =
+  const { session, signOut, isPending, userEmail, userInitial, isAdmin } =
     useAuthentication();
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -115,7 +115,11 @@ function SignInSignOut({
   return (
     <div className="hidden md:flex">
       {session ? (
-        <ProfileDropdown initials={userInitial} onClick={handleSignOut} />
+        <ProfileDropdown
+          initials={userInitial}
+          onClick={handleSignOut}
+          isAdmin={isAdmin}
+        />
       ) : (
         <Link href={"/auth/sign-in"}>
           <Button

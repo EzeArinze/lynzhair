@@ -110,7 +110,7 @@ export function AppSidebar() {
                 className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition w-full"
                 onClick={() => {
                   signOut();
-                  // window.location.href = "/auth/signin";
+                  window.location.href = "/auth/sign-in";
                 }}
               >
                 <UserIcon className="h-5 w-5" />
