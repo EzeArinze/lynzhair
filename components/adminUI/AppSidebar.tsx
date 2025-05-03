@@ -62,11 +62,12 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="mb-8 mt-4 font-bold text-lg">
             <Image
-              src="/LynzHair-removebg-preview.png"
+              src="/LynzHair-removebg-2.webp"
               alt="Logo"
               height={120}
               width={100}
               priority
+              sizes="(max-width: 768px) 50vw, 100px"
               className="object-contain object-center h-32 w-auto"
             />
             {/* LYNZ ADMIN */}

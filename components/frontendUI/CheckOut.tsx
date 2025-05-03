@@ -12,24 +12,25 @@ import {
   standard,
 } from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
-import LoadingSpinner from "../Loader";
+// import LoadingSpinner from "../Loader";
 import { useGroupedItems } from "@/utils/useGroupedItems";
 import Script from "next/script";
 import { SCRIPT_SRC } from "@/lib/constant/env";
 import { initializePayment } from "@/actions/initializePayment";
 import { useAuthentication } from "@/actions/auth";
+import LoaderWithDetail from "./LoaderWithDetail";
 
 const ShippingForm = dynamic(
   () =>
     import("@/components/CartUi/CheckoutForm").then((mod) => mod.ShippingForm),
   {
-    loading: () => <LoadingSpinner />,
+    loading: () => <LoaderWithDetail option="Shipping form..." />,
     ssr: false,
   }
 );
 
 const OrderSummary = dynamic(() => import("../CartUi/OrderSummary"), {
-  loading: () => <LoadingSpinner />,
+  loading: () => <LoaderWithDetail option="Summary..." />,
   ssr: true,
 });
 
@@ -61,8 +62,8 @@ export default function CheckOut() {
     formData.shippingMethod === "standard"
       ? standard
       : formData.shippingMethod === "express"
-      ? express
-      : overnight;
+        ? express
+        : overnight;
 
   // Free shipping threshold
   const qualifiesForFreeShipping = subtotal >= freeShippingThreshold;
