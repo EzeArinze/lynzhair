@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 interface TestimonialCardProps {
   name: string;
-  location: string;
+  // location: string;
   image: string;
   quote: string;
   index: number;
@@ -13,7 +13,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({
   name,
-  location,
+  // location,
   image,
   quote,
   index,
@@ -38,7 +38,7 @@ export function TestimonialCard({
         </div>
         <div>
           <h4 className="font-semibold">{name}</h4>
-          <p className="text-gray-500 text-sm">{location}</p>
+          {/* <p className="text-gray-500 text-sm">{location}</p> */}
         </div>
       </div>
       <p className="text-gray-700 italic">`${quote}&quot;`</p>

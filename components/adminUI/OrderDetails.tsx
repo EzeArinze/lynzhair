@@ -26,20 +26,12 @@ import { useGetOrderDetails } from "@/services/productsServices/getOrders";
 import formatCurrency from "@/utils/formatCurrency";
 import { adminFormatDate } from "@/utils/getDate";
 import { getShippingMethodInfo } from "@/utils/getShippingMethodInfo";
+import LoaderWithDetail from "../frontendUI/LoaderWithDetail";
 
 export default function OrderDetailsPage({ id }: { id: string }) {
   const { data: order, isLoading } = useGetOrderDetails(id);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-500">Loading order details...</p>
-        </div>
-      </div>
-    );
-  }
+  if (isLoading) return <LoaderWithDetail option="Loading detail..." />;
 
   if (!order) {
     return (

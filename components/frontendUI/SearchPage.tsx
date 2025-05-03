@@ -3,7 +3,7 @@
 import { useGetSearchResult } from "@/services/productsServices/getSearchResult";
 import { useSearchParams } from "next/navigation";
 import { ProductCard } from "./ProductCard";
-import LoadingSpinner from "../Loader";
+import LoaderWithDetail from "./LoaderWithDetail";
 
 function SearchPage() {
   const searchParams = useSearchParams();
@@ -25,7 +25,7 @@ function SearchPage() {
     );
 
   return isFetching ? (
-    <LoadingSpinner />
+    <LoaderWithDetail option={`Searching for ${newQuery}...`} />
   ) : (
     <div className="">
       <h2 className="font-bold p-4 m-2">{"Search Page".toUpperCase()}</h2>

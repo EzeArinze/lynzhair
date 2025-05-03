@@ -44,7 +44,7 @@ export function TestimonialsSection() {
             <TestimonialCard
               key={index}
               name={testimonial.name}
-              location={testimonial.location}
+              // location={testimonial.location}
               image={testimonial.image}
               quote={testimonial.quote}
               index={index}
