@@ -6,13 +6,18 @@ import { authClient } from "@/lib/better-auth/authClient";
 const fetchUsers = async ({
   pageParam = 1,
   pageSize = 10,
+  value = "",
 }: {
   pageParam?: number;
   pageSize?: number;
+  value?: string;
 }) => {
   try {
     const res = await authClient.admin.listUsers({
       query: {
+        searchField: "email",
+        searchOperator: "contains",
+        searchValue: value,
         limit: pageSize,
         offset: (pageParam - 1) * pageSize,
         sortBy: "createdAt",
@@ -38,11 +43,11 @@ const fetchUsers = async ({
   }
 };
 
-export const useInfiniteUsers = (pageSize: number = 10) => {
+export const useInfiniteUsers = (pageSize: number = 10, value?: string) => {
   return useInfiniteQuery({
-    queryKey: ["infiniteUsers", pageSize],
+    queryKey: ["infiniteUsers", pageSize, value],
     queryFn: ({ pageParam = 1 }: { pageParam: number }) =>
-      fetchUsers({ pageParam, pageSize }),
+      fetchUsers({ pageParam, pageSize, value }),
     getNextPageParam: (lastPage: { nextPage: number | null }) =>
       lastPage.nextPage,
     staleTime: 1000 * 60 * 5,

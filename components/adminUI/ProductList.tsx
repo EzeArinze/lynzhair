@@ -15,10 +15,11 @@ import { ProductForm } from "./ProductForm";
 import ProductImages from "./ProductImages";
 import { useProductListServices } from "@/utils/productListServices";
 import formatCurrency from "@/utils/formatCurrency";
-import ProductSkeleton from "../ProductSkeleton";
+// import ProductSkeleton from "../ProductSkeleton";
 import { ProductTypes } from "@/utils/types";
 import { Modal } from "../Modal";
 import PaginationButton from "./PaginationButton";
+import LoaderWithDetail from "../frontendUI/LoaderWithDetail";
 
 export default function ProductList() {
   const {
@@ -65,7 +66,7 @@ export default function ProductList() {
     handleDelete(id);
   };
 
-  if (isFetching) return <ProductSkeleton />;
+  if (isFetching) return <LoaderWithDetail option="Product Table" />;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

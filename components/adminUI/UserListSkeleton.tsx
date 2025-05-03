@@ -8,15 +8,19 @@ function SkeletonDiv({ className = "" }) {
   );
 }
 
-export default function UsersLoading() {
+export default function UsersLoading({ condition }: { condition?: string }) {
   return (
-    <div className="space-y-6 w-[85%] mx-auto">
-      <SkeletonDiv className="h-10 w-48" />
+    <div className="space-y-6 w-full  sm:w-[90%] mx-auto">
+      {condition === "userList" ? (
+        <>
+          <SkeletonDiv className="h-10 w-48" />
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <SkeletonDiv className="h-10 w-full sm:w-96" />
-        <SkeletonDiv className="h-10 w-10" />
-      </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-between">
+            <SkeletonDiv className="h-10 w-full sm:w-96" />
+            <SkeletonDiv className="h-10 w-10" />
+          </div>
+        </>
+      ) : null}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (

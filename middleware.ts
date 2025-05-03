@@ -9,25 +9,38 @@ type Session = typeof auth.$Infer.Session;
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Admin routes
   if (pathname.startsWith("/admin")) {
-    const { data: session } = await betterFetch<Session>(
-      "/api/auth/get-session",
-      {
-        baseURL: request.nextUrl.origin,
-        headers: {
-          cookie: request.headers.get("cookie") || "",
-        },
-      }
-    );
+    // 1. Check for session cookie first to avoid unnecessary API call
+    const sessionCookie = getSessionCookie(request);
+    if (!sessionCookie) {
+      return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+    }
 
-    if (!session || session.user.role !== "admin") {
-      return NextResponse.redirect(new URL("/auth/sign-in", request.url)); // Not allowed
+    // 2. Fetch session only if cookie exists
+    try {
+      const { data: session } = await betterFetch<Session>(
+        "/api/auth/get-session",
+        {
+          baseURL: request.nextUrl.origin,
+          headers: {
+            cookie: request.headers.get("cookie") || "",
+          },
+        }
+      );
+
+      if (!session || session.user.role !== "admin") {
+        return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      // Optional: log error for debugging
+      // console.error("Session fetch failed:", error);
+      return NextResponse.redirect(new URL("/auth/sign-in", request.url));
     }
 
     return NextResponse.next();
   }
-
-  const sessionCookie = getSessionCookie(request);
 
   const userProtectedPaths = [
     "/commerce/checkout",
@@ -36,6 +49,7 @@ export async function middleware(request: NextRequest) {
   ];
 
   if (userProtectedPaths.some((path) => pathname.startsWith(path))) {
+    const sessionCookie = getSessionCookie(request);
     if (!sessionCookie) {
       return NextResponse.redirect(new URL("/auth/sign-in", request.url));
     }
@@ -44,7 +58,6 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Apply middleware only to relevant routes
 export const config = {
   matcher: [
     "/admin/:path*",

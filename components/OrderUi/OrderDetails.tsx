@@ -68,11 +68,7 @@ export default function OrderDetailsPage({ orderId }: { orderId: string }) {
             <div className="p-6 border-b">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Order Status</h2>
-                {isLoading ? (
-                  <div className="animate-pulse bg-gray-100 rounded-lg h-10 mb-6" />
-                ) : (
-                  getStatusBadge(orderDetail?.status || "")
-                )}
+                {getStatusBadge(orderDetail?.status || "")}
               </div>
             </div>
 

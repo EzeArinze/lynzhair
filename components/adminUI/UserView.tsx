@@ -3,12 +3,17 @@
 import { useInfiniteUsers } from "@/services/productsServices/getUsers";
 import UsersLoading from "./UserListSkeleton";
 import ErrorSituation from "../Error";
-import { Loader2, Search } from "lucide-react";
+import { Loader2, RefreshCcw, Search } from "lucide-react";
 import { Input } from "../ui/input";
 import { Card } from "../ui/card";
 import UserList from "./UserList";
-
+import { Button } from "../ui/button";
+import { useState } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 export default function UserView() {
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearch = useDebounce(searchValue, 500);
+
   const {
     data,
     fetchNextPage,
@@ -16,9 +21,11 @@ export default function UserView() {
     isFetchingNextPage,
     isLoading,
     isError,
-  } = useInfiniteUsers();
+    refetch,
+    isRefetching,
+  } = useInfiniteUsers(10, debouncedSearch);
 
-  if (isLoading) return <UsersLoading />;
+  if (isLoading) return <UsersLoading condition="userList" />;
 
   if (isError) return <ErrorSituation situation="UserList" />;
 
@@ -26,15 +33,26 @@ export default function UserView() {
 
   return (
     <>
-      <div className="space-y-6 w-[85%] m-auto">
+      <div className="space-y-6 w-[90%] m-auto">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
             <Input
               placeholder="Search users..."
               className="pl-8 w-full lg:w-[50%]"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
+          <Button
+            onClick={() => refetch()}
+            size={"icon"}
+            type="button"
+            variant={"outline"}
+            className="w-fit p-2 place-self-end"
+          >
+            <RefreshCcw className="h-4 w-4" />
+          </Button>
         </div>
 
         {allUsers.length === 0 ? (
@@ -46,22 +64,24 @@ export default function UserView() {
               Try adjusting your search to find what you&apos;re looking for.
             </p>
           </div>
+        ) : isRefetching ? (
+          // <div className=" flex items-center justify-center h-[50vh]">
+          //   <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          // </div>
+          <UsersLoading />
         ) : (
-          <>
-            {/* <UserList displayedUsers={allUsers} /> */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {allUsers.map((user) => (
-                <Card key={user.id} className="overflow-hidden ">
-                  <UserList user={user} />
-                </Card>
-              ))}
-            </div>
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {allUsers.map((user) => (
+              <Card key={user.id} className="overflow-hidden ">
+                <UserList user={user} />
+              </Card>
+            ))}
+          </div>
         )}
 
         {hasNextPage && (
           <div className="flex justify-center mt-6">
-            <button
+            <Button
               onClick={() => fetchNextPage()}
               disabled={isFetchingNextPage}
               className="w-full sm:w-auto"
@@ -74,14 +94,14 @@ export default function UserView() {
               ) : (
                 "Load More"
               )}
-            </button>
+            </Button>
           </div>
         )}
       </div>
 
-      {allUsers && allUsers.length > 0 && (
+      {allUsers.length > 0 && (
         <p className="text-sm text-gray-500 mt-4 text-center">
-          Showing Result of {allUsers.length} User&apos;s
+          Showing {allUsers.length} User{allUsers.length !== 1 ? "s" : ""}
         </p>
       )}
     </>
