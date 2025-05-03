@@ -6,6 +6,7 @@ import {
   User2,
   LayoutDashboard,
   UserIcon,
+  ShoppingBag,
 } from "lucide-react";
 
 import {
@@ -48,6 +49,11 @@ const items = [
     title: "User",
     url: "/admin/user",
     icon: User2,
+  },
+  {
+    title: "Commerce",
+    url: "/",
+    icon: ShoppingBag,
   },
 ];
 

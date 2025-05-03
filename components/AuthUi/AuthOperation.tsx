@@ -2,7 +2,13 @@
 
 import { useState, useCallback } from "react";
 import { useAuthentication } from "@/actions/auth";
-import { LogIn, UserIcon, LogOut, ShoppingBasketIcon } from "lucide-react";
+import {
+  LogIn,
+  UserIcon,
+  LogOut,
+  ShoppingBasketIcon,
+  UserRoundCheck,
+} from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -55,6 +61,15 @@ function SignInSignOut({
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-52 space-y-2 mb-3">
+                {isAdmin ? (
+                  <>
+                    <Link href={"/admin"} className="flex justify-between">
+                      <span className="">Admin</span>
+                      <UserRoundCheck className="w-5 h-5" />
+                    </Link>
+                    <Separator className="w-full h-[1px] my-2 bg-gray-300" />
+                  </>
+                ) : null}
                 <Link
                   href={"/commerce/orders"}
                   className="flex justify-between"
