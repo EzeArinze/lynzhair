@@ -28,30 +28,13 @@ export const useUpdateOrder = () => {
       id: string;
       status: string;
     }): Promise<{
-      previousRecentOrders: OrdersResponse | undefined;
-      previousAdminOrders: OrdersResponse | undefined;
+      AdminOrders: OrdersResponse | undefined;
     }> => {
-      await queryClient.cancelQueries({ queryKey: ["recentOrders"] });
       await queryClient.cancelQueries({ queryKey: ["adminOrders"] });
 
-      const previousRecentOrders = queryClient.getQueryData<OrdersResponse>([
-        "recentOrders",
-      ]);
-      const previousAdminOrders = queryClient.getQueryData<OrdersResponse>([
+      const AdminOrders = queryClient.getQueryData<OrdersResponse>([
         "adminOrders",
       ]);
-
-      queryClient.setQueryData<OrdersResponse>(["recentOrders"], (oldData) => {
-        if (!oldData) return undefined;
-        return {
-          ...oldData,
-          orders: oldData.orders.map((order) =>
-            order._id === id
-              ? { ...order, status: status } // Update the status directly
-              : order
-          ),
-        };
-      });
 
       queryClient.setQueryData<OrdersResponse>(["adminOrders"], (oldData) => {
         if (!oldData) return undefined;
@@ -63,7 +46,7 @@ export const useUpdateOrder = () => {
         };
       });
 
-      return { previousRecentOrders, previousAdminOrders };
+      return { AdminOrders };
     },
 
     onSuccess: () => {
@@ -76,15 +59,8 @@ export const useUpdateOrder = () => {
 
       toast.error(errorMessage || "Failed to update product.");
 
-      if (context?.previousRecentOrders) {
-        queryClient.setQueryData(
-          ["recentOrders"],
-          context.previousRecentOrders
-        );
-      }
-
-      if (context?.previousAdminOrders) {
-        queryClient.setQueryData(["adminOrders"], context.previousAdminOrders);
+      if (context?.AdminOrders) {
+        queryClient.setQueryData(["adminOrders"], context.AdminOrders);
       }
     },
   });

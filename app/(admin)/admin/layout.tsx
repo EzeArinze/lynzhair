@@ -33,7 +33,7 @@ function layout({ children }: { children: ReactNode }) {
                 <User className="w-5 h-5" />
               </header> */}
               <SideBarHearder />
-              <main>{children}</main>
+              <main className="h-full">{children}</main>
               <Toaster />
             </SidebarInset>
           </SidebarProvider>

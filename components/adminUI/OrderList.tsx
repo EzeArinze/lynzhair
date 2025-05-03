@@ -5,7 +5,7 @@ import formatCurrency from "@/utils/formatCurrency";
 
 import { statusOptions } from "@/lib/constant/constant";
 import dynamic from "next/dynamic";
-import { useAdminOrders } from "@/services/productsServices/getAdminOrders";
+import { useAdminOrdersOption } from "@/services/productsServices/getAdminOrders";
 import { Order } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useUpdateOrder } from "@/services/productsServices/updateOrder";
@@ -21,7 +21,7 @@ const DataTable = dynamic(
 );
 
 export default function OrderList() {
-  const { data: orders } = useAdminOrders();
+  const { data: orders } = useAdminOrdersOption({ recent: false });
   const { mutate: updateOrder } = useUpdateOrder();
   const { mutate: deleteOrder } = useDeleteOrder();
   const router = useRouter();

@@ -26,7 +26,7 @@ export default function RecentOrders({
   Error,
 }: recentTypes) {
   return (
-    <Card>
+    <Card className="h-fit">
       <CardHeader>
         <CardTitle className="text-lg sm:text-xl">Recent Orders</CardTitle>
       </CardHeader>
