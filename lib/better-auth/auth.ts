@@ -21,12 +21,7 @@ const db = client.db(process.env.NEXT_PUBLIC_MONGODB_NAME || "better-auth-db");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  plugins: [
-    admin({
-      defaultRole: "user",
-    }),
-    nextCookies(),
-  ],
+
   session: {
     cookieCache: {
       enabled: true,
@@ -65,4 +60,11 @@ export const auth = betterAuth({
       });
     },
   },
+
+  plugins: [
+    admin({
+      defaultRole: "user",
+    }),
+    nextCookies(),
+  ],
 });

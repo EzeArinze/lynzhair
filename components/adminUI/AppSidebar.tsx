@@ -108,9 +108,13 @@ export function AppSidebar() {
                 type="button"
                 size="icon"
                 className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition w-full"
-                onClick={() => {
-                  signOut();
-                  window.location.href = "/auth/sign-in";
+                onClick={async () => {
+                  try {
+                    await signOut();
+                    window.location.href = "/auth/sign-in";
+                  } catch (error) {
+                    console.error("Error during sign-out:", error);
+                  }
                 }}
               >
                 <UserIcon className="h-5 w-5" />
