@@ -40,7 +40,7 @@ export const contactCards: ContactCard[] = [
     title: "WhatsApp",
     description: "Quick responses during business hours",
     contact: "+1 (234) 567-890",
-    link: "https://wa.me/1234567890",
+    link: "https://wa.me/08066912768",
     icon: MessageCircle,
     bgColor: "bg-green-100",
     textColor: "text-green-600",
@@ -50,8 +50,8 @@ export const contactCards: ContactCard[] = [
     id: "facebook",
     title: "Facebook",
     description: "Message us or join our community",
-    contact: "@lynzhair",
-    link: "https://facebook.com/lynzhair",
+    contact: "@Lynnhairz",
+    link: "https://facebook.com/Lynnhairz",
     icon: Facebook,
     bgColor: "bg-blue-100",
     textColor: "text-blue-600",
@@ -61,8 +61,8 @@ export const contactCards: ContactCard[] = [
     id: "instagram",
     title: "Instagram",
     description: "DM us or explore our latest styles",
-    contact: "@lynzhair",
-    link: "https://instagram.com/lynzhair",
+    contact: "@Lynnhairz",
+    link: "https://instagram.com/Lynnhairz",
     icon: Instagram,
     bgColor: "bg-pink-100",
     textColor: "text-pink-600",
@@ -72,7 +72,7 @@ export const contactCards: ContactCard[] = [
 
 export const SocialContact = [
   {
-    href: "https://wa.me/1234567890",
+    href: "https://wa.me/08066912768",
     target: "_blank",
     icon: MessageCircle,
     rel: "noopener noreferrer",
@@ -83,7 +83,7 @@ export const SocialContact = [
     iconColor: "text-green-600",
   },
   {
-    href: "https://facebook.com/lynzhair",
+    href: "https://facebook.com/Lynnhairz",
     target: "_blank",
     icon: Facebook,
     rel: "noopener noreferrer",
@@ -94,7 +94,7 @@ export const SocialContact = [
     iconColor: "text-blue-600",
   },
   {
-    href: "https://instagram.com/lynzhair",
+    href: "https://instagram.com/Lynnhairz",
     target: "_blank",
     icon: Instagram,
     rel: "noopener noreferrer",

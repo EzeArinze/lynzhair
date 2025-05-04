@@ -33,7 +33,7 @@ export function ValuesSection() {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
           <p className="text-gray-700">
-            At LynzHair, our values guide everything we do, from sourcing the
+            At Lynnhairz, our values guide everything we do, from sourcing the
             finest quality hair to providing exceptional customer service.
           </p>
         </div>

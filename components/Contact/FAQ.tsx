@@ -40,7 +40,7 @@ function FAQ() {
             className="mt-10 bg-pink-600 hover:bg-pink-700 text-white"
           >
             <a
-              href="https://wa.me/1234567890"
+              href="https://wa.me/08066912768"
               target="_blank"
               rel="noopener noreferrer"
             >

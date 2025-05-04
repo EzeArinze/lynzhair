@@ -116,7 +116,7 @@
 //         align: "center",
 //       });
 //       doc.text(
-//         "For any questions, please contact support@lynzhair.com",
+//         "For any questions, please contact support@Lynnhairz.com",
 //         pageWidth / 2,
 //         finalY + 55,
 //         {

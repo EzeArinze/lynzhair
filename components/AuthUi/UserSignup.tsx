@@ -72,7 +72,7 @@ function UserSignup() {
                 Create Your Account
               </h1>
               <p className="text-gray-600 mt-2">
-                Join LynzHair to access exclusive offers and track your orders
+                Join Lynnhairz to access exclusive offers and track your orders
               </p>
             </div>
 

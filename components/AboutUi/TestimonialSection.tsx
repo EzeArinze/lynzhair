@@ -4,24 +4,24 @@ import { TestimonialCard } from "./TestimonialCard";
 const testimonials = [
   {
     name: "Jessica R.",
-    location: "New York, NY",
+    location: "Lagos, NG",
     image: "https://picsum.photos/id/237/200/300",
     quote:
-      "LynzHair extensions have completely transformed my look. The quality is unmatched - my stylist even asked where I got them from because they blend so perfectly with my natural hair!",
+      "Lynnhairz extensions have completely transformed my look. The quality is unmatched - my stylist even asked where I got them from because they blend so perfectly with my natural hair!",
   },
   {
     name: "Tasha W.",
-    location: "Atlanta, GA",
+    location: "Enugu, NG",
     image: "https://picsum.photos/id/237/200/300",
     quote:
-      "After trying countless brands, I've finally found my go-to with LynzHair. The Brazilian Body Wave bundles hold curl beautifully and the customer service is exceptional.",
+      "After trying countless brands, I've finally found my go-to with Lynnhairz. The Brazilian Body Wave bundles hold curl beautifully and the customer service is exceptional.",
   },
   {
     name: "Monique L.",
-    location: "Los Angeles, CA",
+    location: "Lagos, NG",
     image: "https://picsum.photos/id/237/200/300",
     quote:
-      "As a professional stylist, I recommend LynzHair to all my clients. The quality and consistency of their products make my job easier and my clients happier.",
+      "As a professional stylist, I recommend Lynnhairz to all my clients. The quality and consistency of their products make my job easier and my clients happier.",
   },
 ];
 
@@ -35,7 +35,7 @@ export function TestimonialsSection() {
           </h2>
           <p className="text-gray-700">
             Don&apos;t just take our word for it. Hear from the women who have
-            transformed their look with LynzHair.
+            transformed their look with Lynnhairz.
           </p>
         </div>
 
@@ -44,8 +44,8 @@ export function TestimonialsSection() {
             <TestimonialCard
               key={index}
               name={testimonial.name}
-              // location={testimonial.location}
-              image={testimonial.image}
+              location={testimonial.location}
+              // image={testimonial.image}
               quote={testimonial.quote}
               index={index}
             />

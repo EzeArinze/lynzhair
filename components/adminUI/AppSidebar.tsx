@@ -68,7 +68,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel className="mb-8 mt-4 font-bold text-lg">
             <Image
-              src="/LynzHair-removebg-2.webp"
+              src="/Lynnhairz-min.png"
               alt="Logo"
               height={120}
               width={100}

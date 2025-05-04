@@ -32,7 +32,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
               <Image
-                src="/LynzHair-removebg-preview.png"
+                src="/Lynnhairz-max.png"
                 alt="Logo"
                 height={120}
                 width={100}

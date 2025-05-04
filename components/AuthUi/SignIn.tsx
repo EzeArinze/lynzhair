@@ -41,7 +41,7 @@ export default function SignIn() {
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
               <p className="text-gray-600 mt-2">
-                Sign in to your LynzHair account
+                Sign in to your Lynnhairz account
               </p>
             </div>
 

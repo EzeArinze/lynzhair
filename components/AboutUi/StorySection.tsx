@@ -17,11 +17,11 @@ export function StorySection() {
             className="space-y-6"
           >
             <h2 className="text-3xl font-bold text-gray-900">
-              The LynzHair Journey
+              The Lynnhairz Journey
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              Founded in 2015 by hair enthusiast and beauty expert Lynda
-              Johnson, LynzHair began with a simple mission: to provide women
+              Founded in 2015 by hair enthusiast and beauty expert Linda
+              Treasure, Lynnhairz began with a simple mission: to provide women
               with premium quality hair extensions that enhance their natural
               beauty and boost their confidence.
             </p>
@@ -32,7 +32,7 @@ export function StorySection() {
               joy of seeing our clients transform with our products.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Today, LynzHair stands as a symbol of excellence in the hair
+              Today, Lynnhairz stands as a symbol of excellence in the hair
               extension industry, offering a diverse range of premium virgin
               human hair products that cater to all textures, lengths, and
               styling preferences.
@@ -54,7 +54,7 @@ export function StorySection() {
           >
             <Image
               src="https://picsum.photos/200/300?random=1?grayscale"
-              alt="LynzHair Journey"
+              alt="Lynnhairz Journey"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority

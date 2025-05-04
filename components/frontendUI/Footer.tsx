@@ -77,11 +77,11 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center space-x-2 text-gray-600">
               <Phone size={18} className="text-pink-600" />
-              <span className="text-sm">+1 (800) 123-4567</span>
+              <span className="text-sm">+234 8066912768</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-600">
               <Mail size={18} className="text-pink-600" />
-              <span className="text-sm">support@lynzhair.com</span>
+              <span className="text-sm">support@Lynnhairz.com</span>
             </div>
             <div className="flex items-center space-x-2 text-gray-600">
               <MapPin size={18} className="text-pink-600" />
@@ -98,7 +98,7 @@ export default function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-gray-500">
-              &copy; {new Date().getFullYear()} LynzHair. All rights reserved.
+              &copy; {new Date().getFullYear()} Lynnhairz. All rights reserved.
             </p>
             <div className="flex space-x-4 mt-2 md:mt-0">
               <Link

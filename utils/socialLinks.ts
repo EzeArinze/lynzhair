@@ -4,8 +4,8 @@ export const socialLinks = [
   {
     name: "Instagram",
     icon: Instagram,
-    url: "https://instagram.com/lynzhair",
+    url: "https://instagram.com/Lynnhairz",
   },
-  { name: "Facebook", icon: Facebook, url: "https://facebook.com/lynzhair" },
-  { name: "Twitter", icon: Twitter, url: "https://twitter.com/lynzhair" },
+  { name: "Facebook", icon: Facebook, url: "https://facebook.com/Lynnhairz" },
+  { name: "Twitter", icon: Twitter, url: "https://twitter.com/Lynnhairz" },
 ];

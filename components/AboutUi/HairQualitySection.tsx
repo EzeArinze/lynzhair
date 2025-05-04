@@ -11,8 +11,8 @@ export function HairQualitySection() {
             Premium Quality Hair
           </h2>
           <p className="text-gray-700">
-            Discover what sets LynzHair apart and why our customers trust us for
-            their hair extension needs.
+            Discover what sets Lynnhairz apart and why our customers trust us
+            for their hair extension needs.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export function HairQualitySection() {
               <div className="relative h-[300px] rounded-lg overflow-hidden">
                 <Image
                   src="https://picsum.photos/200/300?random=1?grayscale"
-                  alt="LynzHair Quality"
+                  alt="Lynnhairz Quality"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"

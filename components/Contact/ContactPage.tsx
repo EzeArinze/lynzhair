@@ -59,8 +59,8 @@ export default function ContactPage() {
                         {card.id === "whatsapp"
                           ? "Chat now"
                           : card.id === "facebook"
-                          ? "Visit page"
-                          : "Follow us"}
+                            ? "Visit page"
+                            : "Follow us"}
                       </span>
                       <ArrowRight size={16} />
                     </div>
@@ -72,11 +72,11 @@ export default function ContactPage() {
               <div className="mt-12 text-center">
                 <p className="text-gray-600 mb-2">Prefer email?</p>
                 <a
-                  href="mailto:support@lynzhair.com"
+                  href="mailto:support@Lynnhairz.com"
                   className="inline-flex items-center text-pink-600 font-medium hover:underline"
                 >
                   <Mail className="mr-2 h-5 w-5" />
-                  support@lynzhair.com
+                  support@Lynnhairz.com
                 </a>
               </div>
             </div>

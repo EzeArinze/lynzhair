@@ -26,7 +26,7 @@ export function CtaSection() {
           </h2>
           <p className="text-gray-700 mb-8 text-lg">
             Join thousands of satisfied customers who have elevated their style
-            with LynzHair&apos;s premium quality extensions.
+            with Lynnhairz premium quality extensions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
@@ -84,10 +84,10 @@ export function CtaSection() {
                 <div className="text-center text-sm text-gray-500 mt-2">
                   You can also email us at{" "}
                   <a
-                    href="mailto:support@lynzhair.com"
+                    href="mailto:support@Lynnhairz.com"
                     className="text-pink-600 hover:underline"
                   >
-                    support@lynzhair.com
+                    support@Lynnhairz.com
                   </a>
                 </div>
               </DialogContent>
