@@ -7,27 +7,37 @@ import {
 import { LogOut, ShoppingBasketIcon, UserRoundCheck } from "lucide-react";
 import { Separator } from "../ui/separator";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Session, User } from "better-auth/types";
+
+interface SessionUser {
+  session: Session;
+  user: User;
+}
+
+interface ProfileDropdownProps {
+  onClick: () => void;
+  initials: string;
+  isAdmin: boolean;
+  session: SessionUser;
+}
 
 export function ProfileDropdown({
   onClick,
   initials,
   isAdmin,
-}: {
-  onClick: () => void;
-  initials: string;
-  isAdmin: boolean;
-}) {
+  session,
+}: ProfileDropdownProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-500 font-semibold p-2"
-          size={"icon"}
-          type="button"
-        >
-          {initials}
-        </Button>
+        <Avatar className="w-8 h-8 hover:cursor-pointer">
+          <AvatarImage
+            src={session?.user.image || ""}
+            alt={session?.user.name || ""}
+          />
+          <AvatarFallback> {initials}</AvatarFallback>
+        </Avatar>
       </PopoverTrigger>
       <PopoverContent className="w-52 space-y-2 mt-3 mr-2">
         {isAdmin ? (

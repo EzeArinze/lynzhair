@@ -9,14 +9,14 @@ import { useAdminOrdersOption } from "@/services/productsServices/getAdminOrders
 import { Order } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import { useUpdateOrder } from "@/services/productsServices/updateOrder";
-import LoadingSpinner from "../Loader";
 import { useDeleteOrder } from "@/services/productsServices/deleteOrder";
+import LoaderWithDetail from "../frontendUI/LoaderWithDetail";
 
 const DataTable = dynamic(
   () => import("./Table").then((mod) => mod.DataTable),
   {
     ssr: false,
-    loading: () => <LoadingSpinner />,
+    loading: () => <LoaderWithDetail option="Loading Orders..." />,
   }
 );
 

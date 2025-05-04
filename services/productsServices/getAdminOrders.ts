@@ -15,9 +15,7 @@ export const useAdminOrdersOption = ({
   limit = RecentOrderLimit,
 }: UseAdminOrdersOptions = {}) => {
   return useQuery<OrdersResponse>({
-    queryKey: recent
-      ? ["adminOrders", "recent", limit]
-      : ["adminOrders", "all"],
+    queryKey: recent ? ["recentOrders", limit] : ["adminOrders"],
     queryFn: async () => {
       const url = recent
         ? `/api/v1/orders/admin?recent=true&limit=${limit}`

@@ -10,7 +10,7 @@ function SkeletonDiv({ className = "" }) {
 
 export default function UsersLoading({ condition }: { condition?: string }) {
   return (
-    <div className="space-y-6 w-full  sm:w-[90%] mx-auto">
+    <div className="space-y-6 w-full  sm:w-[85%] mx-auto">
       {condition === "userList" ? (
         <>
           <SkeletonDiv className="h-10 w-48" />

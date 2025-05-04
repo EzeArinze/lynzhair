@@ -1,3 +1,4 @@
+import { RecentOrderLimit } from "@/lib/constant/constant";
 import { OrdersResponse } from "@/utils/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -29,13 +30,24 @@ export const useUpdateOrder = () => {
       status: string;
     }): Promise<{
       AdminOrders: OrdersResponse | undefined;
+      RecentOrders: OrdersResponse | undefined;
     }> => {
+      // Cancel both recent and all orders queries
+      await queryClient.cancelQueries({
+        queryKey: ["recentOrders", RecentOrderLimit],
+      });
       await queryClient.cancelQueries({ queryKey: ["adminOrders"] });
 
       const AdminOrders = queryClient.getQueryData<OrdersResponse>([
         "adminOrders",
       ]);
 
+      const RecentOrders = queryClient.getQueryData<OrdersResponse>([
+        "recentOrders",
+        RecentOrderLimit,
+      ]);
+
+      // Update both recent and all orders caches
       queryClient.setQueryData<OrdersResponse>(["adminOrders"], (oldData) => {
         if (!oldData) return undefined;
         return {
@@ -46,7 +58,20 @@ export const useUpdateOrder = () => {
         };
       });
 
-      return { AdminOrders };
+      queryClient.setQueryData<OrdersResponse>(
+        ["recentOrders", RecentOrderLimit],
+        (oldData) => {
+          if (!oldData) return undefined;
+          return {
+            ...oldData,
+            orders: oldData.orders.map((order) =>
+              order._id === id ? { ...order, status: status } : order
+            ),
+          };
+        }
+      );
+
+      return { AdminOrders, RecentOrders };
     },
 
     onSuccess: () => {
@@ -61,6 +86,13 @@ export const useUpdateOrder = () => {
 
       if (context?.AdminOrders) {
         queryClient.setQueryData(["adminOrders"], context.AdminOrders);
+      }
+
+      if (context?.RecentOrders) {
+        queryClient.setQueryData(
+          ["recentOrders", RecentOrderLimit],
+          context.RecentOrders
+        );
       }
     },
   });

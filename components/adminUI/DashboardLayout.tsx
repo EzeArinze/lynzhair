@@ -6,13 +6,14 @@ import RecentOrders from "./RecentOrders";
 import { useAdminOrdersOption } from "@/services/productsServices/getAdminOrders";
 import SalesLineChart from "./SalesLineChart";
 import { GetDate } from "@/utils/getDate";
+import { RecentOrderLimit } from "@/lib/constant/constant";
 
 function DashboardLayout() {
   const {
     data: recentOrder,
     isLoading,
     isError,
-  } = useAdminOrdersOption({ recent: true, limit: 6 });
+  } = useAdminOrdersOption({ recent: true, limit: RecentOrderLimit });
 
   const { data: adminOrders, isLoading: OrdersLoading } = useAdminOrdersOption({
     recent: false,

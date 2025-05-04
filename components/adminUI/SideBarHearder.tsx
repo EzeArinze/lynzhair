@@ -6,11 +6,9 @@ import { auth } from "@/lib/better-auth/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
-// import { useServerSession } from "@/actions/useServerAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 async function SideBarHearder() {
-  // const { session, userInitial, userEmail } = await useServerSession();
-
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -28,9 +26,16 @@ async function SideBarHearder() {
       <div className="flex items-center gap-2">
         {session ? (
           <span className="flex items-center gap-2">
-            <Badge className="w-8 h-8 flex items-center justify-center rounded-md bg-gray-200 text-gray-800 font-semibold p-2">
+            {/* <Badge className="w-8 h-8 flex items-center justify-center rounded-md bg-gray-200 text-gray-800 font-semibold p-2">
               {userInitial}
-            </Badge>
+            </Badge> */}
+            <Avatar className="w-8 h-8">
+              <AvatarImage
+                src={session?.user.image || ""}
+                alt={session?.user.name}
+              />
+              <AvatarFallback>{userInitial}</AvatarFallback>
+            </Avatar>
             <h3
               className="text-sm font-medium truncate max-w-[110px] border-inherit"
               title={userEmail}

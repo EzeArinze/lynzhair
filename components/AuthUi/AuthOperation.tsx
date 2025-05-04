@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, memo } from "react";
 import { useAuthentication } from "@/actions/auth";
 import {
   LogIn,
@@ -19,6 +19,10 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "../ui/separator";
 import { ProfileDropdown } from "./ProfileDropdown";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+
+// Memoize the ProfileDropdown component
+const MemoizedProfileDropdown = memo(ProfileDropdown);
 
 function SignInSignOut({
   isMenu,
@@ -53,12 +57,13 @@ function SignInSignOut({
             {/* Popover for menu */}
             <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="flex items-center justify-center w-8 h-8 rounded-md bg-gray-200 text-gray-800 font-semibold p-2"
-                >
-                  {userInitial}
-                </Button>
+                <Avatar className="w-8 h-8 hover:cursor-pointer">
+                  <AvatarImage
+                    src={session.user.image || ""}
+                    alt={session.user.name || ""}
+                  />
+                  <AvatarFallback> {userInitial}</AvatarFallback>
+                </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-52 space-y-2 mb-3">
                 {isAdmin ? (
@@ -130,10 +135,11 @@ function SignInSignOut({
   return (
     <div className="hidden md:flex">
       {session ? (
-        <ProfileDropdown
+        <MemoizedProfileDropdown
           initials={userInitial}
           onClick={handleSignOut}
           isAdmin={isAdmin}
+          session={session}
         />
       ) : (
         <Link href={"/auth/sign-in"}>
