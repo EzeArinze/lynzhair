@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "../ui/button";
 import useBasketStore from "@/store/cartStore";
 import { productType } from "@/utils/types";
 import { Trash } from "lucide-react";
+import { useClient } from "@/hooks/isClient";
 
 type ProductCardProps = {
   product: productType | undefined;
@@ -10,17 +11,14 @@ type ProductCardProps = {
 
 function AddToCartButton({ product }: ProductCardProps) {
   const { addItem, items, removeItem } = useBasketStore();
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { isClient } = useClient();
+
+  if (!isClient) return null;
 
   const alreadExist = product
     ? items.find((item) => item.product._id === product._id)
     : undefined;
-
-  if (!isClient) return null;
 
   return !!alreadExist ? (
     <Button

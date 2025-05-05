@@ -7,7 +7,7 @@ function AuthHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
       <Link href="/">
         <Image
-          src="/Lynnhairz-removebg-preview.png"
+          src="/Lynnhairz-max.png"
           alt="logo"
           width={60}
           height={60}

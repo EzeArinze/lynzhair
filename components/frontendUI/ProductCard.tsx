@@ -1,11 +1,10 @@
 import Image from "next/image";
-import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 import formatCurrency from "@/utils/formatCurrency";
 import { productType } from "@/utils/types";
 import Link from "next/link";
 import AddToCartButton from "../CartUi/AddToCartButton";
+import AddToFavorite from "../FavoriteUi/AddToFavorite";
 
 type ProductCardProps = {
   product: productType;
@@ -24,13 +23,7 @@ export function ProductCard({ product }: ProductCardProps) {
           className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
         />
         <div></div>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full"
-        >
-          <Heart className="h-5 w-5 text-pink-600" />
-        </Button>
+        <AddToFavorite product={product} />
       </div>
       <div className="p-4 space-y-4">
         <Link href={`/commerce/product-detail/${product._id}`}>

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 type FavoriteItem = {
   id: string;
@@ -16,26 +17,35 @@ type FavoriteStore = {
   getFavorites: () => FavoriteItem[];
 };
 
-export const useFavoriteStore = create<FavoriteStore>((set, get) => ({
-  favorites: [],
-  addToFavorites: (item) =>
-    set((state) => ({
-      favorites: [...state.favorites, item],
-    })),
-  removeFromFavorites: (id) =>
-    set((state) => ({
-      favorites: state.favorites.filter((item) => item.id !== id),
-    })),
-  isFavorite: (id) => {
-    const { favorites } = get();
-    return favorites.some((item) => item.id === id);
-  },
-  clearFavorites: () =>
-    set(() => ({
-      favorites: [],
-    })),
-  getFavorites: () => {
-    const { favorites } = get();
-    return favorites;
-  },
-}));
+export const useFavoriteStore = create<FavoriteStore>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        favorites: [],
+        addToFavorites: (item) =>
+          set((state) => ({
+            favorites: [...state.favorites, item],
+          })),
+        removeFromFavorites: (id) =>
+          set((state) => ({
+            favorites: state.favorites.filter((item) => item.id !== id),
+          })),
+        isFavorite: (id) => {
+          const { favorites } = get();
+          return favorites.some((item) => item.id === id);
+        },
+        clearFavorites: () =>
+          set(() => ({
+            favorites: [],
+          })),
+        getFavorites: () => {
+          const { favorites } = get();
+          return favorites;
+        },
+      }),
+      {
+        name: "favorite-storage",
+      }
+    )
+  )
+);
