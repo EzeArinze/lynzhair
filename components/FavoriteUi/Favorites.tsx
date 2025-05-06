@@ -20,11 +20,15 @@ function Favorites() {
     useFavoriteStore();
   const wishList = getFavorites();
 
+  const length = wishList.length;
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-md">
-          <FolderHeart className="w-5 h-5 " />
+          <FolderHeart
+            className={`w-5 h-5 ${length > 0 ? "text-pink-500" : ""}`}
+          />
         </Button>
       </SheetTrigger>
       <SheetContent className="w-[260px] sm:w-[300px]">
