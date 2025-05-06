@@ -34,7 +34,7 @@ export default function DetailsView({ id }: { id: string }) {
           </Link>
 
           {/* Product details */}
-          <ProductDetails details={details} />
+          {details && <ProductDetails details={details} />}
 
           {/* Product details tabs */}
           <DetailsTabs description={details?.description} />
