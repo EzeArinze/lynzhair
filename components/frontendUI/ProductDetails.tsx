@@ -14,7 +14,7 @@ import { percentageCalculator } from "@/utils/percentageCalculator";
 import { freeShippingThreshold } from "@/lib/constant/constant";
 
 type ProductDetailsProp = {
-  details: productType | undefined;
+  details: productType;
   // loading: boolean;
 };
 

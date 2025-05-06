@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 // import { Input } from "@/components/ui/input"
@@ -10,16 +9,13 @@ import CartItems from "./CartItems";
 import CartColumn from "./CartColumn";
 import useBasketStore from "@/store/cartStore";
 import { freeShippingThreshold, standard } from "@/lib/constant/constant";
+import { useClient } from "@/hooks/isClient";
 
 export default function CartView() {
   const { getGroupedItem, removeItem, incrementQuantity, decrementQuantity } =
     useBasketStore();
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { isClient } = useClient();
 
   if (!isClient) return null;
   // Calculate cart totals

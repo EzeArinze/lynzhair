@@ -7,9 +7,10 @@ import { useClient } from "@/hooks/isClient";
 
 interface AddToFavoriteProps {
   product: productType;
+  noAbsolute?: boolean;
 }
 
-function AddToFavorite({ product }: AddToFavoriteProps) {
+function AddToFavorite({ product, noAbsolute = false }: AddToFavoriteProps) {
   const { isClient } = useClient();
   const { addToFavorites, removeFromFavorites, isFavorite } =
     useFavoriteStore();
@@ -25,23 +26,24 @@ function AddToFavorite({ product }: AddToFavoriteProps) {
     price: product.price,
   };
 
-  return alreadExist ? (
+  // Use the prop to conditionally apply the absolute positioning
+  const positionClass = noAbsolute ? "" : "absolute top-2 right-2";
+
+  return (
     <Button
-      variant="ghost"
+      variant={"ghost"}
       size="icon"
-      className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full"
-      onClick={() => removeFromFavorites(product._id)}
+      className={`${positionClass} bg-white/80 hover:bg-white rounded-full`}
+      onClick={
+        alreadExist
+          ? () => removeFromFavorites(product._id)
+          : () => addToFavorites(favs)
+      }
     >
-      <Heart fill="pink" className="h-5 w-5 text-pink-600" />
-    </Button>
-  ) : (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full"
-      onClick={() => addToFavorites(favs)}
-    >
-      <Heart className="h-5 w-5 text-pink-600" />
+      <Heart
+        fill={alreadExist ? "pink" : "none"}
+        className="h-5 w-5 text-pink-600"
+      />
     </Button>
   );
 }

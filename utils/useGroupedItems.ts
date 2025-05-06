@@ -1,14 +1,10 @@
+import { useClient } from "@/hooks/isClient";
 import useBasketStore from "@/store/cartStore";
-import { useEffect, useState } from "react";
 
 export function useGroupedItems() {
   const getGroupedItem = useBasketStore((state) => state.getGroupedItem());
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const { isClient } = useClient();
 
   if (!isClient) return null;
 

@@ -18,6 +18,7 @@ import SearchComponent from "./SearchComponent";
 import Image from "next/image";
 import { useGroupedItems } from "@/utils/useGroupedItems";
 import SignInSignOut from "../AuthUi/AuthOperation";
+// import Favorites from "../FavoriteUi/Favorites";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -63,6 +64,8 @@ export function Navbar() {
                 parentClassName="hidden md:flex relative w-64"
               />
             </Suspense>
+
+            {/* <Favorites /> */}
 
             <Button variant="ghost" size="icon" className="relative" asChild>
               <Link href={"/commerce/cart"}>
