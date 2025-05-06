@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { ShoppingCart, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -16,14 +16,12 @@ import { MobileMenu } from "./MobileMenu";
 import { Links } from "@/lib/constant/Links";
 import SearchComponent from "./SearchComponent";
 import Image from "next/image";
-import { useGroupedItems } from "@/utils/useGroupedItems";
 import SignInSignOut from "../AuthUi/AuthOperation";
-// import Favorites from "../FavoriteUi/Favorites";
+import Favorites from "../FavoriteUi/Favorites";
+import Carts from "../CartUi/Carts";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const getGrouped = useGroupedItems();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
@@ -57,30 +55,18 @@ export function Navbar() {
           </nav>
 
           {/* Search, Cart, and Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <Suspense>
               <SearchComponent
-                className="pr-10 bg-white/80"
-                parentClassName="hidden md:flex relative w-64"
+                className="pr-10 bg-white/80 "
+                parentClassName="hidden md:flex relative w-60"
               />
             </Suspense>
 
-            {/* <Favorites /> */}
+            <Favorites />
+            {/* try and see if you can memoize the favorite component */}
 
-            <Button variant="ghost" size="icon" className="relative" asChild>
-              <Link href={"/commerce/cart"}>
-                <ShoppingCart className="h-5 w-5" />
-                <span
-                  className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full ${
-                    getGrouped?.length === 0
-                      ? ""
-                      : "bg-primary text-[10px] font-medium text-white shadow-md"
-                  } `}
-                >
-                  {getGrouped?.length || ""}
-                </span>
-              </Link>
-            </Button>
+            <Carts />
 
             <SignInSignOut isMenu={false} />
 

@@ -22,10 +22,3 @@ function AddToCartSection({ product }: addSectionType) {
 }
 
 export default AddToCartSection;
-
-{
-  /* <Button variant="outline" size="icon" className="rounded-md">
-            <Heart className="w-5 h-5 text-pink-600" />
-            <span className="sr-only">Add to wishlist</span>
-          </Button> */
-}
