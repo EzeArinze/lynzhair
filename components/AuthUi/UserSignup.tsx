@@ -149,7 +149,7 @@ function UserSignup() {
                   <p className="text-sm text-gray-600">
                     Already have an account?{" "}
                     <Link
-                      href="/auth/signin"
+                      href="/auth/sign-in"
                       className="text-pink-600 hover:underline font-medium"
                     >
                       Sign In

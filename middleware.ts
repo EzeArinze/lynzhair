@@ -6,6 +6,12 @@ import { getSessionCookie } from "better-auth";
 // Infer session type from better-auth
 type Session = typeof auth.$Infer.Session;
 
+const userProtectedPaths = [
+  "/commerce/checkout",
+  "/commerce/orders",
+  "/commerce/success",
+];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -34,19 +40,11 @@ export async function middleware(request: NextRequest) {
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      // Optional: log error for debugging
-      // console.error("Session fetch failed:", error);
       return NextResponse.redirect(new URL("/auth/sign-in", request.url));
     }
 
     return NextResponse.next();
   }
-
-  const userProtectedPaths = [
-    "/commerce/checkout",
-    "/commerce/orders",
-    "/commerce/success",
-  ];
 
   if (userProtectedPaths.some((path) => pathname.startsWith(path))) {
     const sessionCookie = getSessionCookie(request);
