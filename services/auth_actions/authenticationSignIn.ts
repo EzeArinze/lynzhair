@@ -25,7 +25,7 @@ export default async function authenticationSignIn({
       },
       {
         onError: (ctx) => {
-          toast.error(ctx.error.message);
+          toast.error(ctx.error.message || "Please verify your account!");
         },
         onSuccess: (ctx) => {
           toast.success(`${ctx.data?.user.email} signed in successfully`);
