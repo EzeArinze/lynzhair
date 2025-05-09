@@ -1,5 +1,13 @@
 import { z } from "zod";
 
+const allowedDomains = [
+  "gmail.com",
+  "outlook.com",
+  "hotmail.com",
+  "yahoo.com",
+  "icloud.com",
+];
+
 export const siginUpSchema = z
   .object({
     username: z
@@ -11,13 +19,6 @@ export const siginUpSchema = z
       .email("Invalid email format")
       .refine(
         (email) => {
-          const allowedDomains = [
-            "gmail.com",
-            "outlook.com",
-            "hotmail.com",
-            "yahoo.com",
-            "icloud.com",
-          ];
           const domain = email.split("@")[1];
           return allowedDomains.includes(domain.toLowerCase());
         },
@@ -28,26 +29,20 @@ export const siginUpSchema = z
       ),
     password: z
       .string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,8}$/, {
-        message:
-          "Password must be 6-8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
-      })
       .min(6, "Password must be at least 6 characters")
-      .max(8, "Max 8 characters"),
-    confirmPassword: z
-      .string()
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,8}$/, {
+      .max(8, "Password must not exceed 8 characters")
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/, {
         message:
-          "Password must be 6-8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
-      })
-      .min(6, "Password must be at least 6 characters")
-      .max(8, "Max 8 characters"),
+          "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+      }),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
+//Product schema
 export const productFormSchema = z.object({
   name: z
     .string()
