@@ -45,22 +45,23 @@ function UserSignup() {
 
     try {
       await authenticationSignUp({ username, email, password });
-      // Only set these on success
-      setIsSubmitted(true);
-      setFormDetails({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+      setIsSubmitted((prev) => !prev);
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message);
+        console.log(error.message);
       }
       setIsSubmitted(false);
+      return;
     } finally {
       setLoading(false);
     }
+
+    setFormDetails({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   return (
