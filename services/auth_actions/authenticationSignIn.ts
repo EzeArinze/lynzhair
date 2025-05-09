@@ -25,14 +25,7 @@ export default async function authenticationSignIn({
       },
       {
         onError: (ctx) => {
-          // Handle the error
-          if (ctx.error.status === 401) {
-            toast.error("Sign In Failed: Invalid credentials");
-          } else if (ctx.error.status === 403) {
-            toast.error("Please verify your email address");
-          } else {
-            toast.error("Sign In Failed: " + ctx.error.message);
-          }
+          toast.error(ctx.error.message);
         },
         onSuccess: (ctx) => {
           toast.success(`${ctx.data?.user.email} signed in successfully`);
@@ -49,9 +42,16 @@ export default async function authenticationSignIn({
 
 export const signInWithGoogle = async () => {
   try {
-    await authClient.signIn.social({
-      provider: "google",
-    });
+    await authClient.signIn.social(
+      {
+        provider: "google",
+      },
+      {
+        onError: (ctx) => {
+          toast.error(ctx.error.message);
+        },
+      }
+    );
   } catch (error) {
     console.error("Error signing in with Google:", error);
     toast.error("An unexpected error occurred during sign-in");

@@ -27,11 +27,8 @@ export default async function authenticationSignUp({
       {
         onError: (ctx) => {
           // Handle the error
-          if (ctx.error.status === 401) {
-            toast.error("Sign Up Failed: Invalid credentials");
-          } else {
-            toast.error("Sign Up Failed: " + ctx.error.message);
-          }
+
+          toast.error("Sign Up Failed: " + ctx.error.message);
         },
         onSuccess: (ctx) => {
           // Use ctx.data instead of data
