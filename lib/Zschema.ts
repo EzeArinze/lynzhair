@@ -8,8 +8,24 @@ export const siginUpSchema = z
       .max(20, "Max 20 characters"),
     email: z
       .string()
-      .email("Invalid email format or provide your email")
-      .max(40, "Max 40 characters"),
+      .email("Invalid email format")
+      .refine(
+        (email) => {
+          const allowedDomains = [
+            "gmail.com",
+            "outlook.com",
+            "hotmail.com",
+            "yahoo.com",
+            "icloud.com",
+          ];
+          const domain = email.split("@")[1];
+          return allowedDomains.includes(domain.toLowerCase());
+        },
+        {
+          message:
+            "Please use a valid email provider (Gmail, Outlook, Hotmail, Yahoo, or iCloud)",
+        }
+      ),
     password: z
       .string()
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,8}$/, {
@@ -20,7 +36,11 @@ export const siginUpSchema = z
       .max(8, "Max 8 characters"),
     confirmPassword: z
       .string()
-      .min(6, "Confirm Password must be at least 6 characters")
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,8}$/, {
+        message:
+          "Password must be 6-8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
+      })
+      .min(6, "Password must be at least 6 characters")
       .max(8, "Max 8 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {

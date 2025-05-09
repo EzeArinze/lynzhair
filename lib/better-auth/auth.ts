@@ -27,7 +27,7 @@ export const auth = betterAuth({
       enabled: true,
       maxAge: 8 * 60 * 60, // Cache duration in seconds
     },
-    expiresIn: 3 * 24 * 60 * 60, // expires in seven days
+    expiresIn: 3 * 24 * 60 * 60, // expires in three days
   },
   emailAndPassword: {
     enabled: true,
