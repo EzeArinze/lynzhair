@@ -12,6 +12,7 @@ export const siginUpSchema = z
   .object({
     username: z
       .string()
+      .trim()
       .min(1, "Username is required")
       .max(20, "Max 20 characters"),
     email: z
