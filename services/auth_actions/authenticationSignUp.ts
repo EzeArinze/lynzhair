@@ -67,7 +67,6 @@ export default async function authenticationSignUp({
       },
       {
         onError: (ctx) => {
-          toast.error(ctx.error.message);
           throw new Error(ctx.error.message);
         },
         onSuccess: (ctx) => {

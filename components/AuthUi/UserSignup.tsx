@@ -50,8 +50,6 @@ function UserSignup() {
       if (error instanceof Error) {
         console.log(error.message);
       }
-      setIsSubmitted(false);
-      return;
     } finally {
       setLoading(false);
     }

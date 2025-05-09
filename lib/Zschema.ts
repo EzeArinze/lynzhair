@@ -8,20 +8,25 @@ const allowedDomains = [
   "icloud.com",
 ];
 
+// Sign Up form Schema
+
 export const siginUpSchema = z
   .object({
     username: z
       .string()
-      .trim()
       .min(1, "Username is required")
       .max(20, "Max 20 characters"),
     email: z
       .string()
-      .email("Invalid email format")
+      .email("Email is required")
       .refine(
         (email) => {
-          const domain = email.split("@")[1];
-          return allowedDomains.includes(domain.toLowerCase());
+          try {
+            const domain = email.split("@")[1]?.toLowerCase();
+            return domain ? allowedDomains.includes(domain) : false;
+          } catch {
+            return false;
+          }
         },
         {
           message:
@@ -30,20 +35,23 @@ export const siginUpSchema = z
       ),
     password: z
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .max(12, "Password must not exceed 12 characters")
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/, {
         message:
-          "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-      }),
-    confirmPassword: z.string(),
+          "Password must be 6-8 characters long, contain at least one uppercase letter, one lowercase letter, and one number",
+      })
+      .min(6, "Password must be at least 6 characters")
+      .max(12, "Max password 8 characters"),
+    confirmPassword: z
+      .string()
+      .min(6, "Confirm Password Required and must be at least 6 characters")
+      .max(12, "Max confirm 8 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
-//Product schema
+// Product form Schema
 export const productFormSchema = z.object({
   name: z
     .string()
