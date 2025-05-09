@@ -28,6 +28,8 @@ function UserSignup() {
     setFormDetails((prev) => ({ ...prev, [name]: value }));
   };
 
+  // ...existing code...
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -44,14 +46,23 @@ function UserSignup() {
     const { username, email, password } = formDetails;
 
     try {
-      await authenticationSignUp({ username, email, password });
+      const signUpError = await authenticationSignUp({
+        username,
+        email,
+        password,
+      });
+
+      if (signUpError?.message) {
+        return;
+      }
+
+      setIsSubmitted(true);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
       }
     } finally {
       setLoading(false);
-      setIsSubmitted((prev) => !prev);
     }
 
     setFormDetails({

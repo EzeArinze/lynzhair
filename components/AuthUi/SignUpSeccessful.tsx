@@ -6,7 +6,7 @@ function SignUpSeccessful() {
   return (
     <div className="text-center py-4">
       <Link
-        href="/auth/signin"
+        href="/auth/sign-in"
         className="inline-flex items-center text-sm font-medium text-pink-600 mb-6 hover:underline"
       >
         <ArrowLeft className="w-4 h-4 mr-1" />

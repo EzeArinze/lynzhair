@@ -30,7 +30,7 @@ export const siginUpSchema = z
     password: z
       .string()
       .min(6, "Password must be at least 6 characters")
-      .max(8, "Password must not exceed 8 characters")
+      .max(12, "Password must not exceed 12 characters")
       .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/, {
         message:
           "Password must contain at least one uppercase letter, one lowercase letter, and one number",
