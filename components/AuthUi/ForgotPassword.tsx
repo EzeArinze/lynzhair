@@ -108,7 +108,10 @@ export default function ForgotPassword() {
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-500">
                 Need help?{" "}
-                <Link href="/contact" className="text-pink-600 hover:underline">
+                <Link
+                  href="/commerce/contact"
+                  className="text-pink-600 hover:underline"
+                >
                   Contact Support
                 </Link>
               </p>

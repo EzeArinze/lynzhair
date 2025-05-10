@@ -28,8 +28,5 @@ export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
 
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
 
-const SMTP_HOST = process.env.SMTP_HOST as string;
-const SMTP_USER = process.env.SMTP_USER as string;
-const SMTP_PASS = process.env.SMTP_PASS as string;
-
-export { SMTP_HOST, SMTP_USER, SMTP_PASS };
+export const SMTP_USER = process.env.SMTP_USER as string;
+export const SMTP_PASS = process.env.SMTP_PASS as string;
