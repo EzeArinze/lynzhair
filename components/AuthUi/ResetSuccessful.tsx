@@ -20,7 +20,7 @@ function ResetSuccessful() {
         asChild
         className="w-full bg-pink-600 hover:bg-pink-700 text-white"
       >
-        <Link href="/auth/signin">Sign In</Link>
+        <Link href="/auth/sign-in">Sign In</Link>
       </Button>
     </div>
   );

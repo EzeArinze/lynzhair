@@ -37,7 +37,7 @@ export default function ForgotPassword() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <Link
-              href="/auth/signin"
+              href="/auth/sign-in"
               className="inline-flex items-center text-sm font-medium text-pink-600 mb-6 hover:underline"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />

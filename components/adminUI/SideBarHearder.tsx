@@ -44,7 +44,7 @@ async function SideBarHearder() {
             </h3>
           </span>
         ) : (
-          <Link href={"/auth/signin"} className="flex w-full ">
+          <Link href={"/auth/sign-in"} className="flex w-full ">
             <Badge className="w-full p-1">
               <span>Sign In</span>
               <LogIn className="h-5 w-5" />

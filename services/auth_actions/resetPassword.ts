@@ -19,7 +19,7 @@ export async function passwordReset(password: string) {
       {
         onSuccess: () => {
           toast.success("Password reset successfully. You can now sign in.");
-          window.location.href = "/auth/signin";
+          window.location.href = "/auth/sign-in";
         },
         onError: (ctx) => {
           toast.error(ctx.error.message);
