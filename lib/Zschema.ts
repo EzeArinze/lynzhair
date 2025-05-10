@@ -14,10 +14,16 @@ export const siginUpSchema = z
   .object({
     username: z
       .string()
-      .min(1, "Username is required")
-      .max(20, "Max 20 characters"),
+      .trim()
+      .min(6, "Username is required and must be at least 6 characters")
+      .max(20, "Max 20 characters")
+      .regex(/^(?!.*  )[A-Za-z0-9 ]+$/, {
+        message:
+          "Username can only contain letters and single spaces (no numbers, special characters, or double spaces)",
+      }),
     email: z
       .string()
+      .trim()
       .email("Email is required")
       .refine(
         (email) => {

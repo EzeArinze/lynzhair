@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/better-auth/authClient";
+import { ADMIN } from "@/lib/constant/constant";
 import { toast } from "sonner";
 
 const ALLOWED_REDIRECT_PATHS = ["/auth/sign-in", "/"];
@@ -9,7 +10,7 @@ export const useAuthentication = () => {
   const user = session?.user ?? null;
   const userInitial = session?.user.email?.slice(0, 1).toUpperCase() ?? "N/A";
   const userEmail = session?.user.email ?? "N/A";
-  const isAdmin = session?.user.role === "admin";
+  const isAdmin = session?.user.role === ADMIN;
 
   async function signOut(redirectUrl?: string) {
     try {

@@ -33,15 +33,15 @@ function UserSignup() {
     setError("");
     setLoading(true);
 
-    const validation = siginUpSchema.safeParse(formDetails);
+    const { success, data, error } = siginUpSchema.safeParse(formDetails);
 
-    if (!validation.success) {
-      setError(validation.error.errors[0].message);
+    if (!success) {
+      setError(error.errors[0].message);
       setLoading(false);
       return;
     }
 
-    const { username, email, password } = formDetails;
+    const { username, email, password } = data; // from zod after validating formdetails
 
     try {
       await authenticationSignUp({ username, email, password });

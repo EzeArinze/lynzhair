@@ -36,7 +36,7 @@ export function ProfileDropdown({
             src={session?.user.image || ""}
             alt={session?.user.name || ""}
           />
-          <AvatarFallback> {initials}</AvatarFallback>
+          <AvatarFallback className="font-semibold"> {initials}</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
       <PopoverContent className="w-52 space-y-2 mt-3 mr-2">

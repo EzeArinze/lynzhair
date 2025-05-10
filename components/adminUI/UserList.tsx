@@ -27,6 +27,7 @@ import { User as BaseUser } from "better-auth/types";
 import UserRoleAction from "./UserActionModal/UserRoleAction";
 import DeleteAction from "./UserActionModal/DeleteAction";
 import { banUser, unBanUser } from "@/actions/admin_actions";
+import { useAuthentication } from "@/actions/auth";
 
 interface User extends BaseUser {
   role?: string | null | undefined;
@@ -42,6 +43,7 @@ interface UserListProps {
 function UserList({ user }: UserListProps) {
   const [isUserRole, setIsUserRole] = useState(false);
   const [deleteUser, setDeleteUser] = useState(false);
+  const { session } = useAuthentication();
 
   return (
     <>
@@ -61,7 +63,12 @@ function UserList({ user }: UserListProps) {
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
+                  disabled={user.id === session?.user.id}
+                >
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>

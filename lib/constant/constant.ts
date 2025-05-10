@@ -14,6 +14,8 @@ export const freeShippingThreshold = 50000;
 
 export const RecentOrderLimit = 6;
 
+export const ADMIN = "admin";
+
 export const statusOptions = [
   {
     value: "paid",

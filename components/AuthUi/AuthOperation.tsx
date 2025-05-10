@@ -62,7 +62,10 @@ function SignInSignOut({
                     src={session.user.image || ""}
                     alt={session.user.name || ""}
                   />
-                  <AvatarFallback> {userInitial}</AvatarFallback>
+                  <AvatarFallback className="font-semibold">
+                    {" "}
+                    {userInitial}
+                  </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-52 space-y-2 mb-3">

@@ -13,12 +13,17 @@ import {
 import formatCurrency from "@/utils/formatCurrency";
 import Link from "next/link";
 import Image from "next/image";
+import { useClient } from "@/hooks/isClient";
 
 function Favorites() {
   const [isOpen, setIsOpen] = useState(false);
   const { getFavorites, clearFavorites, removeFromFavorites } =
     useFavoriteStore();
   const wishList = getFavorites();
+
+  const { isClient } = useClient();
+
+  if (!isClient) return null;
 
   const length = wishList.length;
 

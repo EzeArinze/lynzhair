@@ -6,4 +6,4 @@ export const authClient = createAuthClient({
   plugins: [adminClient()],
 });
 
-export const { useSession } = authClient;
+export const { useSession, sendVerificationEmail } = authClient;
