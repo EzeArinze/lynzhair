@@ -50,15 +50,15 @@ export function StorySection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative h-[500px] rounded-lg overflow-hidden shadow-xl"
+            className="relative h-[600px] rounded-lg overflow-hidden shadow-xl"
           >
             <Image
-              src="https://picsum.photos/200/300?random=1?grayscale"
+              src="/lynn.webp"
               alt="Lynnhairz Journey"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority
-              className="object-cover"
+              className="object-cover  object-center"
             />
           </motion.div>
         </div>

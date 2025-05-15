@@ -8,6 +8,7 @@ import { MobileFilters } from "./MobileFilter";
 import { useNuqsContext } from "@/context/use-nuqs-state";
 import { useSearchParamsValues } from "@/utils/searchParams";
 import ProductGrid from "./ProductGrid";
+import ErrorSituation from "../Error";
 
 function HomePage() {
   const { minPrice, maxPrice, setMaxPrice, setMinPrice, onClearPrice } =
@@ -21,7 +22,10 @@ function HomePage() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    isError,
   } = useGetCommerceProduct(minPriceParam, maxPriceParam, sort);
+
+  if (isError) return <ErrorSituation situation="Products" />;
 
   const allProducts = products?.pages.flatMap((page) => page.products) || [];
 

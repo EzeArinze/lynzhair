@@ -42,7 +42,7 @@ export const contactCards: ContactCard[] = [
     title: "WhatsApp",
     description: "Quick responses during business hours",
     contact: "+1 (234) 567-890",
-    link: "https://wa.me/08066912768",
+    link: "https://wa.me/+2348066912768",
     icon: MessageCircle,
     bgColor: "bg-green-100",
     textColor: "text-green-600",
@@ -74,7 +74,7 @@ export const contactCards: ContactCard[] = [
 
 export const SocialContact = [
   {
-    href: "https://wa.me/08066912768",
+    href: "https://wa.me/+2348066912768",
     target: "_blank",
     icon: MessageCircle,
     rel: "noopener noreferrer",

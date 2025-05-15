@@ -10,14 +10,19 @@ export async function forgottenPassword(email: string) {
       },
       {
         onError: (ctx) => {
-          toast.error(ctx.error.message);
+          toast.error(
+            ctx.error.message ||
+              "Failed.. Please Check Email provided. and try again."
+          );
+          throw new Error(
+            ctx.error.message ||
+              "Failed.. Please Check Email provided. and try again."
+          );
         },
       }
     );
   } catch (error) {
     console.log("Error sending password reset email:", error);
-    throw new Error(
-      "An unexpected error occurred while sending the password reset email. Please try again later."
-    );
+    throw error;
   }
 }

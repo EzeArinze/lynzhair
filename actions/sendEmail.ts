@@ -38,15 +38,15 @@ export const sendEmail = async ({ to, subject, text, url }: SendEmailProps) => {
       // react: await EmailTemplate({ text, to, url }),
     });
 
-    if (error) {
-      console.error("Resend API Error:", error); // Log the error object for debugging
+    if (error instanceof Error) {
+      console.error("Resend API Error:", error);
       throw new Error(
         error.message || "An unknown error occurred while sending the email"
       );
     }
   } catch (error) {
     console.error("Error in sendEmail:", error); // Log the full error object
-    throw error; // Re-throw the error to propagate it
+    throw error;
   }
 
   console.log("Email sent successfully");

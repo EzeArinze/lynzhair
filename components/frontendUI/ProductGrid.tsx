@@ -98,6 +98,7 @@ import { productType } from "@/utils/types";
 import { ProductCardSkeleton } from "./ProductCardSkeleton";
 import { useInView } from "react-intersection-observer";
 import { useNuqsContext } from "@/context/use-nuqs-state";
+import NoProducts from "./NoProducts";
 
 interface ProductGridProps {
   products: productType[];
@@ -158,14 +159,19 @@ const ProductGrid = memo(
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading ? (
             <ProductCardSkeleton />
+          ) : products.length === 0 ? (
+            <NoProducts />
           ) : (
             products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))
           )}
 
-          {hasNextPage && (
-            <div ref={ref} className="h-10 flex items-center justify-center">
+          {!loading && products.length > 0 && hasNextPage && (
+            <div
+              ref={ref}
+              className="h-10 flex items-center justify-center col-span-full"
+            >
               {loading ? "Loading more..." : "Scroll to load more"}
             </div>
           )}

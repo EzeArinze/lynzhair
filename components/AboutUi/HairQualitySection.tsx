@@ -1,6 +1,8 @@
-import Image from "next/image";
+// import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
 
 export function HairQualitySection() {
   return (
@@ -25,7 +27,7 @@ export function HairQualitySection() {
             value="quality"
             className="mt-6 p-6 bg-gray-50 rounded-lg"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
               <div>
                 <h3 className="text-xl font-semibold mb-4">
                   Our Quality Promise
@@ -64,7 +66,7 @@ export function HairQualitySection() {
                   </li>
                 </ul>
               </div>
-              <div className="relative h-[300px] rounded-lg overflow-hidden">
+              {/* <div className="relative h-[300px] rounded-lg overflow-hidden">
                 <Image
                   src="https://picsum.photos/200/300?random=1?grayscale"
                   alt="Lynnhairz Quality"
@@ -72,15 +74,15 @@ export function HairQualitySection() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
-              </div>
+              </div> */}
             </div>
           </TabsContent>
           <TabsContent
             value="sourcing"
             className="mt-6 p-6 bg-gray-50 rounded-lg"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div className="relative h-[300px] rounded-lg overflow-hidden">
+            <div>
+              {/* <div className="relative h-[300px] rounded-lg overflow-hidden">
                 <Image
                   src="https://picsum.photos/200/300?random=1?grayscale"
                   alt="Ethical Hair Sourcing"
@@ -88,7 +90,7 @@ export function HairQualitySection() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
-              </div>
+              </div> */}
               <div>
                 <h3 className="text-xl font-semibold mb-4">
                   Ethical Sourcing Practices

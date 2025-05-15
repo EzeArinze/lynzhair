@@ -85,9 +85,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center space-x-2 text-gray-600">
               <MapPin size={18} className="text-pink-600" />
-              <span className="text-sm">
-                123 Beauty Lane, Style City, SC 12345
-              </span>
+              <span className="text-sm">Lagos state, nigeria</span>
             </div>
           </div>
         </div>
